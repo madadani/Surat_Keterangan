@@ -325,10 +325,10 @@ class SuratController extends Controller
             $data['buta_warna'] = $request->buta_warna_mata ?? 'Tidak';
             $data['keperluan'] = $request->keperluan_mata;
         } elseif ($tipeBerkas == 'Kesehatan THT') {
-            $data['tensi'] = $request->tekanan_darah_tht ?? '-';
-            $data['golongan_darah'] = $request->golongan_darah_tht ?? '-';
-            $data['tinggi_badan'] = $request->tinggi_tht ?? '-';
-            $data['berat_badan'] = $request->berat_tht ?? '-';
+            $data['tensi'] = $request->tekanan_darah_tht;
+            $data['golongan_darah'] = $request->golongan_darah_tht;
+            $data['tinggi_badan'] = $request->tinggi_tht;
+            $data['berat_badan'] = $request->berat_tht;
             $data['tes_bisik'] = $request->tes_bisik ?? '-';
             $data['telinga_kanan'] = $request->telinga_kanan ?? 'Normal';
             $data['telinga_kiri'] = $request->telinga_kiri ?? 'Normal';
@@ -378,8 +378,8 @@ class SuratController extends Controller
             }
             $data['mcu_data'] = $mcuData;
         } elseif (strpos($tipeBerkas, 'Kesehatan') !== false) {
-            $data['tinggi_badan'] = $request->tinggi_badan_poli ?? '-';
-            $data['berat_badan'] = $request->berat_badan_poli ?? '-';
+            $data['tinggi_badan'] = $request->tinggi_badan_poli;
+            $data['berat_badan'] = $request->berat_badan_poli;
             $data['hasil_pemeriksaan'] = $request->hasil_poli ?? 'SEHAT';
             $data['saran'] = $request->saran_poli ?? '-';
         }
@@ -423,11 +423,11 @@ class SuratController extends Controller
             $data['hasil_pemeriksaan'] = $request->hasil_mata;
             $data['buta_warna'] = $request->buta_warna_mata;
         } elseif ($surat->tipe_berkas == 'Kesehatan THT') {
-            $data['tensi'] = $request->tekanan_darah_tht ?? '-';
-            $data['golongan_darah'] = $request->golongan_darah_tht ?? '-';
-            $data['tinggi_badan'] = $request->tinggi_tht ?? '-';
-            $data['berat_badan'] = $request->berat_tht ?? '-';
-            $data['tes_bisik'] = $request->tes_bisik ?? '-';
+            $data['tensi'] = $request->tekanan_darah_tht;
+            $data['golongan_darah'] = $request->golongan_darah_tht;
+            $data['tinggi_badan'] = $request->tinggi_tht;
+            $data['berat_badan'] = $request->berat_tht;
+            $data['tes_bisik'] = $request->tes_bisik;
             $data['telinga_kanan'] = $request->telinga_kanan ?? 'Normal';
             $data['telinga_kiri'] = $request->telinga_kiri ?? 'Normal';
             $data['hidung'] = $request->hidung ?? 'Normal';
@@ -474,8 +474,8 @@ class SuratController extends Controller
             }
             $data['mcu_data'] = $mcuData;
         } elseif (strpos($surat->tipe_berkas, 'Kesehatan') !== false) {
-            $data['tinggi_badan'] = $request->tinggi_badan_poli ?? '-';
-            $data['berat_badan'] = $request->berat_badan_poli ?? '-';
+            $data['tinggi_badan'] = $request->tinggi_badan_poli;
+            $data['berat_badan'] = $request->berat_badan_poli;
             $data['hasil_pemeriksaan'] = $request->hasil_poli ?? 'SEHAT';
             $data['saran'] = $request->saran_poli ?? '-';
         }

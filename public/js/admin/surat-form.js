@@ -187,42 +187,53 @@ document.addEventListener('DOMContentLoaded', function () {
             'Kesehatan TKHI': 'section_tkhi'
         };
 
-        // Hide all
-        Object.values(sections).forEach(id => {
+        const allSectionIds = Object.values(sections);
+        allSectionIds.push('section_poli_spesialis');
+
+        // Sembunyikan dan NONAKTIFKAN semua section agar datanya tidak terkirim
+        allSectionIds.forEach(id => {
             const el = document.getElementById(id);
-            if (el) el.classList.add('hidden');
-        });
-        const spSec = document.getElementById('section_poli_spesialis');
-        if (spSec) spSec.classList.add('hidden');
-
-        // Show specific
-        if (sections[val]) {
-            document.getElementById(sections[val]).classList.remove('hidden');
-
-            // Auto select docter based on type
-            if (val === 'Kesehatan') autoSelectDokter('Umum');
-            else if (val === 'Kesehatan Jiwa' || val === 'Bebas Narkoba') autoSelectDokter('Psikiatri');
-            else if (val === 'Kesehatan Mata') autoSelectDokter('Mata');
-            else if (val === 'Kesehatan THT') autoSelectDokter('THT');
-            else if (val === 'Kesehatan Gigi') autoSelectDokter('Gigi');
-            else if (val === 'Kesehatan Jantung') autoSelectDokter('Jantung');
-            else if (val === 'Medical Check Up' || val === 'Kesehatan TKHI') {
-                autoSelectDokter('Umum');
-                handleTKHIUI(val);
+            if (el) {
+                el.classList.add('hidden');
+                const inputs = el.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => input.disabled = true);
             }
-        } else if (val.includes('Kesehatan')) {
-            // General spesialis
-            if (spSec) {
-                spSec.classList.remove('hidden');
-                document.getElementById('title_poli').innerText = `HASIL PEMERIKSAAN ${val.toUpperCase()}`;
+        });
 
-                if (val.includes('Paru')) autoSelectDokter('Paru');
-                else if (val.includes('Dalam')) autoSelectDokter('Penyakit Dalam');
-                else if (val.includes('Ortho')) autoSelectDokter('Orthopedi');
+        // Tampilkan dan AKTIFKAN section yang dipilih
+        let targetId = sections[val];
+        if (!targetId && val.includes('Kesehatan')) {
+            targetId = 'section_poli_spesialis';
+        }
 
-                handleSpesialisUI(val);
+        if (targetId) {
+            const el = document.getElementById(targetId);
+            if (el) {
+                el.classList.remove('hidden');
+                const inputs = el.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => input.disabled = false);
+
+                // Penyesuaian UI spesifik
+                if (val === 'Medical Check Up' || val === 'Kesehatan TKHI') {
+                    handleTKHIUI(val);
+                } else if (targetId === 'section_poli_spesialis') {
+                    document.getElementById('title_poli').innerText = `HASIL PEMERIKSAAN ${val.toUpperCase()}`;
+                    handleSpesialisUI(val);
+                }
             }
         }
+
+        // Auto select dokter berdasarkan tipe (pindahkan ke sini agar lebih rapi)
+        if (val === 'Kesehatan') autoSelectDokter('Umum');
+        else if (val === 'Kesehatan Jiwa' || val === 'Bebas Narkoba') autoSelectDokter('Psikiatri');
+        else if (val === 'Kesehatan Mata') autoSelectDokter('Mata');
+        else if (val === 'Kesehatan THT') autoSelectDokter('THT');
+        else if (val === 'Kesehatan Gigi') autoSelectDokter('Gigi');
+        else if (val === 'Kesehatan Jantung') autoSelectDokter('Jantung');
+        else if (val.includes('Paru')) autoSelectDokter('Paru');
+        else if (val.includes('Dalam')) autoSelectDokter('Penyakit Dalam');
+        else if (val.includes('Ortho')) autoSelectDokter('Orthopedi');
+        else if (val === 'Medical Check Up' || val === 'Kesehatan TKHI') autoSelectDokter('Umum');
     }
 
     function handleTKHIUI(val) {
@@ -233,13 +244,21 @@ document.addEventListener('DOMContentLoaded', function () {
             if (mcuTitle) mcuTitle.innerText = 'DATA KESEHATAN TKHI';
             tkhiFields.forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.classList.remove('hidden');
+                if (el) {
+                    el.classList.remove('hidden');
+                    const inputs = el.querySelectorAll('input, select, textarea');
+                    inputs.forEach(input => input.disabled = false);
+                }
             });
         } else {
             if (mcuTitle) mcuTitle.innerText = 'DATA MEDICAL CHECK-UP';
             tkhiFields.forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.classList.add('hidden');
+                if (el) {
+                    el.classList.add('hidden');
+                    const inputs = el.querySelectorAll('input, select, textarea');
+                    inputs.forEach(input => input.disabled = true);
+                }
             });
         }
     }
@@ -250,11 +269,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const labelSaran = document.getElementById('label_saran_poli');
 
         if (val.includes('Paru')) {
-            if (rowFisik) rowFisik.classList.add('hidden');
+            if (rowFisik) {
+                rowFisik.classList.add('hidden');
+                const inputs = rowFisik.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => input.disabled = true);
+            }
             if (labelHasil) labelHasil.innerText = 'Diagnosa';
             if (labelSaran) labelSaran.innerText = 'Keterangan';
         } else {
-            if (rowFisik) rowFisik.classList.remove('hidden');
+            if (rowFisik) {
+                rowFisik.classList.remove('hidden');
+                const inputs = rowFisik.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => input.disabled = false);
+            }
             if (labelHasil) labelHasil.innerText = 'Hasil Pemeriksaan';
             if (labelSaran) labelSaran.innerText = val.includes('Orthopedi') ? 'Keterangan' : 'Saran / Terapi';
         }

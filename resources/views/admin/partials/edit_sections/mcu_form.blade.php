@@ -17,8 +17,6 @@
     <td class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" name="no_lab" value="{{ $surat->no_lab ?? '' }}" placeholder="No. Lab"
             class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_nik" value="{{ $getVal('nik') }}" placeholder="NIK Pasien"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
         <input type="text" name="perusahaan" value="{{ $surat->perusahaan ?? '' }}" placeholder="Nama Perusahaan"
             class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
     </td>
