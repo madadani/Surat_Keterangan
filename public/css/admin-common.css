@@ -1,0 +1,66 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+/* Sidebar & Layout Transitions */
+body.sidebar-collapsed #sidebar {
+    transform: translateX(-100%);
+}
+
+#sidebar-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+body.sidebar-open #sidebar-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body.sidebar-open #sidebar {
+    transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+    #sidebar {
+        position: fixed !important;
+        transform: translateX(0);
+    }
+
+    main {
+        margin-left: 16rem;
+        transition: all 0.3s ease;
+    }
+
+    body.sidebar-collapsed main {
+        margin-left: 0;
+    }
+
+    body.sidebar-collapsed #sidebar {
+        transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 1023px) {
+    main {
+        margin-left: 0 !important;
+    }
+}
+
+/* Shared UI Components */
+.selection-brand-blue::selection {
+    background-color: #3b82f6; /* Adjust to match brand-blue */
+    color: white;
+}
