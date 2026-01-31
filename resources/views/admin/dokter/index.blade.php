@@ -136,7 +136,20 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="px-6 py-5 font-mono text-gray-500">{{ $row->nip ?? '-' }}</td>
+                                    <td class="px-6 py-5 font-mono text-[11px] text-gray-500">
+                                        <div class="flex flex-col gap-1">
+                                            <span class="flex items-center gap-1.5">
+                                                <span
+                                                    class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-400 font-black">NIP</span>
+                                                {{ $row->nip ?? '-' }}
+                                            </span>
+                                            <span class="flex items-center gap-1.5">
+                                                <span
+                                                    class="text-[9px] bg-blue-50 px-1.5 py-0.5 rounded text-brand-blue font-black">SIP</span>
+                                                {{ $row->sip ?? '-' }}
+                                            </span>
+                                        </div>
+                                    </td>
                                     <td class="px-6 py-5 uppercase">
                                         <span
                                             class="bg-brand-blue/10 text-brand-blue px-3 py-1 rounded-full text-[10px] font-black">{{ $row->spesialis }}</span>

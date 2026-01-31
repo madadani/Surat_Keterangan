@@ -79,9 +79,9 @@
                     class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
             </div>
             <div class="flex gap-4">
-                <input type="number" name="tinggi_tht" placeholder="TB (cm)"
+                <input type="number" name="tinggi_tht" id="tinggi_tht_input" placeholder="TB (cm)"
                     class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
-                <input type="number" step="0.1" name="berat_tht" placeholder="BB (kg)"
+                <input type="number" step="0.1" name="berat_tht" id="berat_tht_input" placeholder="BB (kg)"
                     class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
             </div>
         </td>
@@ -261,9 +261,9 @@
     <tr id="row_fisik_poli">
         <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Antropometri</td>
         <td class="text-center font-bold text-gray-300">:</td>
-        <td class="flex gap-4"><input type="number" name="tinggi_badan_poli" placeholder="TB (cm)"
+        <td class="flex gap-4"><input type="number" name="tinggi_badan_poli" id="tinggi_poli_input" placeholder="TB (cm)"
                 class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black"><input
-                type="number" step="0.1" name="berat_badan_poli" placeholder="BB (kg)"
+                type="number" step="0.1" name="berat_badan_poli" id="berat_poli_input" placeholder="BB (kg)"
                 class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black"></td>
     </tr>
     <tr>

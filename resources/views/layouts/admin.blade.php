@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - RSUD dr. Soeratno Gemolong</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,6 +21,12 @@
     <link rel="stylesheet" href="{{ asset('css/admin-common.css') }}">
 
     @stack('styles')
+    @livewireStyles
+    <style>
+        [wire\:loading] {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body
@@ -49,6 +56,7 @@
     @endif
 
     @stack('scripts')
+    @livewireScripts
 </body>
 
 </html>

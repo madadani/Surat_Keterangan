@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Mengarahkan halaman utama (kosong) ke folder public
+    RewriteRule ^$ public/index.php [L]
+
+    # Mengarahkan semua request lainnya ke folder public selama belum ada kata 'public' di URL
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

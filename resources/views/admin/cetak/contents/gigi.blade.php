@@ -98,5 +98,11 @@
         <strong>{{ $surat->saran }}</strong>
     </div>
 
-    <p>Demikian surat keterangan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya.</p>
+    <p>Demikian surat keterangan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya
+        @if ($surat->keperluan)
+            untuk <strong>{{ $surat->keperluan }}</strong>.
+        @else
+            .
+        @endif
+    </p>
 </div>

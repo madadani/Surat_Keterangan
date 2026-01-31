@@ -23,6 +23,7 @@ class DokterController extends Controller
     {
         $request->validate([
             'nama_dokter' => 'required',
+            'sip' => 'nullable',
             'nip' => 'nullable|unique:dokters,nip',
             'spesialis' => 'required',
         ]);
@@ -44,6 +45,7 @@ class DokterController extends Controller
 
         $request->validate([
             'nama_dokter' => 'required',
+            'sip' => 'nullable',
             'nip' => 'nullable|unique:dokters,nip,' . $id,
             'spesialis' => 'required',
         ]);

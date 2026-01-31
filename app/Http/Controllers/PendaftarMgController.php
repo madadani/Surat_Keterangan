@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendaftar;
+use App\Models\Price;
 use Illuminate\Http\Request;
 
 class PendaftarMgController extends Controller
@@ -29,8 +30,9 @@ class PendaftarMgController extends Controller
         }
 
         $pendaftar = $query->latest()->paginate(10);
+        $prices = Price::all()->pluck('price', 'test_name');
 
-        return view('admin.data_pendaftar', compact('pendaftar'));
+        return view('admin.data_pendaftar', compact('pendaftar', 'prices'));
     }
 
     public function create()

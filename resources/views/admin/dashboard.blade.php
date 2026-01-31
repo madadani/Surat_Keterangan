@@ -55,13 +55,6 @@
         </div>
 
         <div class="flex items-center gap-3 lg:gap-6 shrink-0 border-l border-gray-100 pl-4 lg:pl-8 ml-2 lg:ml-4">
-            <a href="{{ url('/admin/data-pendaftar/tambah') }}" 
-                class="hidden sm:flex bg-brand-blue text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest items-center gap-2 hover:bg-brand-darkblue shadow-lg shadow-brand-blue/20 transition-all hover:-translate-y-0.5">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-                Tambah Pendaftar
-            </a>
             <div class="flex flex-col items-end">
                 <span class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Sistem Status</span>
                 <span class="text-[10px] font-black text-brand-green flex items-center gap-1.5 uppercase tracking-widest">

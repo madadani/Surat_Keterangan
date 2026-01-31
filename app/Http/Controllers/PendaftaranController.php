@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendaftar;
+use App\Models\Price;
 use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
+    public function index()
+    {
+        $prices = Price::all()->sortBy(function ($price) {
+            return $price->test_name === 'Kesehatan' ? 0 : 1;
+        });
+        return view('index', compact('prices'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -16,12 +25,15 @@ class PendaftaranController extends Controller
             'alamat' => 'required',
             'gender' => 'required',
             'keperluan' => 'required',
-            'jenis_test' => 'required|array',
+            'no_hp' => 'required',
+            'pekerjaan' => 'required',
+            'pendidikan' => 'required',
+            'jenis_test' => 'required|array|min:1',
         ]);
 
         // Generate Registration Number
-        $today = date('Ymd');
-        $latest = Pendaftar::where('no_registrasi', 'LIKE', "RSUD-{$today}%")
+        $todayStr = date('Ymd');
+        $latest = Pendaftar::where('no_registrasi', 'LIKE', "RSUD-{$todayStr}%")
             ->latest('id')
             ->first();
 
@@ -32,7 +44,7 @@ class PendaftaranController extends Controller
             $count = 1;
         }
 
-        $no_registrasi = 'RSUD-' . $today . str_pad($count, 3, '0', STR_PAD_LEFT);
+        $no_registrasi = 'RSUD-' . $todayStr . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
 
         Pendaftar::create([
             'no_registrasi' => $no_registrasi,
@@ -51,6 +63,6 @@ class PendaftaranController extends Controller
             'status' => 'Pending',
         ]);
 
-        return redirect('/')->with('success', 'Pendaftaran Berhasil! Nomor Registrasi Anda: ' . $no_registrasi);
+        return redirect('/')->with('success', 'Pendaftaran Anda telah berhasil dikirim ke sistem.');
     }
 }

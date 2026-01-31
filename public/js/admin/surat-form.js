@@ -105,7 +105,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Helpers
     function resetDisplayFields() {
-        const fields = ['display_gender', 'display_tempat', 'display_tanggal', 'display_alamat', 'display_hp', 'display_tinggi', 'display_berat', 'display_pekerjaan', 'display_pendidikan', 'input_keperluan', 'display_perusahaan'];
+        const fields = [
+            'display_gender', 'display_tempat', 'display_tanggal', 'display_alamat', 'display_hp',
+            'display_tinggi', 'display_berat', 'display_pekerjaan', 'display_pendidikan',
+            'input_keperluan', 'display_perusahaan', 'tinggi_tht_input', 'berat_tht_input',
+            'tinggi_poli_input', 'berat_poli_input', 'mcu_tinggi', 'mcu_berat'
+        ];
         fields.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.value = '';
@@ -131,11 +136,16 @@ document.addEventListener('DOMContentLoaded', function () {
         setVal('display_hp', data.hp);
         setVal('display_tinggi', data.tinggi);
         setVal('display_berat', data.berat);
+        setVal('tinggi_tht_input', data.tinggi);
+        setVal('berat_tht_input', data.berat);
+        setVal('tinggi_poli_input', data.tinggi);
+        setVal('berat_poli_input', data.berat);
+        setVal('mcu_tinggi', data.tinggi);
+        setVal('mcu_berat', data.berat);
+
         setVal('display_pekerjaan', data.pekerjaan);
         setVal('display_pendidikan', data.pendidikan);
         setVal('display_perusahaan', data.perusahaan);
-        setVal('mcu_tinggi', data.tinggi);
-        setVal('mcu_berat', data.berat);
         setVal('input_keperluan', data.keperluan);
         setVal('no_rm_gigi_input', data.noRm);
         setVal('keperluan_gigi_input', data.keperluan);

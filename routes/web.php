@@ -6,11 +6,9 @@ use App\Http\Controllers\PendaftarMgController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PriceController;
 
-Route::get('/', function () {
-    return redirect('/admin/dashboard');
-});
-
+Route::get('/', [PendaftaranController::class, 'index']);
 Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store']);
 
 Route::get('/admin/login', function () {
@@ -60,6 +58,10 @@ Route::middleware([\App\Http\Middleware\CheckAdmin::class])->group(function () {
     Route::get('/admin/data-dokter/edit/{id}', [DokterController::class, 'edit']);
     Route::post('/admin/data-dokter/update/{id}', [DokterController::class, 'update']);
     Route::delete('/admin/data-dokter/delete/{id}', [DokterController::class, 'destroy']);
+
+    // Price Management
+    Route::get('/admin/manajemen-harga', [PriceController::class, 'index']);
+    Route::post('/admin/manajemen-harga/update', [PriceController::class, 'update']);
 
     // Logout
     Route::get('/admin/logout', function () {

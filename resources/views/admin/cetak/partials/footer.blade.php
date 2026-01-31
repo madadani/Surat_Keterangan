@@ -1,4 +1,9 @@
-<table style="width: 100%; margin-top: 40px; border-collapse: collapse;">
+@php
+    $isNarkoba = isset($surat) && $surat->tipe_berkas == 'Bebas Narkoba';
+    $marginTop = $isNarkoba ? '20px' : '40px';
+    $spacerHeight = $isNarkoba ? '60px' : '100px';
+@endphp
+<table style="width: 100%; margin-top: {{ $marginTop }}; border-collapse: collapse;">
     <tr>
         <td style="width: 50%; text-align: center; vertical-align: top;">
             Mengetahui<br>
@@ -15,8 +20,8 @@
         </td>
     </tr>
     <tr>
-        <td style="height: 100px;"></td>
-        <td style="height: 100px;"></td>
+        <td style="height: {{ $spacerHeight }};"></td>
+        <td style="height: {{ $spacerHeight }};"></td>
     </tr>
     <tr>
         <td style="text-align: center; vertical-align: top;">

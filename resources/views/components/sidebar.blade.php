@@ -74,6 +74,18 @@
             <span>Manajemen Berkas</span>
         </a>
 
+        <!-- Manajemen Harga -->
+        <a href="{{ url('/admin/manajemen-harga') }}"
+            class="flex items-center gap-3 px-4 py-3 {{ request()->is('admin/manajemen-harga*') ? 'bg-brand-blue rounded-xl shadow-lg shadow-brand-blue/20 text-white font-bold' : 'text-white/70 hover:bg-white/5 hover:text-white rounded-xl font-medium' }} transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 {{ request()->is('admin/manajemen-harga*') ? '' : 'group-hover:text-brand-green' }} transition-colors"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Manajemen Harga</span>
+        </a>
+
         <p class="px-3 text-xs font-bold text-white/40 uppercase tracking-wider mb-2 mt-6">System</p>
 
         <a href="{{ url('/admin/logout') }}"

@@ -61,11 +61,19 @@
                                 class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue transition-all outline-none">
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-black text-gray-400 uppercase tracking-widest mb-2">NIP /
-                                SIP</label>
-                            <input type="text" name="nip" value="{{ $dokter->nip }}"
-                                class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue transition-all outline-none">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label
+                                    class="block text-sm font-black text-gray-400 uppercase tracking-widest mb-2">NIP</label>
+                                <input type="text" name="nip" value="{{ $dokter->nip }}"
+                                    class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue transition-all outline-none">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-black text-gray-400 uppercase tracking-widest mb-2">SIP</label>
+                                <input type="text" name="sip" value="{{ $dokter->sip }}"
+                                    class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue transition-all outline-none">
+                            </div>
                         </div>
 
                         <div>
