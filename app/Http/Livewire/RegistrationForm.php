@@ -37,20 +37,10 @@ class RegistrationForm extends Component
         'jenis_test' => 'required|array|min:1',
     ];
 
-    public function updatedJenisTest()
-    {
-        $this->calculateTotal();
-    }
-
     public function calculateTotal()
     {
         $prices = Price::whereIn('test_name', $this->jenis_test)->pluck('price');
         $this->total_price = $prices->sum();
-    }
-
-    public function setGender($value)
-    {
-        $this->gender = ($this->gender === $value) ? null : $value;
     }
 
     public function simpan()
@@ -92,6 +82,7 @@ class RegistrationForm extends Component
 
     public function render()
     {
+        $this->calculateTotal();
         $prices_data = Price::all()->sortBy(function ($price) {
             return $price->test_name === 'Kesehatan' ? 0 : 1;
         });

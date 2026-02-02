@@ -76,13 +76,14 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jenis
                             Kelamin</label>
+                        <input type="hidden" id="gender-hidden" wire:model.defer="gender">
                         <div class="flex gap-4">
-                            <button type="button" wire:click="setGender('Laki-laki')"
-                                class="flex-1 p-3 text-center border-2 rounded-2xl font-black text-[10px] transition-all shadow-sm uppercase tracking-widest active:scale-95 {{ $gender === 'Laki-laki' ? 'bg-brand-green text-white border-brand-green' : 'bg-white text-slate-500 border-slate-300 hover:border-brand-green/30' }}">
+                            <button type="button" id="btn-laki" onclick="setGenderVal('Laki-laki')"
+                                class="btn-gender flex-1 py-3 px-4 text-center border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 bg-white text-slate-500 border-slate-300 hover:border-brand-green/30">
                                 LAKI-LAKI
                             </button>
-                            <button type="button" wire:click="setGender('Perempuan')"
-                                class="flex-1 p-3 text-center border-2 rounded-2xl font-black text-[10px] transition-all shadow-sm uppercase tracking-widest active:scale-95 {{ $gender === 'Perempuan' ? 'bg-brand-green text-white border-brand-green' : 'bg-white text-slate-500 border-slate-300 hover:border-brand-green/30' }}">
+                            <button type="button" id="btn-perempuan" onclick="setGenderVal('Perempuan')"
+                                class="btn-gender flex-1 py-3 px-4 text-center border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 bg-white text-slate-500 border-slate-300 hover:border-brand-green/30">
                                 PEREMPUAN
                             </button>
                         </div>
@@ -188,8 +189,8 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     @foreach($prices_list as $price)
                         <label class="group relative">
-                            <input type="checkbox" wire:model="jenis_test" value="{{ $price->test_name }}"
-                                class="hidden peer">
+                            <input type="checkbox" wire:model.defer="jenis_test" value="{{ $price->test_name }}"
+                                data-price="{{ $price->price }}" class="hidden peer test-checkbox">
                             <div
                                 class="flex flex-row items-center gap-3 p-3 bg-slate-50 border-2 border-slate-200 rounded-2xl cursor-pointer transition-all duration-300 peer-checked:bg-white peer-checked:border-brand-green peer-checked:shadow-lg peer-checked:shadow-brand-green/10 peer-checked:-translate-y-0.5 group-hover:border-brand-green/30 active:scale-95 shadow-sm">
                                 <div
@@ -237,9 +238,9 @@
                 <div class="flex flex-col">
                     <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Estimasi Total
                         Biaya</span>
-                    <div class="flex items-baseline gap-1.5" wire:key="price-summary">
+                    <div class="flex items-baseline gap-1.5" wire:ignore>
                         <span class="text-lg font-black text-brand-gray/40">Rp</span>
-                        <span
+                        <span id="js-total-price"
                             class="text-3xl font-black text-brand-darkblue tracking-tight">{{ number_format($total_price, 0, ',', '.') }}</span>
                     </div>
                 </div>
@@ -266,4 +267,59 @@
             </div>
         </div>
     </form>
+
+    <script>
+        function setGenderVal(val) {
+            const input = document.getElementById('gender-hidden');
+            const btns = document.querySelectorAll('.btn-gender');
+            const btnLaki = document.getElementById('btn-laki');
+            const btnPerempuan = document.getElementById('btn-perempuan');
+
+            // Toggle off if clicking the same value
+            if (input.value === val) {
+                input.value = '';
+                btns.forEach(b => {
+                    b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
+                    b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
+                });
+            } else {
+                input.value = val;
+                btns.forEach(b => {
+                    b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
+                    b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
+                });
+
+                const activeBtn = val === 'Laki-laki' ? btnLaki : btnPerempuan;
+                activeBtn.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
+                activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-300');
+            }
+
+            // Trigger change for Livewire
+            input.dispatchEvent(new Event('input'));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('.test-checkbox');
+            const totalDisplay = document.getElementById('js-total-price');
+
+            function updateTotal() {
+                let total = 0;
+                document.querySelectorAll('.test-checkbox:checked').forEach(cb => {
+                    total += parseInt(cb.getAttribute('data-price')) || 0;
+                });
+                totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(total);
+            }
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', updateTotal);
+            });
+
+            // Initial calculation
+            updateTotal();
+
+            // Set initial gender UI if any
+            const initialGender = document.getElementById('gender-hidden').value;
+            if (initialGender) setGenderVal(initialGender);
+        });
+    </script>
 </div>

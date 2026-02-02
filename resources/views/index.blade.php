@@ -3,15 +3,13 @@
 @section('content')
     <div class="relative bg-brand-darkblue overflow-hidden">
         <!-- Animated Background Decor -->
-        <div class="absolute inset-0 z-0">
-            <div
-                class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-green/20 blur-[120px] rounded-full animate-pulse">
+        <div class="absolute inset-0 z-0 opacity-50">
+            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-green/10 blur-[60px] rounded-full">
             </div>
-            <div class="absolute bottom-0 right-[-10%] w-[50%] h-[50%] bg-brand-blue/20 blur-[150px] rounded-full animate-pulse"
-                style="animation-delay: 2s"></div>
-            <div class="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-brand-orange/10 blur-[100px] rounded-full"></div>
+            <div class="absolute bottom-0 right-[-10%] w-[50%] h-[50%] bg-brand-blue/10 blur-[80px] rounded-full"></div>
+            <div class="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-brand-orange/5 blur-[40px] rounded-full"></div>
             <div
-                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay">
+                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay">
             </div>
         </div>
 
@@ -37,7 +35,7 @@
         <!-- Main Card Container -->
         <div class="relative z-10 max-w-4xl mx-auto px-4 pb-4">
             <div
-                class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[3rem] p-1 shadow-2xl overflow-hidden animate__animated animate__fadeInUp animate__delay-1s">
+                class="bg-white/[0.04] border border-white/10 rounded-[3rem] p-1 shadow-2xl overflow-hidden animate__animated animate__fadeInUp animate__delay-1s">
                 <livewire:registration-form />
             </div>
         </div>
