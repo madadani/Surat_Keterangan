@@ -83,12 +83,28 @@
                         <input type="hidden" wire:model="gender" id="gender-hidden">
                         <div class="flex gap-4">
                             <button type="button" id="btn-laki" onclick="setGenderVal('Laki-laki')"
-                                class="btn-gender flex-1 py-3 px-4 text-center border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 bg-white text-slate-500 border-slate-300 hover:border-brand-green/30">
-                                LAKI-LAKI
+                                class="btn-gender flex-1 py-3 px-4 flex items-center justify-center gap-2 border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 {{ $gender === 'Laki-laki' ? 'bg-brand-green text-white border-brand-green' : 'bg-white text-slate-500 border-slate-300 hover:border-brand-green/30' }}">
+                                <div
+                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-300 gender-icon {{ $gender === 'Laki-laki' ? 'bg-white text-brand-green border-white scale-110' : 'bg-white text-slate-300 border-slate-200' }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <span>LAKI-LAKI</span>
                             </button>
                             <button type="button" id="btn-perempuan" onclick="setGenderVal('Perempuan')"
-                                class="btn-gender flex-1 py-3 px-4 text-center border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 bg-white text-slate-500 border-slate-300 hover:border-brand-green/30">
-                                PEREMPUAN
+                                class="btn-gender flex-1 py-3 px-4 flex items-center justify-center gap-2 border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 {{ $gender === 'Perempuan' ? 'bg-brand-green text-white border-brand-green' : 'bg-white text-slate-500 border-slate-300 hover:border-brand-green/30' }}">
+                                <div
+                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-300 gender-icon {{ $gender === 'Perempuan' ? 'bg-white text-brand-green border-white scale-110' : 'bg-white text-slate-300 border-slate-200' }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <span>PEREMPUAN</span>
                             </button>
                         </div>
                         @error('gender') <span
@@ -205,18 +221,18 @@
                             <input type="checkbox" wire:model="jenis_test" value="{{ $price->test_name }}"
                                 data-price="{{ $price->price }}" class="peer opacity-0 absolute test-checkbox">
                             <div
-                                class="flex flex-row items-center gap-3 p-2.5 bg-slate-50 border-2 border-slate-200 rounded-2xl transition-all duration-500 peer-checked:bg-emerald-50/30 peer-checked:border-brand-green peer-checked:shadow-[0_15px_30px_-10px_rgba(0,200,83,0.2)] peer-checked:-translate-y-0.5 group-hover:border-brand-green/30 active:scale-[0.98] shadow-sm">
+                                class="flex flex-row items-center gap-3 p-3 bg-white border-2 border-slate-200 rounded-2xl transition-all duration-500 peer-checked:bg-brand-green peer-checked:text-white peer-checked:border-brand-green peer-checked:shadow-[0_15px_30px_-10px_rgba(0,200,83,0.3)] peer-checked:-translate-y-1 group-hover:border-brand-green/30 active:scale-[0.98] shadow-sm">
                                 <div
-                                    class="w-7 h-7 shrink-0 border-2 border-slate-100 rounded-xl flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-white text-slate-100 peer-checked:bg-gradient-to-tr peer-checked:from-brand-green peer-checked:to-emerald-400 peer-checked:border-white peer-checked:text-white peer-checked:shadow-[0_5px_15px_rgba(0,200,83,0.3)] peer-checked:scale-110 peer-checked:rotate-[360deg] ring-0 peer-checked:ring-4 ring-brand-green/15 group-hover:scale-105">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    class="w-5 h-5 shrink-0 border-2 border-slate-100 rounded-full flex items-center justify-center transition-all duration-500 bg-white text-slate-200 peer-checked:text-brand-green peer-checked:border-white peer-checked:scale-110 group-hover:border-brand-green/20">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
                                 <div class="flex flex-col min-h-[auto] justify-center overflow-hidden">
                                     <span
-                                        class="text-[9px] font-black text-slate-500 uppercase tracking-tight peer-checked:text-brand-darkblue transition-colors leading-none truncate">{{ $price->test_name }}</span>
+                                        class="text-[9px] font-black text-slate-500 uppercase tracking-tight peer-checked:text-white transition-colors leading-none truncate">{{ $price->test_name }}</span>
                                 </div>
                             </div>
                         </label>
@@ -280,26 +296,35 @@
             const btnLaki = document.getElementById('btn-laki');
             const btnPerempuan = document.getElementById('btn-perempuan');
 
+            // Reset all
+            btns.forEach(b => {
+                b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
+                b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
+                const icon = b.querySelector('.gender-icon');
+                if (icon) {
+                    icon.classList.remove('bg-white', 'text-brand-green', 'border-white', 'scale-110');
+                    icon.classList.add('bg-white', 'text-slate-300', 'border-slate-200');
+                }
+            });
+
             if (selectedGender === val) {
                 // Deselect
                 selectedGender = null;
                 input.value = '';
-                btns.forEach(b => {
-                    b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
-                    b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
-                });
             } else {
                 // Select
                 selectedGender = val;
                 input.value = val;
-                btns.forEach(b => {
-                    b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
-                    b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
-                });
 
                 const activeBtn = (val === 'Laki-laki') ? btnLaki : btnPerempuan;
                 activeBtn.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
                 activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-300');
+
+                const activeIcon = activeBtn.querySelector('.gender-icon');
+                if (activeIcon) {
+                    activeIcon.classList.remove('text-slate-300', 'border-slate-200');
+                    activeIcon.classList.add('bg-white', 'text-brand-green', 'border-white', 'scale-110');
+                }
             }
 
             // Trigger Livewire sync
@@ -331,6 +356,11 @@
                 if (btn) {
                     btn.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
                     btn.classList.remove('bg-white', 'text-slate-500', 'border-slate-300');
+                    const icon = btn.querySelector('.gender-icon');
+                    if (icon) {
+                        icon.classList.remove('text-slate-300', 'border-slate-200');
+                        icon.classList.add('bg-white', 'text-brand-green', 'border-white', 'scale-110');
+                    }
                 }
             }
         });
