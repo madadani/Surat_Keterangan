@@ -18,14 +18,14 @@
             <div class="max-w-4xl mx-auto text-center">
 
                 <h1
-                    class="text-3xl md:text-5xl font-outfit font-black text-white mb-4 uppercase tracking-tight animate__animated animate__zoomIn">
+                    class="text-3xl md:text-5xl font-outfit font-black text-white mb-4 uppercase tracking-tight animate__animated animate__zoomIn animate__faster">
                     Form <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange">Pendaftaran
                         Surat</span>
                     Keterangan
                 </h1>
                 <p
-                    class="text-white/60 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed animate__animated animate__fadeInUp animate__delay-1s uppercase tracking-wide">
+                    class="text-white/60 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed animate__animated animate__fadeInUp animate__faster uppercase tracking-wide">
                     Silahkan isi data anda dengan benar (data akan tercetak di surat keterangan) dan pilih jenis test yang
                     akan anda ikuti (bisa memilih lebih dari satu).
                 </p>
@@ -35,7 +35,7 @@
         <!-- Main Card Container -->
         <div class="relative z-10 max-w-4xl mx-auto px-4 pb-4">
             <div
-                class="bg-white/[0.04] border border-white/10 rounded-[3rem] p-1 shadow-2xl overflow-hidden animate__animated animate__fadeInUp animate__delay-1s">
+                class="bg-white/[0.04] border border-white/10 rounded-[3rem] p-1 shadow-2xl overflow-hidden animate__animated animate__fadeInUp animate__faster">
                 <livewire:registration-form />
             </div>
         </div>
@@ -49,7 +49,7 @@
         }
 
         .animate-shimmer {
-            animation: shimmer 2s infinite;
+            animation: shimmer 1.5s infinite linear;
         }
 
         @keyframes bounce-x {
@@ -60,12 +60,12 @@
             }
 
             50% {
-                transform: translateX(5px);
+                transform: translateX(3px);
             }
         }
 
         .animate-bounce-x {
-            animation: bounce-x 1s infinite;
+            animation: bounce-x 0.6s infinite ease-in-out;
         }
 
         input[type="date"]::-webkit-calendar-picker-indicator {

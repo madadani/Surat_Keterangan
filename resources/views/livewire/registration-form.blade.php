@@ -7,7 +7,7 @@
         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-center gap-4">
                 <div
-                    class="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-xl group hover:scale-110 transition-transform duration-500">
+                    class="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-xl group hover:scale-110 transition-transform duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-brand-green" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -42,7 +42,7 @@
                         Lengkap Pasien</label>
                     <div class="relative">
                         <input type="text" wire:model.lazy="nama_lengkap"
-                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green focus:shadow-xl focus:shadow-brand-green/10 outline-none transition-all duration-300 @error('nama_lengkap') border-red-500 @enderror"
+                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green focus:shadow-xl focus:shadow-brand-green/10 outline-none transition-all duration-200 @error('nama_lengkap') border-red-500 @enderror"
                             placeholder="NAMA LENGKAP SESUAI KTP">
                         <div class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -85,7 +85,7 @@
                             <button type="button" id="btn-laki" onclick="setGenderVal('Laki-laki')"
                                 class="btn-gender flex-1 py-3 px-4 flex items-center justify-center gap-2 border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 {{ $gender === 'Laki-laki' ? 'bg-brand-green text-white border-brand-green' : 'bg-white text-slate-500 border-slate-300 hover:border-brand-green/30' }}">
                                 <div
-                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-300 gender-icon {{ $gender === 'Laki-laki' ? 'bg-white text-brand-green border-white scale-110' : 'bg-white text-slate-300 border-slate-200' }}">
+                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 gender-icon {{ $gender === 'Laki-laki' ? 'bg-white text-brand-green border-white scale-110' : 'bg-white text-slate-300 border-slate-200' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
@@ -97,7 +97,7 @@
                             <button type="button" id="btn-perempuan" onclick="setGenderVal('Perempuan')"
                                 class="btn-gender flex-1 py-3 px-4 flex items-center justify-center gap-2 border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 {{ $gender === 'Perempuan' ? 'bg-brand-green text-white border-brand-green' : 'bg-white text-slate-500 border-slate-300 hover:border-brand-green/30' }}">
                                 <div
-                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-300 gender-icon {{ $gender === 'Perempuan' ? 'bg-white text-brand-green border-white scale-110' : 'bg-white text-slate-300 border-slate-200' }}">
+                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 gender-icon {{ $gender === 'Perempuan' ? 'bg-white text-brand-green border-white scale-110' : 'bg-white text-slate-300 border-slate-200' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
@@ -221,9 +221,9 @@
                             <input type="checkbox" wire:model="jenis_test" value="{{ $price->test_name }}"
                                 data-price="{{ $price->price }}" class="peer opacity-0 absolute test-checkbox">
                             <div
-                                class="flex flex-row items-center gap-3 p-3 bg-white border-2 border-slate-200 rounded-2xl transition-all duration-500 peer-checked:bg-brand-green peer-checked:text-white peer-checked:border-brand-green peer-checked:shadow-[0_15px_30px_-10px_rgba(0,200,83,0.3)] peer-checked:-translate-y-1 group-hover:border-brand-green/30 active:scale-[0.98] shadow-sm">
+                                class="flex flex-row items-center gap-3 p-3 bg-white border-2 border-slate-200 rounded-2xl transition-all duration-200 peer-checked:bg-brand-green peer-checked:text-white peer-checked:border-brand-green peer-checked:shadow-[0_15px_30px_-10px_rgba(0,200,83,0.3)] peer-checked:-translate-y-1 group-hover:border-brand-green/30 active:scale-[0.98] shadow-sm">
                                 <div
-                                    class="w-5 h-5 shrink-0 border-2 border-slate-100 rounded-full flex items-center justify-center transition-all duration-500 bg-white text-slate-200 peer-checked:text-brand-green peer-checked:border-white peer-checked:scale-110 group-hover:border-brand-green/20">
+                                    class="w-5 h-5 shrink-0 border-2 border-slate-100 rounded-full flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-white text-slate-200 peer-checked:text-brand-green peer-checked:border-white peer-checked:scale-110 group-hover:border-brand-green/20">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
@@ -267,10 +267,10 @@
 
             <div class="relative group w-full sm:w-auto">
                 <div
-                    class="absolute -inset-1 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-[2rem] blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
+                    class="absolute -inset-1 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-[2rem] blur opacity-25 group-hover:opacity-75 transition duration-500 group-hover:duration-200">
                 </div>
                 <button type="submit" wire:loading.attr="disabled" wire:target="simpan"
-                    class="relative w-full sm:w-auto px-12 bg-brand-darkblue text-white py-6 rounded-[1.5rem] font-black uppercase tracking-[0.4em] text-sm shadow-2xl hover:bg-brand-green transition-all duration-500 flex items-center justify-center gap-4 group overflow-hidden disabled:opacity-70">
+                    class="relative w-full sm:w-auto px-12 bg-brand-darkblue text-white py-6 rounded-[1.5rem] font-black uppercase tracking-[0.4em] text-sm shadow-2xl hover:bg-brand-green transition-all duration-200 flex items-center justify-center gap-4 group overflow-hidden disabled:opacity-70">
                     <span class="relative z-10" wire:loading.remove wire:target="simpan">Kirim Pendaftaran</span>
                     <span class="relative z-10" wire:loading wire:target="simpan">Memproses...</span>
 
