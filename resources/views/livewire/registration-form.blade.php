@@ -41,7 +41,7 @@
                         class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 transition-colors group-focus-within:text-brand-green">Nama
                         Lengkap Pasien</label>
                     <div class="relative">
-                        <input type="text" wire:model.defer="nama_lengkap"
+                        <input type="text" wire:model.lazy="nama_lengkap"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green focus:shadow-xl focus:shadow-brand-green/10 outline-none transition-all duration-300 @error('nama_lengkap') border-red-500 @enderror"
                             placeholder="NAMA LENGKAP SESUAI KTP">
                         <div class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300">
@@ -60,15 +60,19 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tempat
                             Lahir</label>
-                        <input type="text" wire:model.defer="tempat_lahir"
+                        <input type="text" wire:model.lazy="tempat_lahir"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tempat_lahir') border-red-500 @enderror"
                             placeholder="CONTOH: SRAGEN">
+                        @error('tempat_lahir') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tanggal
                             Lahir</label>
-                        <input type="date" wire:model.defer="tanggal_lahir"
+                        <input type="date" wire:model.lazy="tanggal_lahir"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tanggal_lahir') border-red-500 @enderror">
+                        @error('tanggal_lahir') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
@@ -76,7 +80,7 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jenis
                             Kelamin</label>
-                        <input type="hidden" id="gender-hidden" wire:model.defer="gender">
+                        <input type="hidden" wire:model="gender" id="gender-hidden">
                         <div class="flex gap-4">
                             <button type="button" id="btn-laki" onclick="setGenderVal('Laki-laki')"
                                 class="btn-gender flex-1 py-3 px-4 text-center border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95 bg-white text-slate-500 border-slate-300 hover:border-brand-green/30">
@@ -87,17 +91,21 @@
                                 PEREMPUAN
                             </button>
                         </div>
+                        @error('gender') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nomor
                             WhatsApp Aktif</label>
                         <div class="relative">
-                            <input type="tel" wire:model.defer="no_hp"
+                            <input type="tel" wire:model.lazy="no_hp"
                                 class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 pl-12 shadow-sm focus:shadow-md @error('no_hp') border-red-500 @enderror"
                                 placeholder="08XXXXXXXXXX">
                             <div class="absolute left-5 top-1/2 -translate-y-1/2 font-black text-brand-green text-sm">
                                 +62</div>
                         </div>
+                        @error('no_hp') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>
@@ -115,14 +123,18 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tinggi Badan
                             (cm)</label>
-                        <input type="text" wire:model.defer="tinggi_badan"
+                        <input type="text" wire:model.lazy="tinggi_badan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tinggi_badan') border-red-500 @enderror">
+                        @error('tinggi_badan') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Berat Badan
                             (kg)</label>
-                        <input type="text" wire:model.defer="berat_badan"
+                        <input type="text" wire:model.lazy="berat_badan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('berat_badan') border-red-500 @enderror">
+                        @error('berat_badan') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
@@ -130,14 +142,18 @@
                     <div class="space-y-2">
                         <label
                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pekerjaan</label>
-                        <input type="text" wire:model.defer="pekerjaan"
+                        <input type="text" wire:model.lazy="pekerjaan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('pekerjaan') border-red-500 @enderror">
+                        @error('pekerjaan') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pendidikan
                             Terakhir</label>
-                        <input type="text" wire:model.defer="pendidikan"
+                        <input type="text" wire:model.lazy="pendidikan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('pendidikan') border-red-500 @enderror">
+                        @error('pendidikan') <span
+                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>
@@ -154,16 +170,20 @@
                 <div class="space-y-2">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Keperluan
                         Pembuatan Surat</label>
-                    <input type="text" wire:model.defer="keperluan"
+                    <input type="text" wire:model.lazy="keperluan"
                         class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('keperluan') border-red-500 @enderror"
                         placeholder="CONTOH: MELAMAR PEKERJAAN">
+                    @error('keperluan') <span
+                    class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Alamat Lengkap
                         Sesuai KTP</label>
-                    <textarea wire:model.defer="alamat" rows="2"
+                    <textarea wire:model.lazy="alamat" rows="2"
                         class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md resize-none @error('alamat') border-red-500 @enderror"></textarea>
+                    @error('alamat') <span
+                    class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -177,24 +197,17 @@
                         <p class="text-white/40 text-[10px] font-bold uppercase tracking-widest mt-1">Anda dapat memilih
                             lebih dari satu layanan</p>
                     </div>
-                    <div class="relative z-10 flex items-center gap-2 px-4 py-2 bg-brand-green rounded-xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span class="text-[8px] font-black text-white uppercase tracking-widest">Medical Choice</span>
-                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     @foreach($prices_list as $price)
-                        <label class="group relative">
-                            <input type="checkbox" wire:model.defer="jenis_test" value="{{ $price->test_name }}"
-                                data-price="{{ $price->price }}" class="hidden peer test-checkbox">
+                        <label class="group relative cursor-pointer">
+                            <input type="checkbox" wire:model="jenis_test" value="{{ $price->test_name }}"
+                                data-price="{{ $price->price }}" class="peer opacity-0 absolute test-checkbox">
                             <div
-                                class="flex flex-row items-center gap-3 p-3 bg-slate-50 border-2 border-slate-200 rounded-2xl cursor-pointer transition-all duration-300 peer-checked:bg-white peer-checked:border-brand-green peer-checked:shadow-lg peer-checked:shadow-brand-green/10 peer-checked:-translate-y-0.5 group-hover:border-brand-green/30 active:scale-95 shadow-sm">
+                                class="flex flex-row items-center gap-3 p-2.5 bg-slate-50 border-2 border-slate-200 rounded-2xl transition-all duration-500 peer-checked:bg-emerald-50/30 peer-checked:border-brand-green peer-checked:shadow-[0_15px_30px_-10px_rgba(0,200,83,0.2)] peer-checked:-translate-y-0.5 group-hover:border-brand-green/30 active:scale-[0.98] shadow-sm">
                                 <div
-                                    class="w-7 h-7 shrink-0 border border-slate-200 rounded-lg flex items-center justify-center transition-all peer-checked:bg-brand-green/10 peer-checked:border-brand-green bg-white group-hover:scale-110 shadow-sm text-slate-300 peer-checked:text-brand-green">
+                                    class="w-7 h-7 shrink-0 border-2 border-slate-100 rounded-xl flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-white text-slate-100 peer-checked:bg-gradient-to-tr peer-checked:from-brand-green peer-checked:to-emerald-400 peer-checked:border-white peer-checked:text-white peer-checked:shadow-[0_5px_15px_rgba(0,200,83,0.3)] peer-checked:scale-110 peer-checked:rotate-[360deg] ring-0 peer-checked:ring-4 ring-brand-green/15 group-hover:scale-105">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
@@ -204,16 +217,6 @@
                                 <div class="flex flex-col min-h-[auto] justify-center overflow-hidden">
                                     <span
                                         class="text-[9px] font-black text-slate-500 uppercase tracking-tight peer-checked:text-brand-darkblue transition-colors leading-none truncate">{{ $price->test_name }}</span>
-                                    @if($price->price > 0)
-                                        <div
-                                            class="hidden peer-checked:flex items-center gap-1 mt-0.5 animate__animated animate__fadeInRight animate__faster">
-                                            <span
-                                                class="text-[8px] font-bold text-brand-blue uppercase tracking-widest whitespace-nowrap">
-                                                <span class="opacity-50 text-[7px]">Rp</span>
-                                                {{ number_format($price->price, 0, ',', '.') }}
-                                            </span>
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                         </label>
@@ -250,13 +253,13 @@
                 <div
                     class="absolute -inset-1 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-[2rem] blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
                 </div>
-                <button type="submit" wire:loading.attr="disabled"
-                    class="relative w-full sm:w-auto px-12 bg-brand-darkblue text-white py-6 rounded-[1.5rem] font-black uppercase tracking-[0.4em] text-sm shadow-2xl hover:bg-brand-green transition-all duration-500 flex items-center justify-center gap-4 group overflow-hidden disabled:opacity-50">
-                    <span class="relative z-10" wire:loading.remove>Kirim Pendaftaran</span>
-                    <span class="relative z-10" wire:loading>Memproses...</span>
+                <button type="submit" wire:loading.attr="disabled" wire:target="simpan"
+                    class="relative w-full sm:w-auto px-12 bg-brand-darkblue text-white py-6 rounded-[1.5rem] font-black uppercase tracking-[0.4em] text-sm shadow-2xl hover:bg-brand-green transition-all duration-500 flex items-center justify-center gap-4 group overflow-hidden disabled:opacity-70">
+                    <span class="relative z-10" wire:loading.remove wire:target="simpan">Kirim Pendaftaran</span>
+                    <span class="relative z-10" wire:loading wire:target="simpan">Memproses...</span>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 relative z-10 animate-bounce-x"
-                        wire:loading.remove fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 relative z-10 animate-bounce-x" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" wire:loading.remove wire:target="simpan">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                             d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -269,32 +272,37 @@
     </form>
 
     <script>
+        let selectedGender = '{{ $gender }}'; // Initialize from server state
+
         function setGenderVal(val) {
             const input = document.getElementById('gender-hidden');
             const btns = document.querySelectorAll('.btn-gender');
             const btnLaki = document.getElementById('btn-laki');
             const btnPerempuan = document.getElementById('btn-perempuan');
 
-            // Toggle off if clicking the same value
-            if (input.value === val) {
+            if (selectedGender === val) {
+                // Deselect
+                selectedGender = null;
                 input.value = '';
                 btns.forEach(b => {
                     b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
                     b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
                 });
             } else {
+                // Select
+                selectedGender = val;
                 input.value = val;
                 btns.forEach(b => {
                     b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
                     b.classList.add('bg-white', 'text-slate-500', 'border-slate-300');
                 });
 
-                const activeBtn = val === 'Laki-laki' ? btnLaki : btnPerempuan;
+                const activeBtn = (val === 'Laki-laki') ? btnLaki : btnPerempuan;
                 activeBtn.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
                 activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-300');
             }
 
-            // Trigger change for Livewire
+            // Trigger Livewire sync
             input.dispatchEvent(new Event('input'));
         }
 
@@ -317,9 +325,14 @@
             // Initial calculation
             updateTotal();
 
-            // Set initial gender UI if any
-            const initialGender = document.getElementById('gender-hidden').value;
-            if (initialGender) setGenderVal(initialGender);
+            // Sync visual state for gender on load
+            if (selectedGender) {
+                const btn = (selectedGender === 'Laki-laki') ? document.getElementById('btn-laki') : document.getElementById('btn-perempuan');
+                if (btn) {
+                    btn.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
+                    btn.classList.remove('bg-white', 'text-slate-500', 'border-slate-300');
+                }
+            }
         });
     </script>
 </div>

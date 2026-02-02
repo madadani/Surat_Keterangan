@@ -45,9 +45,20 @@ class RegistrationForm extends Component
 
     public function simpan()
     {
-        $this->validate();
+        \Log::info('Pendaftaran simpan() triggered', [
+            'nama_lengkap' => $this->nama_lengkap,
+            'gender' => $this->gender,
+            'jenis_test' => $this->jenis_test,
+        ]);
 
-        // Generate Registration Number
+        try {
+            $this->validate();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation failed', $e->errors());
+            throw $e;
+        }
+
+        \Log::info('Validation passed');
         $today = now()->format('Y-m-d');
         $lastReg = Pendaftar::whereDate('created_at', $today)->latest()->first();
         $suffix = 1;
