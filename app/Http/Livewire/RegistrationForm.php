@@ -37,6 +37,27 @@ class RegistrationForm extends Component
         'jenis_test' => 'required|array|min:1',
     ];
 
+    protected $messages = [
+        'nama_lengkap.required' => 'Nama lengkap wajib diisi.',
+        'nama_lengkap.min' => 'Nama lengkap minimal 3 karakter.',
+        'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
+        'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
+        'tanggal_lahir.date' => 'Format tanggal lahir tidak valid.',
+        'gender.required' => 'Jenis kelamin wajib dipilih.',
+        'no_hp.required' => 'Nomor HP wajib diisi.',
+        'no_hp.numeric' => 'Nomor HP harus berupa angka.',
+        'tinggi_badan.required' => 'Tinggi badan wajib diisi.',
+        'tinggi_badan.numeric' => 'Tinggi badan harus berupa angka.',
+        'berat_badan.required' => 'Berat badan wajib diisi.',
+        'berat_badan.numeric' => 'Berat badan harus berupa angka.',
+        'pekerjaan.required' => 'Pekerjaan wajib diisi.',
+        'pendidikan.required' => 'Pendidikan terakhir wajib diisi.',
+        'keperluan.required' => 'Keperluan wajib diisi.',
+        'alamat.required' => 'Alamat wajib diisi.',
+        'jenis_test.required' => 'Pilih minimal satu jenis pemeriksaan.',
+        'jenis_test.min' => 'Pilih minimal satu jenis pemeriksaan.',
+    ];
+
     public function calculateTotal()
     {
         $prices = Price::whereIn('test_name', $this->jenis_test)->pluck('price');
@@ -45,20 +66,7 @@ class RegistrationForm extends Component
 
     public function simpan()
     {
-        \Log::info('Pendaftaran simpan() triggered', [
-            'nama_lengkap' => $this->nama_lengkap,
-            'gender' => $this->gender,
-            'jenis_test' => $this->jenis_test,
-        ]);
-
-        try {
-            $this->validate();
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            \Log::error('Validation failed', $e->errors());
-            throw $e;
-        }
-
-        \Log::info('Validation passed');
+        $this->validate();
         $today = now()->format('Y-m-d');
         $lastReg = Pendaftar::whereDate('created_at', $today)->latest()->first();
         $suffix = 1;

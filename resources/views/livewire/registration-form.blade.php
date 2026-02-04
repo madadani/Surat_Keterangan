@@ -41,7 +41,7 @@
                         class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 transition-colors group-focus-within:text-brand-green">Nama
                         Lengkap Pasien</label>
                     <div class="relative">
-                        <input type="text" wire:model.lazy="nama_lengkap"
+                        <input type="text" wire:model.defer="nama_lengkap"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green focus:shadow-xl focus:shadow-brand-green/10 outline-none transition-all duration-200 @error('nama_lengkap') border-red-500 @enderror"
                             placeholder="NAMA LENGKAP SESUAI KTP">
                         <div class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300">
@@ -60,7 +60,7 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tempat
                             Lahir</label>
-                        <input type="text" wire:model.lazy="tempat_lahir"
+                        <input type="text" wire:model.defer="tempat_lahir"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tempat_lahir') border-red-500 @enderror"
                             placeholder="CONTOH: SRAGEN">
                         @error('tempat_lahir') <span
@@ -69,7 +69,7 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tanggal
                             Lahir</label>
-                        <input type="date" wire:model.lazy="tanggal_lahir"
+                        <input type="date" wire:model.defer="tanggal_lahir"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tanggal_lahir') border-red-500 @enderror">
                         @error('tanggal_lahir') <span
                         class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
@@ -114,7 +114,7 @@
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nomor
                             WhatsApp Aktif</label>
                         <div class="relative">
-                            <input type="tel" wire:model.lazy="no_hp"
+                            <input type="tel" wire:model.defer="no_hp"
                                 class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 pl-12 shadow-sm focus:shadow-md @error('no_hp') border-red-500 @enderror"
                                 placeholder="08XXXXXXXXXX">
                             <div class="absolute left-5 top-1/2 -translate-y-1/2 font-black text-brand-green text-sm">
@@ -139,7 +139,7 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tinggi Badan
                             (cm)</label>
-                        <input type="text" wire:model.lazy="tinggi_badan"
+                        <input type="text" wire:model.defer="tinggi_badan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tinggi_badan') border-red-500 @enderror">
                         @error('tinggi_badan') <span
                         class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
@@ -147,7 +147,7 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Berat Badan
                             (kg)</label>
-                        <input type="text" wire:model.lazy="berat_badan"
+                        <input type="text" wire:model.defer="berat_badan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('berat_badan') border-red-500 @enderror">
                         @error('berat_badan') <span
                         class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
@@ -158,7 +158,7 @@
                     <div class="space-y-2">
                         <label
                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pekerjaan</label>
-                        <input type="text" wire:model.lazy="pekerjaan"
+                        <input type="text" wire:model.defer="pekerjaan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('pekerjaan') border-red-500 @enderror">
                         @error('pekerjaan') <span
                         class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
@@ -166,7 +166,7 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pendidikan
                             Terakhir</label>
-                        <input type="text" wire:model.lazy="pendidikan"
+                        <input type="text" wire:model.defer="pendidikan"
                             class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-blue outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('pendidikan') border-red-500 @enderror">
                         @error('pendidikan') <span
                         class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
@@ -186,7 +186,7 @@
                 <div class="space-y-2">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Keperluan
                         Pembuatan Surat</label>
-                    <input type="text" wire:model.lazy="keperluan"
+                    <input type="text" wire:model.defer="keperluan"
                         class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('keperluan') border-red-500 @enderror"
                         placeholder="CONTOH: MELAMAR PEKERJAAN">
                     @error('keperluan') <span
@@ -196,7 +196,7 @@
                 <div class="space-y-2">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Alamat Lengkap
                         Sesuai KTP</label>
-                    <textarea wire:model.lazy="alamat" rows="2"
+                    <textarea wire:model.defer="alamat" rows="2"
                         class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md resize-none @error('alamat') border-red-500 @enderror"></textarea>
                     @error('alamat') <span
                     class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
