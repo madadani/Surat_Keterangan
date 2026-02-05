@@ -75,7 +75,7 @@
             animation: bounce-x 1s infinite;
         }
     </style>
-    @livewireStyles
+
 </head>
 
 <body class="font-sans text-slate-900 antialiased overflow-x-hidden scroll-smooth">
@@ -294,7 +294,7 @@
     @endif
 
     @stack('scripts')
-    @livewireScripts
+
 </body>
 
 </html>

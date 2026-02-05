@@ -21,12 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin-common.css') }}">
 
     @stack('styles')
-    @livewireStyles
-    <style>
-        [wire\:loading] {
-            display: none !important;
-        }
-    </style>
+
 </head>
 
 <body
@@ -56,7 +51,7 @@
     @endif
 
     @stack('scripts')
-    @livewireScripts
+
 </body>
 
 </html>

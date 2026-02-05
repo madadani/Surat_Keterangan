@@ -19,15 +19,17 @@ class PendaftaranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required',
+            'nama_lengkap' => 'required|min:3',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
             'gender' => 'required',
             'keperluan' => 'required',
-            'no_hp' => 'required',
+            'no_hp' => 'required|numeric',
             'pekerjaan' => 'required',
             'pendidikan' => 'required',
+            'tinggi_badan' => 'required|numeric',
+            'berat_badan' => 'required|numeric',
             'jenis_test' => 'required|array|min:1',
         ]);
 
