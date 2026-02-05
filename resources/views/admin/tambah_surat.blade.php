@@ -81,7 +81,7 @@
                             <td class="text-center font-bold text-gray-300">:</td>
                             <td>
                                 <div class="relative group animate__animated animate__fadeInRight">
-                                    <select name="tipe_berkas" id="tipe_berkas_select" required
+                                    <select name="tipe_berkas" id="tipe_berkas_select" required disabled
                                         class="w-full bg-brand-blue/5 border border-brand-blue/20 rounded-2xl px-5 py-4 font-black text-brand-blue focus:ring-4 focus:ring-brand-blue/20 focus:border-brand-blue transition-all outline-none appearance-none cursor-pointer">
                                         <option value="">-- Pilih Tipe Surat --</option>
                                     </select>

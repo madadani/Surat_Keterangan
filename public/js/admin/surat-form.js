@@ -50,8 +50,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Show & Update Tipe Berkas
                 if (tipeBerkasRow) tipeBerkasRow.classList.remove('hidden');
-                if (tipeBerkasSelect && !config.isEdit) {
-                    fillTipeBerkasOptions(data, tipeBerkasSelect);
+                if (tipeBerkasSelect) {
+                    tipeBerkasSelect.disabled = false;
+                    if (!config.isEdit) {
+                        fillTipeBerkasOptions(data, tipeBerkasSelect);
+                    }
                 }
 
                 fillDisplayFields(data);
