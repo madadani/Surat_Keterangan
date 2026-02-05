@@ -24,11 +24,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Force URL root hanya di server (domain asli), jangan ganggu localhost
-        if (config('app.url') && !app()->environment('local')) {
-            \Illuminate\Support\Facades\URL::forceRootUrl(config('app.url'));
+        $appUrl = config('app.url');
+        if ($appUrl && !app()->environment('local')) {
+            \Illuminate\Support\Facades\URL::forceRootUrl($appUrl);
 
             // Paksa scheme HTTPS jika APP_URL menggunakan https
-            if (str_starts_with(config('app.url'), 'https')) {
+            if (str_starts_with($appUrl, 'https')) {
                 \Illuminate\Support\Facades\URL::forceScheme('https');
             }
         }

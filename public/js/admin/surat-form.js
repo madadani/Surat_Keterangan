@@ -41,6 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!this.value || !selected) {
                 if (tipeBerkasRow) tipeBerkasRow.classList.add('hidden');
+                if (tipeBerkasSelect) {
+                    tipeBerkasSelect.required = false;
+                    tipeBerkasSelect.value = '';
+                }
                 resetDisplayFields();
                 return;
             }
@@ -49,11 +53,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = selected.dataset;
 
                 // Show & Update Tipe Berkas
-                if (tipeBerkasRow) tipeBerkasRow.classList.remove('hidden');
-                if (tipeBerkasSelect) {
-                    tipeBerkasSelect.disabled = false;
-                    if (!config.isEdit) {
-                        fillTipeBerkasOptions(data, tipeBerkasSelect);
+                if (tipeBerkasRow) {
+                    tipeBerkasRow.classList.remove('hidden');
+                    if (tipeBerkasSelect) {
+                        tipeBerkasSelect.required = true;
+                        if (!config.isEdit) {
+                            fillTipeBerkasOptions(data, tipeBerkasSelect);
+                        }
                     }
                 }
 

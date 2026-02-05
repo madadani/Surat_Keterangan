@@ -172,7 +172,7 @@ class SuratController extends Controller
         $this->updatePendaftarStatus($pendaftarId);
 
         $msg = ($createdCount > 1) ? "$createdCount Surat Keterangan berhasil dibuat!" : "Surat Keterangan berhasil dibuat!";
-        return redirect('/admin/buat-surat/tambah')->with('success', $msg);
+        return back()->with('success', $msg);
     }
 
     public function edit($id)
