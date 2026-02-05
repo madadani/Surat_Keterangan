@@ -95,8 +95,7 @@ class RegistrationForm extends Component
         ]);
 
         session()->flash('success', 'Pendaftaran Anda telah berhasil dikirim ke sistem.');
-
-        return redirect()->to('/');
+        return redirect('/');
     }
 
     public function render()
