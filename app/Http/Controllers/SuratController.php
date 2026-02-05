@@ -109,6 +109,8 @@ class SuratController extends Controller
 
     public function store(Request $request)
     {
+        \Illuminate\Support\Facades\Log::info('SuratController@store initiated', $request->all());
+
         $request->validate([
             'pendaftar_id' => 'required',
             'tipe_berkas' => 'required',

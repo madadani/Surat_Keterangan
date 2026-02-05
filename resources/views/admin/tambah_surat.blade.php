@@ -47,7 +47,7 @@
                             <td class="w-4 text-center font-bold text-gray-300">:</td>
                             <td>
                                 <div class="relative group">
-                                    <select name="pendaftar_id" id="pendaftar_select" required
+                                    <select name="pendaftar_id" id="pendaftar_select"
                                         class="w-full bg-gray-50 border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue focus:bg-white transition-all outline-none appearance-none cursor-pointer">
                                         <option value="">-- Pilih Nama Pasien --</option>
                                         @foreach($pendaftar as $p)
@@ -414,7 +414,7 @@
                             <td class="text-center font-bold text-gray-300">:</td>
                             <td>
                                 <div class="relative group">
-                                    <select name="dokter_id" id="dokter_select" required
+                                    <select name="dokter_id" id="dokter_select"
                                         class="w-full bg-white border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:border-brand-blue outline-none appearance-none cursor-pointer">
                                         @foreach($dokters as $d)
                                             <option value="{{ $d->id }}" data-spesialis="{{ $d->spesialis }}">
@@ -436,7 +436,7 @@
                     </table>
 
                     <div class="pt-12 border-t border-gray-50 flex gap-6 mt-12">
-                        <button type="submit"
+                        <button type="submit" onclick="alert('Mencoba mengirim form...')"
                             class="flex-1 bg-brand-blue text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl shadow-brand-blue/20 hover:bg-brand-darkblue hover:-translate-y-1 transition-all duration-300">
                             SIMPAN & TERBITKAN
                         </button>
