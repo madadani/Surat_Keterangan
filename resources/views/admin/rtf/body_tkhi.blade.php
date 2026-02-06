@@ -38,9 +38,12 @@ Visus : OD \b {!! ($surat->visus_od) !!}\b0 OS \b {!! ($surat->visus_os) !!}\b0 
 \pard\intbl\sl360\slmult1\tx2800\ql Saran\tab : {!! ($surat->saran) !!}\cell\row
 \pard\par
 \trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
+\pard\intbl\qc Mengetahui\par Kepala Bidang Pelayanan RSUD dr. Soeratno\par Gemolong Kabupaten Sragen\cell
+\pard\intbl\qc Sragen, {!! $tanggal_cetak !!}\par Dokter Pemeriksa\cell\row
+\trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
 \pard\intbl\qc @if($isMayaMengetahui) {!! $ttdMaya !!}\par @else \par\par\par\par\par @endif
 \pard\intbl\qc\b\ul {!! trim($m_nama) !!}\ulnone\b0\par
 \pard\intbl\qc NIP. {!! trim($m_nip) !!}\cell
-\pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par @endif
+\pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par\par @endif
 \pard\intbl\qc\b\ul{\expndtw-15 {!! trim($surat->dokter->nama_dokter) !!}\expndtw0}\ulnone\b0\par
 \pard\intbl\qc NIP. {!! trim(preg_replace('/\s+/', ' ', $surat->dokter->nip ?? '-')) !!}\cell\row\pard\par
