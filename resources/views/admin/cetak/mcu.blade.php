@@ -759,23 +759,33 @@
         <div class="footer">
             <table class="footer-table">
                 <tr>
-                    <td style="width: 50%; text-align: center; vertical-align: top;">
-                        Mengetahui<br>
-                        @if(isset($mengetahui) && $mengetahui)
-                            {!! nl2br(e($mengetahui->jabatan)) !!}
-                        @else
-                            Kepala Bidang Pelayanan<br>
-                            RSUD dr. Soeratno Gemolong
-                        @endif
-                    </td>
+                <td style="width: 50%; text-align: center; vertical-align: top;">
+                    Mengetahui<br>
+                    @if($mengetahui)
+                        {{ $mengetahui->jabatan }}
+                    @else
+                        Kepala Bidang Pelayanan<br>
+                        RSUD dr. Soeratno Gemolong
+                    @endif
+                </td>
                     <td style="width: 50%; text-align: center; vertical-align: top;">
                         Sragen, {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->translatedFormat('d F Y') }}<br>
-                        Dokter yang memeriksa
+                        Dokter Pemeriksa
                     </td>
                 </tr>
                 <tr>
-                    <td style="height: 60px;"></td>
-                    <td style="height: 60px;"></td>
+                    <td style="height: 80px; position: relative;">
+                        @if((isset($mengetahui) && $mengetahui && str_contains($mengetahui->nama_dokter, 'Mayasari Ayu Hendrawati')) || (!isset($mengetahui) || !$mengetahui))
+                            <img src="{{ asset('images/ttd_dr_maya.png') }}"
+                                style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -10px; z-index: 1;">
+                        @endif
+                    </td>
+                    <td style="height: 80px; position: relative;">
+                        @if(str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati'))
+                            <img src="{{ asset('images/ttd_dr_maya.png') }}"
+                                style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -10px; z-index: 1;">
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td style="width: 50%; text-align: center; vertical-align: top;">
@@ -796,5 +806,4 @@
         </div>
     </div>
 </body>
-
 </html>

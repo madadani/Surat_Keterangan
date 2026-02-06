@@ -28,10 +28,10 @@
     <td class="text-center font-bold text-gray-300">:</td>
     <td class="grid grid-cols-2 lg:grid-cols-6 gap-3">
         <div class="space-y-1"><label class="text-[9px] font-black text-gray-400 uppercase">Tinggi (cm)</label><input
-                type="number" name="mcu_tinggi" id="mcu_tinggi" value="{{ $surat->tinggi_badan }}"
+                type="number" name="mcu_tinggi" id="mcu_tinggi" value="{{ $surat->tinggi_badan ?? $surat->pendaftar->tinggi_badan ?? '' }}"
                 class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold"></div>
         <div class="space-y-1"><label class="text-[9px] font-black text-gray-400 uppercase">Berat (kg)</label><input
-                type="number" step="0.1" name="mcu_berat" id="mcu_berat" value="{{ $surat->berat_badan }}"
+                type="number" step="0.1" name="mcu_berat" id="mcu_berat" value="{{ $surat->berat_badan ?? $surat->pendaftar->berat_badan ?? '' }}"
                 class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold"></div>
         <div class="space-y-1"><label class="text-[9px] font-black text-gray-400 uppercase">Lk. Perut</label><input
                 type="number" name="mcu_lk_perut" value="{{ $getVal('lk_perut') }}"
