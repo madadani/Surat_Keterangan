@@ -38,9 +38,13 @@ class AdminPendaftarTable extends Component
 
         if ($this->status) {
             if ($this->status == 'Queue') {
-                $query->whereIn('status', ['Pending', 'Proses']);
+                $query->whereIn('status', ['Pending', 'Proses', 'pending', 'proses', 'PENDING', 'PROSES']);
             } else {
-                $query->where('status', $this->status);
+                $query->where(function ($q) {
+                    $q->where('status', $this->status)
+                        ->orWhere('status', strtolower($this->status))
+                        ->orWhere('status', strtoupper($this->status));
+                });
             }
         }
 
