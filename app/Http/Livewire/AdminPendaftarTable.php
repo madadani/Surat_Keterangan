@@ -14,13 +14,7 @@ class AdminPendaftarTable extends Component
     public $search = '';
     public $status = '';
 
-    // Auto refresh data every 10 seconds
-    protected $listeners = ['refreshTable' => '$refresh'];
-
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'status' => ['except' => ''],
-    ];
+    protected $updatesQueryString = ['search', 'status'];
 
     public function updatingSearch()
     {
@@ -52,17 +46,14 @@ class AdminPendaftarTable extends Component
 
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('nama_lengkap', 'LIKE', "%{$this->search}%")
-                    ->orWhere('no_registrasi', 'LIKE', "%{$this->search}%");
+                $q->where('nama_lengkap', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('no_registrasi', 'LIKE', '%' . $this->search . '%');
             });
         }
 
-        $pendaftar = $query->latest()->paginate(10);
-        $prices = Price::all()->pluck('price', 'test_name');
-
         return view('livewire.admin-pendaftar-table', [
-            'pendaftar' => $pendaftar,
-            'prices' => $prices
+            'pendaftar' => $query->latest()->paginate(10),
+            'prices' => Price::all()->pluck('price', 'test_name')
         ]);
     }
 }

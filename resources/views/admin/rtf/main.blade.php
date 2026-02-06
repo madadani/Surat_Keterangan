@@ -30,6 +30,9 @@
     $fontCode = $isModern ? "\\f0\\fs20" : "\\f1\\fs24";
     $titleSize = $isModern ? "\\fs24" : "\\fs28";
     $tab_set = "\\tx3300";
+
+    $isMayaMengetahui = str_contains($m_nama, 'Mayasari Ayu Hendrawati');
+    $isMayaPemeriksa = str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati');
 @endphp
 {\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fswiss\fcharset0 Arial;}{\f1\froman\fcharset0 Times New
 Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
@@ -96,13 +99,16 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         str_contains($surat->tipe_berkas, 'Poli')
     )
     @if(!str_contains($surat->tipe_berkas, 'Gigi') && !str_contains($surat->tipe_berkas, 'THT'))
-        \trowd\trgaph108\trleft-108\clvertalt\cellx5100\clvertalt\cellx10200
-        \pard\intbl\sl276\slmult1\qc Mengetahui\cell\qc Sragen, {!! $tanggal_cetak !!}\cell\row
-        \pard\intbl\sl276\slmult1\qc {!! $m_jabatan_fmt !!}\cell\qc Dokter Pemeriksa\cell\row
-        \trowd\trgaph108\trleft-108\clvertalt\cellx5100\clvertalt\cellx10200
-        \pard\intbl\sl276\slmult1\qc\par\par\par\par\b\ul {!! $m_nama !!}\ulnone\b0\line NIP.
-        {!! $m_nip !!}\cell\qc\par\par\par\par\b\ul {!! $surat->dokter->nama_dokter !!}\ulnone\b0\line NIP.
-        {!! $surat->dokter->nip ?? '-' !!}\cell\row\pard\par
+        \trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
+        \pard\intbl\qc Mengetahui\par Kepala Bidang Pelayanan RSUD dr. Soeratno\par Gemolong Kabupaten Sragen\cell
+        \pard\intbl\qc Sragen, {!! $tanggal_cetak !!}\par Dokter Pemeriksa\cell\row
+        \trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
+        \pard\intbl\qc @if($isMayaMengetahui) {!! $ttdMaya !!}\par @else \par\par\par\par\par @endif
+        \pard\intbl\qc\b\ul {!! trim($m_nama) !!}\ulnone\b0\par
+        \pard\intbl\qc NIP. {!! trim($m_nip) !!}\cell
+        \pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par @endif
+        \pard\intbl\qc\b\ul{\expndtw-15 {!! trim($surat->dokter->nama_dokter) !!}\expndtw0}\ulnone\b0\par
+        \pard\intbl\qc NIP. {!! trim(preg_replace('/\s+/', ' ', $surat->dokter->nip ?? '-')) !!}\cell\row\pard\par
     @endif
 @endif
 @if(!str_contains($surat->tipe_berkas, 'TKHI') && $surat->tipe_berkas !== 'Medical Check Up' && !$isDualSig)
@@ -111,7 +117,9 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
     \trowd\trgaph108\trleft-108\clvertalt\cellx4800\clvertalt\cellx10200
     \pard\intbl\sl360\slmult1\cell\ql Tanda tangan,\cell\row
     \trowd\trgaph108\trleft-108\clvertalt\cellx4800\clvertalt\cellx10200
-    \pard\intbl\sl360\slmult1\cell\ql\par\par\par Dokter Pemeriksa :\cell\row
+    \pard\intbl\sl360\slmult1\cell\ql @if($isMayaPemeriksa) {!! $ttdMaya !!} @else \par\par\par\par @endif \cell\row
+    \trowd\trgaph108\trleft-108\clvertalt\cellx4800\clvertalt\cellx10200
+    \pard\intbl\sl360\slmult1\cell\ql Dokter Pemeriksa :\cell\row
     \trowd\trgaph108\trleft-108\clvertalt\cellx4800\clvertalt\cellx10200
     \pard\intbl\sl360\slmult1\cell\ql \b ( {!! $surat->dokter->nama_dokter !!} )\b0\cell\row
 @endif

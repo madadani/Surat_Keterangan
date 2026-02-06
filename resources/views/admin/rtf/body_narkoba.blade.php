@@ -30,10 +30,10 @@ tidak ditemukan adanya tanda-tanda perubahan perilaku sehubungan dengan pengguna
 \b C. Saran :\b0\par
 \li360 \b Dapat / Tidak dapat\b0 dipergunakan sebagai \b {!! strtoupper($surat->keperluan) !!}\b0\par
 \li360 Dan tidak dapat dipergunakan untuk kepentingan lainnya.\par
-\trowd\trgaph108\trleft-108\clvertalt\cellx5100\clvertalt\cellx10200
-\pard\intbl\sl276\slmult1\qc Mengetahui\cell\qc Sragen, {!! $tanggal_cetak !!}\cell\row
-\pard\intbl\sl276\slmult1\qc {!! $m_jabatan_fmt !!}\cell\qc Dokter Pemeriksa\cell\row
-\trowd\trgaph108\trleft-108\clvertalt\cellx5100\clvertalt\cellx10200
-\pard\intbl\sl276\slmult1\qc\par\par\par\par\b\ul {!! $m_nama !!}\ulnone\b0\line NIP.
-{!! $m_nip !!}\cell\qc\par\par\par\par\b\ul {!! ($surat->dokter->nama_dokter) !!}\ulnone\b0\line NIP.
-{!! ($surat->dokter->nip ?? '-') !!}\cell\row\pard\par
+\trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
+\pard\intbl\qc @if($isMayaMengetahui) {!! $ttdMaya !!}\par @else \par\par\par\par\par @endif
+\pard\intbl\qc\b\ul {!! trim($m_nama) !!}\ulnone\b0\par
+\pard\intbl\qc NIP. {!! trim($m_nip) !!}\cell
+\pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par @endif
+\pard\intbl\qc\b\ul{\expndtw-15 {!! trim($surat->dokter->nama_dokter) !!}\expndtw0}\ulnone\b0\par
+\pard\intbl\qc NIP. {!! trim(preg_replace('/\s+/', ' ', $surat->dokter->nip ?? '-')) !!}\cell\row\pard\par

@@ -21,9 +21,6 @@
                     Kelola data pendaftaran pasien</p>
             </div>
         </div>
-
-        <div class="flex items-center gap-2 lg:gap-4 flex-wrap justify-end">
-        </div>
     </header>
 
     <!-- Content Body -->
