@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
             else if (t.includes('paru')) val = 'Kesehatan Paru';
             else if (t.includes('dalam')) val = 'Kesehatan Penyakit Dalam';
             else if (t.includes('jantung')) val = 'Kesehatan Jantung';
-            else if (t.includes('mcu')) val = 'Medical Check Up';
             else if (t.includes('tkhi')) val = 'Kesehatan TKHI';
             else if (t.includes('kesehatan')) val = 'Kesehatan';
 
@@ -202,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function () {
             'Kesehatan THT': 'section_tht',
             'Kesehatan Gigi': 'section_gigi',
             'Kesehatan Jantung': 'section_jantung',
-            'Medical Check Up': 'section_mcu',
             'Kesehatan TKHI': 'section_tkhi'
         };
 
@@ -233,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 inputs.forEach(input => input.disabled = false);
 
                 // Penyesuaian UI spesifik
-                if (val === 'Medical Check Up' || val === 'Kesehatan TKHI') {
+                if (val === 'Kesehatan TKHI') {
                     handleTKHIUI(val);
                 } else if (targetId === 'section_poli_spesialis') {
                     document.getElementById('title_poli').innerText = `HASIL PEMERIKSAAN ${val.toUpperCase()}`;
@@ -252,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (val.includes('Paru')) autoSelectDokter('Paru');
         else if (val.includes('Dalam')) autoSelectDokter('Penyakit Dalam');
         else if (val.includes('Ortho')) autoSelectDokter('Orthopedi');
-        else if (val === 'Medical Check Up' || val === 'Kesehatan TKHI') autoSelectDokter('Umum');
+        else if (val === 'Kesehatan TKHI') autoSelectDokter('Umum');
     }
 
     function handleTKHIUI(val) {

@@ -131,8 +131,6 @@
                             @include('admin.partials.edit_sections.gigi')
                         @elseif($surat->tipe_berkas == 'Kesehatan Jantung')
                             @include('admin.partials.edit_sections.jantung')
-                        @elseif($surat->tipe_berkas == 'Medical Check Up')
-                            @include('admin.partials.edit_sections.mcu')
                         @elseif($surat->tipe_berkas == 'Kesehatan TKHI')
                             @include('admin.partials.edit_sections.tkhi')
                         @elseif(str_contains($surat->tipe_berkas, 'Kesehatan '))

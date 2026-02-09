@@ -283,16 +283,6 @@
     </tr>
 </tbody>
 
-<!-- Section: MEDICAL CHECK UP -->
-<tbody id="section_mcu" class="hidden animate__animated animate__fadeIn">
-    @php
-        // Dummy object for create form to prevent errors in mcu_form
-        $surat = $surat ?? new \App\Models\SuratKeterangan();
-        $surat->mcu_data = $surat->mcu_data ?? []; 
-    @endphp
-    @include('admin.partials.edit_sections.mcu_form', ['surat' => $surat])
-</tbody>
-
 <!-- Section: TKHI -->
 <tbody id="section_tkhi" class="hidden animate__animated animate__fadeIn">
     @php

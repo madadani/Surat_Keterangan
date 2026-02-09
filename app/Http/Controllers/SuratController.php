@@ -264,10 +264,9 @@ class SuratController extends Controller
         } elseif (str_contains($tipe, 'Jantung')) {
             $content_view = 'jantung';
             $judul_surat = 'Surat Keterangan Sehat Jantung';
-        } elseif ($tipe == 'Medical Check Up' || $tipe == 'Kesehatan TKHI') {
+        } elseif ($tipe == 'Kesehatan TKHI') {
             $mengetahui = Dokter::where('jabatan', 'LIKE', '%Kepala Bidang Pelayanan%')->first();
-            $view = ($tipe == 'Kesehatan TKHI') ? 'admin.cetak.tkhi' : 'admin.cetak.mcu';
-            return view($view, compact('surat', 'mengetahui'));
+            return view('admin.cetak.tkhi', compact('surat', 'mengetahui'));
         }
 
         $mengetahui = Dokter::where('jabatan', 'LIKE', '%Kepala Bidang Pelayanan%')->first();
@@ -359,7 +358,7 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $heartData;
-        } elseif ($tipeBerkas === 'Medical Check Up' || $tipeBerkas === 'Kesehatan TKHI') {
+        } elseif ($tipeBerkas === 'Kesehatan TKHI') {
             $data['no_lab'] = $request->no_lab;
             $data['perusahaan'] = $request->perusahaan;
             $data['tinggi_badan'] = $request->mcu_tinggi;
@@ -454,7 +453,7 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $heartData;
-        } elseif ($surat->tipe_berkas === 'Medical Check Up' || $surat->tipe_berkas === 'Kesehatan TKHI') {
+        } elseif ($surat->tipe_berkas === 'Kesehatan TKHI') {
             $data['no_lab'] = $request->no_lab;
             $data['perusahaan'] = $request->perusahaan;
             $data['tinggi_badan'] = $request->mcu_tinggi;

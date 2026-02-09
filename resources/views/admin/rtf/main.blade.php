@@ -14,8 +14,6 @@
         $judul_surat = 'SURAT KETERANGAN BEBAS NARKOBA';
     } elseif (str_contains($surat->tipe_berkas, 'TKHI')) {
         $judul_surat = 'LEMBAR BANTU\\par PEMERIKSAAN KESEHATAN TAHUN ' . date('Y');
-    } elseif (str_contains($surat->tipe_berkas, 'Medical')) {
-        $judul_surat = 'PEMERIKSAAN FISIK';
     } elseif (str_contains($surat->tipe_berkas, 'THT')) {
         $judul_surat = 'SURAT KETERANGAN DOKTER';
     } elseif (str_contains($surat->tipe_berkas, 'Dalam') || str_contains($surat->tipe_berkas, 'Orthopedi') || str_contains($surat->tipe_berkas, 'Ortopedi')) {
@@ -26,7 +24,7 @@
         $judul_surat = 'SURAT KETERANGAN ' . strtoupper($surat->tipe_berkas);
     }
 
-    $isModern = (str_contains($surat->tipe_berkas, 'TKHI') || str_contains($surat->tipe_berkas, 'Medical'));
+    $isModern = str_contains($surat->tipe_berkas, 'TKHI');
     $fontCode = $isModern ? "\\f0\\fs20" : "\\f1\\fs24";
     $titleSize = $isModern ? "\\fs24" : "\\fs28";
     $tab_set = "\\tx3300";
@@ -67,8 +65,6 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
     @include('admin.rtf.body_jantung')
 @elseif($surat->tipe_berkas === 'Kesehatan TKHI')
     @include('admin.rtf.body_tkhi')
-@elseif($surat->tipe_berkas === 'Medical Check Up')
-    @include('admin.rtf.body_mcu')
 @endif
 @php
     $isDualSig = str_contains($surat->tipe_berkas, 'Jantung') ||
@@ -111,7 +107,7 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         \pard\intbl\qc NIP. {!! trim(preg_replace('/\s+/', ' ', $surat->dokter->nip ?? '-')) !!}\cell\row\pard\par
     @endif
 @endif
-@if(!str_contains($surat->tipe_berkas, 'TKHI') && $surat->tipe_berkas !== 'Medical Check Up' && !$isDualSig)
+@if(!str_contains($surat->tipe_berkas, 'TKHI') && !$isDualSig)
     \pard\intbl\trowd\trgaph108\trleft-108\clvertalt\cellx4800\clvertalt\cellx10200
     \pard\intbl\sl360\slmult1\cell\ql Gemolong, {!! $tanggal_cetak !!}\cell\row
     \trowd\trgaph108\trleft-108\clvertalt\cellx4800\clvertalt\cellx10200
