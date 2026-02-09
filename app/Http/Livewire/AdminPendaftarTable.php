@@ -14,7 +14,7 @@ class AdminPendaftarTable extends Component
     public $search = '';
     public $status = '';
 
-    protected $updatesQueryString = ['search', 'status'];
+    protected $queryString = ['search', 'status'];
 
     public function updatingSearch()
     {
@@ -37,26 +37,28 @@ class AdminPendaftarTable extends Component
         $query = Pendaftar::query();
 
         if ($this->status) {
-            if ($this->status == 'Queue') {
+            $status = $this->status;
+            if ($status == 'Queue') {
                 $query->whereIn('status', ['Pending', 'Proses', 'pending', 'proses', 'PENDING', 'PROSES']);
             } else {
-                $query->where(function ($q) {
-                    $q->where('status', $this->status)
-                        ->orWhere('status', strtolower($this->status))
-                        ->orWhere('status', strtoupper($this->status));
+                $query->where(function ($q) use ($status) {
+                    $q->where('status', $status)
+                        ->orWhere('status', strtolower($status))
+                        ->orWhere('status', strtoupper($status));
                 });
             }
         }
 
         if ($this->search) {
-            $query->where(function ($q) {
-                $q->where('nama_lengkap', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('no_registrasi', 'LIKE', '%' . $this->search . '%');
+            $search = $this->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_lengkap', 'LIKE', '%' . $search . '%')
+                    ->orWhere('no_registrasi', 'LIKE', '%' . $search . '%');
             });
         }
 
         return view('livewire.admin-pendaftar-table', [
-            'pendaftar' => $query->latest()->paginate(10),
+            'pendants' => $query->latest()->paginate(10),
             'prices' => Price::all()->pluck('price', 'test_name')
         ]);
     }

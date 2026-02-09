@@ -39,6 +39,8 @@
         </div>
     </div>
 
+
+
     <!-- Table Card -->
     <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden relative">
         <div class="overflow-x-auto">
@@ -59,10 +61,10 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50 text-sm font-medium text-gray-700">
-                    @forelse($pendaftar as $index => $row)
-                        <tr class="hover:bg-blue-50/20 transition-colors group">
+                    @forelse($pendants as $index => $row)
+                        <tr wire:key="row-{{ $row->id }}" class="hover:bg-blue-50/20 transition-colors group">
                             <td class="px-6 py-5 text-center text-gray-400 font-mono text-xs">
-                                {{ $pendaftar->firstItem() + $index }}
+                                {{ $pendants->firstItem() + $index }}
                             </td>
                             <td class="px-6 py-5">
                                 <div class="flex flex-col gap-0.5">
@@ -208,9 +210,9 @@
             </table>
         </div>
 
-        @if($pendaftar->hasPages())
+        @if($pendants->hasPages())
             <div class="px-8 py-6 border-t border-gray-50 bg-gray-50/30">
-                {{ $pendaftar->links() }}
+                {{ $pendants->links() }}
             </div>
         @endif
     </div>
