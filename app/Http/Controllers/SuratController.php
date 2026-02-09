@@ -218,7 +218,7 @@ class SuratController extends Controller
         $surat = SuratKeterangan::findOrFail($id);
         $surat->delete();
 
-        return redirect('/admin/buat-surat')->with('success', 'Surat Keterangan berhasil dihapus!');
+        return redirect('/admin/data-surat')->with('success', 'Surat Keterangan berhasil dihapus!');
     }
 
     public function cetak($id)
