@@ -32,10 +32,6 @@ class AppServiceProvider extends ServiceProvider
                 \Illuminate\Support\Facades\URL::forceScheme('https');
             }
 
-            // Fix Livewire update route for subdirectories on server
-            \Livewire\Livewire::setUpdateRoute(function ($handle) {
-                return \Illuminate\Support\Facades\Route::post('/livewire/message/{name}', $handle);
-            });
         }
     }
 }

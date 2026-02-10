@@ -13,8 +13,9 @@ class AdminPendaftarTable extends Component
 
     public $search = '';
     public $status = '';
+    public $unit = '';
 
-    protected $queryString = ['search', 'status'];
+    protected $queryString = ['search', 'status', 'unit'];
 
     public function updatingSearch()
     {
@@ -26,9 +27,14 @@ class AdminPendaftarTable extends Component
         $this->resetPage();
     }
 
+    public function updatingUnit()
+    {
+        $this->resetPage();
+    }
+
     public function resetFilters()
     {
-        $this->reset(['search', 'status']);
+        $this->reset(['search', 'status', 'unit']);
         $this->resetPage();
     }
 
@@ -49,17 +55,23 @@ class AdminPendaftarTable extends Component
             }
         }
 
+        if ($this->unit) {
+            $query->where('jenis_test', 'LIKE', '%' . $this->unit . '%');
+        }
+
         if ($this->search) {
             $search = $this->search;
             $query->where(function ($q) use ($search) {
                 $q->where('nama_lengkap', 'LIKE', '%' . $search . '%')
-                    ->orWhere('no_registrasi', 'LIKE', '%' . $search . '%');
+                    ->orWhere('no_registrasi', 'LIKE', '%' . $search . '%')
+                    ->orWhere('jenis_test', 'LIKE', '%' . $search . '%');
             });
         }
 
         return view('livewire.admin-pendaftar-table', [
             'pendants' => $query->latest()->paginate(10),
-            'prices' => Price::all()->pluck('price', 'test_name')
+            'prices' => Price::all()->pluck('price', 'test_name'),
+            'price_list' => Price::where('test_name', '!=', 'MCU')->get()
         ]);
     }
 }

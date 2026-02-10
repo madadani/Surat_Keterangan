@@ -16,6 +16,14 @@
             </div>
 
             <div class="flex items-center gap-3">
+                <select wire:model="unit"
+                    class="bg-white border border-gray-200 rounded-xl py-2.5 px-4 text-xs font-black uppercase tracking-widest text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 outline-none cursor-pointer">
+                    <option value="">SEMUA UNIT LAYANAN</option>
+                    @foreach($price_list as $pl)
+                        <option value="{{ $pl->test_name }}">{{ $pl->test_name }}</option>
+                    @endforeach
+                </select>
+
                 <select wire:model="status"
                     class="bg-white border border-gray-200 rounded-xl py-2.5 px-4 text-xs font-black uppercase tracking-widest text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 outline-none cursor-pointer">
                     <option value="">SEMUA STATUS</option>
@@ -24,7 +32,7 @@
                     <option value="Batal">DIBATALKAN</option>
                 </select>
 
-                @if($search || $status)
+                @if($search || $status || $unit)
                     <button wire:click="resetFilters"
                         class="bg-red-50 text-red-600 px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-red-100 transition-all">
                         Reset
