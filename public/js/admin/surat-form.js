@@ -173,14 +173,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const t = test.toLowerCase();
             if (t.includes('jiwa')) val = 'Kesehatan Jiwa';
             else if (t.includes('narkoba')) val = 'Bebas Narkoba';
-            else if (t.includes('tht')) val = 'Kesehatan THT';
-            else if (t.includes('mata')) val = 'Kesehatan Mata';
-            else if (t.includes('gigi')) val = 'Kesehatan Gigi';
-            else if (t.includes('ortho')) val = 'Kesehatan Orthopedi';
-            else if (t.includes('paru')) val = 'Kesehatan Paru';
-            else if (t.includes('dalam')) val = 'Kesehatan Penyakit Dalam';
-            else if (t.includes('jantung')) val = 'Kesehatan Jantung';
-            else if (t.includes('tkhi')) val = 'Kesehatan TKHI';
+            else if (t.includes('tht')) val = 'THT';
+            else if (t.includes('mata')) val = 'Mata';
+            else if (t.includes('gigi')) val = 'Gigi';
+            else if (t.includes('ortho')) val = 'Orthopedi';
+            else if (t.includes('paru')) val = 'Paru';
+            else if (t.includes('dalam')) val = 'Dalam';
+            else if (t.includes('jantung')) val = 'Jantung';
+            else if (t.includes('tkhi')) val = 'TKHI';
             else if (t.includes('kesehatan')) val = 'Kesehatan';
 
             if (val && !existing.includes(val)) {

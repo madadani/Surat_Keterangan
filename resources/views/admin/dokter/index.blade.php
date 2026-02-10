@@ -168,7 +168,8 @@
                                                 class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" onclick="confirmDelete(this)"
+                                                <button type="button"
+                                                    onclick="confirmDeletePremium(this, 'Hapus Dokter?', 'Data dokter ini akan dihapus permanen.')"
                                                     class="w-8 h-8 bg-red-500 text-white rounded-lg flex items-center justify-center shadow-lg shadow-red-500/20 hover:bg-red-600 hover:-translate-y-0.5 transition-all">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -195,37 +196,14 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/admin/common.js') }}"></script>
     <script>
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const body = document.body;
-
-        function toggleSidebar() {
-            if (window.innerWidth >= 1024) { body.classList.toggle('sidebar-collapsed'); } else { body.classList.toggle('sidebar-open'); }
-        }
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        function confirmDelete(button) {
-            Swal.fire({
-                title: 'Hapus Data Dokter?',
-                text: "Data ini akan dihapus permanen!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) { button.closest('form').submit(); }
-            })
-        }
-
         @if(session('success'))
-            Swal.fire({ icon: 'success', title: 'Berhasil!', text: "{{ session('success') }}", showConfirmButton: false, timer: 2000 });
+            showSuccessAlert("{{ session('success') }}");
         @endif
 
         @if(session('error'))
-            Swal.fire({ icon: 'error', title: 'Gagal!', text: "{{ session('error') }}", confirmButtonColor: '#ef4444' });
+            showErrorAlert('Gagal!', "{{ session('error') }}");
         @endif
     </script>
 </body>

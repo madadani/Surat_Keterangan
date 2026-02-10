@@ -112,47 +112,16 @@
             </div>
         </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/admin/common.js') }}"></script>
     <script>
-        // Sidebar Toggle Logic
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const body = document.body;
-
-        function toggleSidebar() {
-            if (window.innerWidth >= 1024) {
-                body.classList.toggle('sidebar-collapsed');
-                localStorage.setItem('sidebarCollapsed', body.classList.contains('sidebar-collapsed'));
-            } else {
-                body.classList.toggle('sidebar-open');
-            }
-        }
-
-        if (window.innerWidth >= 1024 && localStorage.getItem('sidebarCollapsed') === 'true') {
-            body.classList.add('sidebar-collapsed');
-        }
-
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-
         @if(session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
+            showSuccessAlert("{{ session('success') }}");
         @endif
 
-        @if ($errors->any())
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal Menyimpan',
-                html: '<div class="text-left text-sm mt-4">@foreach($errors->all() as $error)<p>• {{ $error }}</p>@endforeach</div>',
-                confirmButtonColor: '#ef4444'
-            });
-        @endif
+            @if ($errors->any())
+                const errorHtml = `@foreach($errors->all() as $error)<p>• {{ $error }}</p>@endforeach`;
+                showErrorAlert('Gagal Menyimpan', errorHtml);
+            @endif
     </script>
 </body>
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\SuratController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PriceController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', [PendaftaranController::class, 'index']);
 Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store']);
@@ -62,6 +63,12 @@ Route::middleware([\App\Http\Middleware\CheckAdmin::class])->group(function () {
     // Price Management
     Route::get('/admin/manajemen-harga', [PriceController::class, 'index']);
     Route::post('/admin/manajemen-harga/update', [PriceController::class, 'update']);
+
+    // Reports
+    Route::get('/admin/laporan', [ReportController::class, 'index']);
+    Route::get('/admin/laporan/{type}', [ReportController::class, 'detail']);
+    Route::get('/admin/laporan/{type}/print', [ReportController::class, 'print']);
+    Route::get('/admin/laporan/{type}/export', [ReportController::class, 'export']);
 
     // Logout
     Route::get('/admin/logout', function () {

@@ -51,6 +51,7 @@
             <span>Data Dokter</span>
         </a>
 
+
         <!-- Buat Surat -->
         <a href="{{ url('/admin/buat-surat') }}"
             class="flex items-center gap-3 px-4 py-3 {{ request()->is('admin/buat-surat*') ? 'bg-brand-blue rounded-xl shadow-lg shadow-brand-blue/20 text-white font-bold' : 'text-white/70 hover:bg-white/5 hover:text-white rounded-xl font-medium' }} transition-all group">
@@ -84,6 +85,23 @@
                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>Manajemen Harga</span>
+        </a>
+
+        <!-- Laporan Per Poli -->
+        <a href="{{ url('/admin/laporan') }}"
+            class="flex items-center gap-3 px-4 py-3 {{ request()->is('admin/laporan*') ? 'bg-brand-blue rounded-xl shadow-lg shadow-brand-blue/20 text-white font-bold' : 'text-white/70 hover:bg-white/5 hover:text-white rounded-xl font-medium' }} transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 {{ request()->is('admin/laporan*') ? '' : 'group-hover:text-brand-green' }} transition-colors"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 17v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m3.222.882a.5.5 0 01.394.319l.738 3.468a.5.5 0 01-.489.605H1.889a.5.5 0 01-.49-.605l.739-3.468a.5.5 0 01.394-.319l1.478-.369z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5a2 2 0 114 0 2 2 0 01-4 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 13a3 3 0 116 0 3 3 0 01-6 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            </svg>
+            <span>Laporan Surat</span>
         </a>
 
         <p class="px-3 text-xs font-bold text-white/40 uppercase tracking-wider mb-2 mt-6">System</p>
