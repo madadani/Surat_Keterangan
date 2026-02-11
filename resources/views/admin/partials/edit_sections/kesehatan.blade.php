@@ -7,18 +7,31 @@
     <td></td>
 </tr>
 <tr>
-    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Tinggi / Berat Badan</td>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Antropometri</td>
     <td class="text-center font-bold text-gray-300">:</td>
     <td class="flex items-center gap-4">
-        <input type="number" name="tinggi_badan" value="{{ $surat->tinggi_badan }}" placeholder="Tinggi"
-            class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
-        <span class="font-bold text-gray-300">/</span>
-        <input type="number" step="0.1" name="berat_badan" value="{{ $surat->berat_badan }}" placeholder="Berat"
-            class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
+        <div class="flex-1 space-y-1.5">
+            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">TB</label>
+            <input type="number" name="tinggi_badan" id="edit_tinggi_badan" value="{{ $surat->tinggi_badan }}"
+                placeholder="Tinggi"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
+        </div>
+        <div class="flex-1 space-y-1.5">
+            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BB</label>
+            <input type="number" step="0.1" name="berat_badan" id="edit_berat_badan" value="{{ $surat->berat_badan }}"
+                placeholder="Berat"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
+        </div>
+        <div class="flex-1 space-y-1.5">
+            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BMI (IMT)</label>
+            <input type="text" name="bmi" id="edit_bmi" value="{{ $surat->mcu_data['bmi'] ?? '' }}" placeholder="BMI"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
+        </div>
     </td>
 </tr>
 <tr>
-    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Vitals (BP/HR/T/RR)</td>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Vital Signs</td>
     <td class="text-center font-bold text-gray-300">:</td>
     <td class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="space-y-1"><label class="text-[9px] font-black text-gray-400 uppercase">Tensi</label><input
@@ -36,21 +49,63 @@
     </td>
 </tr>
 <tr>
-    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kondisi & Buta Warna</td>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Lain</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="flex flex-wrap gap-8">
-        <div class="flex items-center gap-6">
-            <label class="flex items-center gap-2 cursor-pointer font-bold text-xs"><input type="radio"
-                    name="hasil_kondisi" value="Sehat" {{ $surat->hasil_pemeriksaan != 'Tidak Sehat' ? 'checked' : '' }}
-                    class="w-4 h-4 text-brand-blue"> SEHAT</label>
-            <label class="flex items-center gap-2 cursor-pointer font-bold text-xs"><input type="radio"
-                    name="hasil_kondisi" value="Tidak Sehat" {{ $surat->hasil_pemeriksaan == 'Tidak Sehat' ? 'checked' : '' }} class="w-4 h-4 text-brand-blue"> TIDAK SEHAT</label>
+    <td class="space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="space-y-1.5">
+                <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Gangguan Motorik</label>
+                <div class="flex items-center gap-4 mt-2">
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="radio" name="gangguan_motorik" value="Ada" {{ ($surat->mcu_data['gangguan_motorik'] ?? '') == 'Ada' ? 'checked' : '' }}
+                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">ADA</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="radio" name="gangguan_motorik" value="Tidak" {{ ($surat->mcu_data['gangguan_motorik'] ?? 'Tidak') == 'Tidak' ? 'checked' : '' }}
+                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
+                    </label>
+                </div>
+            </div>
+            <div class="space-y-1.5">
+                <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Disabilitas</label>
+                <div class="flex items-center gap-4 mt-2">
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="radio" name="disabilitas" value="Ada" {{ ($surat->mcu_data['disabilitas'] ?? '') == 'Ada' ? 'checked' : '' }}
+                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">ADA</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="radio" name="disabilitas" value="Tidak" {{ ($surat->mcu_data['disabilitas'] ?? 'Tidak') == 'Tidak' ? 'checked' : '' }}
+                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
+                    </label>
+                </div>
+            </div>
         </div>
-        <div class="flex-1"><select name="buta_warna"
-                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-2.5 text-xs font-bold">
-                <option value="Tidak" {{ $surat->buta_warna == 'Tidak' ? 'selected' : '' }}>TIDAK BUTA WARNA</option>
-                <option value="Ya" {{ $surat->buta_warna == 'Ya' ? 'selected' : '' }}>BUTA WARNA</option>
-            </select></div>
+        <div class="space-y-1.5">
+            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Keterangan Lainnya</label>
+            <input type="text" name="keterangan_lainnya" value="{{ $surat->mcu_data['keterangan_lainnya'] ?? '' }}"
+                placeholder="Catatan tambahan (opsional)..."
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
+        </div>
+    </td>
+</tr>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kesimpulan & Buta Warna</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td>
+        <div
+            class="w-full bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-xs font-bold text-blue-600 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Kesimpulan Klinis (Sehat/Tidak) dan Status Buta Warna diisi manual oleh Dokter Pemeriksa pada lembar cetak
+            (Coret yang tidak perlu).
+        </div>
     </td>
 </tr>
 <tr>

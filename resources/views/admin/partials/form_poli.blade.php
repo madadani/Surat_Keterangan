@@ -293,3 +293,6 @@
     @include('admin.partials.edit_sections.tkhi', ['surat' => $surat])
 </tbody>
 
+<!-- Section: RESUME MCU -->
+@include('admin.partials.resume_mcu', ['surat' => $surat ?? new \App\Models\SuratKeterangan()])
+

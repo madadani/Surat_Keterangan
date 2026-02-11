@@ -53,10 +53,10 @@
         <td style="text-align: center; vertical-align: top;">
             <div style="position: relative; z-index: 2;">
                 <strong><u>{{ $surat->dokter->nama_dokter }}</u></strong><br>
-                @if(isset($use_sip) && $use_sip && $surat->dokter->sip)
-                    No. SIP: {{ $surat->dokter->sip }}
+                @if(isset($use_sip) && $use_sip)
+                    SIP. {{ $surat->dokter->sip ?? '-' }}
                 @else
-                    NIP. {{ $surat->dokter->nip }}
+                    NIP. {{ $surat->dokter->nip ?? '-' }}
                 @endif
             </div>
         </td>

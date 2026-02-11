@@ -133,7 +133,9 @@
                             @include('admin.partials.edit_sections.jantung')
                         @elseif($surat->tipe_berkas == 'Kesehatan TKHI')
                             @include('admin.partials.edit_sections.tkhi')
-                        @elseif(str_contains($surat->tipe_berkas, 'Kesehatan '))
+                        @elseif($surat->tipe_berkas == 'Resume MCU')
+                            @include('admin.partials.edit_sections.resume_mcu')
+                        @elseif(str_contains($surat->tipe_berkas, 'Kesehatan ') || in_array($surat->tipe_berkas, ['Paru', 'Dalam', 'Orthopedi']))
                             @include('admin.partials.edit_sections.spesialis')
                         @endif
 
@@ -180,23 +182,41 @@
                             <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Dokter Pemeriksa</td>
                             <td class="text-center font-bold text-gray-300">:</td>
                             <td>
-                                <div class="relative group">
-                                    <select name="dokter_id" id="dokter_select" required
-                                        class="w-full bg-white border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:border-brand-blue outline-none appearance-none cursor-pointer">
-                                        @foreach($dokters as $d)
-                                            <option value="{{ $d->id }}" {{ $surat->dokter_id == $d->id ? 'selected' : '' }}
-                                                data-spesialis="{{ $d->spesialis }}">
-                                                {{ $d->nama_dokter }} ({{ $d->spesialis }})
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div
-                                        class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-brand-blue">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7" />
-                                        </svg>
+                                <div class="flex flex-col gap-4">
+                                    <div class="relative group">
+                                        <select name="dokter_id" id="dokter_select" required
+                                            class="w-full bg-white border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:border-brand-blue outline-none appearance-none cursor-pointer">
+                                            @foreach($dokters as $d)
+                                                <option value="{{ $d->id }}" {{ $surat->dokter_id == $d->id ? 'selected' : '' }}
+                                                    data-spesialis="{{ $d->spesialis }}">
+                                                    {{ $d->nama_dokter }} ({{ $d->spesialis }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div
+                                            class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-brand-blue">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-6 ml-1">
+                                        <label class="flex items-center gap-2.5 cursor-pointer group">
+                                            <input type="radio" name="identitas_pemeriksa" value="NIP" {{ ($surat->identitas_pemeriksa ?? 'NIP') == 'NIP' ? 'checked' : '' }}
+                                                class="identitas_radio w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                            <span
+                                                class="text-[10px] font-black text-gray-500 uppercase tracking-widest group-hover:text-brand-blue transition-colors">Tampilkan
+                                                NIP</span>
+                                        </label>
+                                        <label class="flex items-center gap-2.5 cursor-pointer group">
+                                            <input type="radio" name="identitas_pemeriksa" value="SIP" {{ ($surat->identitas_pemeriksa ?? '') == 'SIP' ? 'checked' : '' }}
+                                                class="identitas_radio w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                            <span
+                                                class="text-[10px] font-black text-gray-500 uppercase tracking-widest group-hover:text-brand-blue transition-colors">Tampilkan
+                                                SIP</span>
+                                        </label>
                                     </div>
                                 </div>
                             </td>

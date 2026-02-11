@@ -51,6 +51,7 @@ class SuratKeterangan extends Model
         'perusahaan',
         'no_lab',
         'mcu_data',
+        'identitas_pemeriksa',
     ];
 
     protected $casts = [

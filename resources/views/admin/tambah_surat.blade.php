@@ -202,6 +202,12 @@
                                         <input type="number" name="berat_badan" id="display_berat"
                                             class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
                                     </div>
+                                    <div class="flex-1 space-y-1.5">
+                                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BMI
+                                            (IMT)</label>
+                                        <input type="text" name="bmi" id="bmi_input" placeholder="Auto/Manual"
+                                            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -235,31 +241,73 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kesimpulan Klinis
+                                <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Lain</td>
+                                <td class="text-center font-bold text-gray-300">:</td>
+                                <td class="space-y-4">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                        <div class="space-y-1.5">
+                                            <label
+                                                class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Gangguan
+                                                Motorik</label>
+                                            <div class="flex items-center gap-4 mt-2">
+                                                <label class="flex items-center gap-2 cursor-pointer group">
+                                                    <input type="radio" name="gangguan_motorik" value="Ada"
+                                                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                                    <span
+                                                        class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">ADA</span>
+                                                </label>
+                                                <label class="flex items-center gap-2 cursor-pointer group">
+                                                    <input type="radio" name="gangguan_motorik" value="Tidak" checked
+                                                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                                    <span
+                                                        class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label
+                                                class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Disabilitas</label>
+                                            <div class="flex items-center gap-4 mt-2">
+                                                <label class="flex items-center gap-2 cursor-pointer group">
+                                                    <input type="radio" name="disabilitas" value="Ada"
+                                                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                                    <span
+                                                        class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">ADA</span>
+                                                </label>
+                                                <label class="flex items-center gap-2 cursor-pointer group">
+                                                    <input type="radio" name="disabilitas" value="Tidak" checked
+                                                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                                    <span
+                                                        class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1.5">
+                                        <label
+                                            class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Keterangan
+                                            Lainnya</label>
+                                        <input type="text" name="keterangan_lainnya"
+                                            placeholder="Catatan tambahan (opsional)..."
+                                            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kesimpulan & Buta
+                                    Warna
                                 </td>
                                 <td class="text-center font-bold text-gray-300">:</td>
-                                <td class="flex flex-wrap items-center gap-10">
-                                    <div class="flex items-center gap-6">
-                                        <label class="flex items-center gap-2.5 cursor-pointer group">
-                                            <input type="radio" name="hasil_kondisi" value="Sehat" checked
-                                                class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                                            <span
-                                                class="text-xs font-black text-gray-700 tracking-tighter uppercase group-hover:text-brand-blue transition-colors">SEHAT</span>
-                                        </label>
-                                        <label class="flex items-center gap-2.5 cursor-pointer group">
-                                            <input type="radio" name="hasil_kondisi" value="Tidak Sehat"
-                                                class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                                            <span
-                                                class="text-xs font-black text-gray-700 tracking-tighter uppercase group-hover:text-red-500 transition-colors">TIDAK
-                                                SEHAT</span>
-                                        </label>
-                                    </div>
-                                    <div class="flex-1 min-w-[200px]">
-                                        <select name="buta_warna"
-                                            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue">
-                                            <option value="Tidak">TIDAK BUTA WARNA</option>
-                                            <option value="Ya">BUTA WARNA</option>
-                                        </select>
+                                <td>
+                                    <div
+                                        class="w-full bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-xs font-bold text-blue-600 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        Kesimpulan Klinis (Sehat/Tidak) dan Status Buta Warna diisi manual oleh Dokter
+                                        Pemeriksa pada lembar cetak (Coret yang tidak perlu).
                                     </div>
                                 </td>
                             </tr>
@@ -413,22 +461,40 @@
                             <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Dokter Pemeriksa</td>
                             <td class="text-center font-bold text-gray-300">:</td>
                             <td>
-                                <div class="relative group">
-                                    <select name="dokter_id" id="dokter_select"
-                                        class="w-full bg-white border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:border-brand-blue outline-none appearance-none cursor-pointer">
-                                        @foreach($dokters as $d)
-                                            <option value="{{ $d->id }}" data-spesialis="{{ $d->spesialis }}">
-                                                {{ $d->nama_dokter }} ({{ $d->spesialis }})
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div
-                                        class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-brand-blue">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7" />
-                                        </svg>
+                                <div class="flex flex-col gap-4">
+                                    <div class="relative group">
+                                        <select name="dokter_id" id="dokter_select"
+                                            class="w-full bg-white border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:border-brand-blue outline-none appearance-none cursor-pointer">
+                                            @foreach($dokters as $d)
+                                                <option value="{{ $d->id }}" data-spesialis="{{ $d->spesialis }}">
+                                                    {{ $d->nama_dokter }} ({{ $d->spesialis }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div
+                                            class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-brand-blue">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-6 ml-1">
+                                        <label class="flex items-center gap-2.5 cursor-pointer group">
+                                            <input type="radio" name="identitas_pemeriksa" value="NIP" checked
+                                                class="identitas_radio w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                            <span
+                                                class="text-[10px] font-black text-gray-500 uppercase tracking-widest group-hover:text-brand-blue transition-colors">Tampilkan
+                                                NIP</span>
+                                        </label>
+                                        <label class="flex items-center gap-2.5 cursor-pointer group">
+                                            <input type="radio" name="identitas_pemeriksa" value="SIP"
+                                                class="identitas_radio w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                            <span
+                                                class="text-[10px] font-black text-gray-500 uppercase tracking-widest group-hover:text-brand-blue transition-colors">Tampilkan
+                                                SIP</span>
+                                        </label>
                                     </div>
                                 </div>
                             </td>
@@ -453,12 +519,12 @@
             document.querySelector('form').addEventListener('submit', function (e) {
                 const btn = this.querySelector('button[type="submit"]');
                 btn.innerHTML = `
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        MENYIMPAN...
-                    `;
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                MENYIMPAN...
+                            `;
                 btn.classList.add('opacity-75', 'cursor-not-allowed');
                 btn.setAttribute('disabled', 'true');
             });

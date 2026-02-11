@@ -151,10 +151,13 @@ document.addEventListener('DOMContentLoaded', function () {
         setVal('berat_poli_input', data.berat);
         setVal('mcu_tinggi', data.tinggi);
         setVal('mcu_berat', data.berat);
+        setVal('resmcu_tb_input', data.tinggi);
+        setVal('resmcu_bb_input', data.berat);
 
         setVal('display_pekerjaan', data.pekerjaan);
         setVal('display_pendidikan', data.pendidikan);
         setVal('display_perusahaan', data.perusahaan);
+        setVal('resmcu_perusahaan_input', data.perusahaan);
         setVal('input_keperluan', data.keperluan);
         setVal('no_rm_gigi_input', data.noRm);
         setVal('keperluan_gigi_input', data.keperluan);
@@ -165,22 +168,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function fillTipeBerkasOptions(data, select) {
         select.innerHTML = '<option value="">-- Pilih Tipe Surat --</option>';
-        const tests = (data.tests || '').split(', ');
-        const existing = (data.existing || '').split(', ');
+        const tests = (data.tests || '').split(/,\s*/);
+        const existing = (data.existing || '').split(/,\s*/);
 
         tests.forEach(test => {
             let val = '';
-            const t = test.toLowerCase();
+            const t = test.trim().toLowerCase();
             if (t.includes('jiwa')) val = 'Kesehatan Jiwa';
             else if (t.includes('narkoba')) val = 'Bebas Narkoba';
-            else if (t.includes('tht')) val = 'THT';
-            else if (t.includes('mata')) val = 'Mata';
-            else if (t.includes('gigi')) val = 'Gigi';
+            else if (t.includes('tht')) val = 'Kesehatan THT';
+            else if (t.includes('mata')) val = 'Kesehatan Mata';
+            else if (t.includes('gigi')) val = 'Kesehatan Gigi';
             else if (t.includes('ortho')) val = 'Orthopedi';
             else if (t.includes('paru')) val = 'Paru';
             else if (t.includes('dalam')) val = 'Dalam';
-            else if (t.includes('jantung')) val = 'Jantung';
-            else if (t.includes('tkhi')) val = 'TKHI';
+            else if (t.includes('jantung')) val = 'Kesehatan Jantung';
+            else if (t.includes('tkhi')) val = 'Kesehatan TKHI';
+            else if (t.includes('resume mcu')) val = 'Resume MCU';
             else if (t.includes('kesehatan')) val = 'Kesehatan';
 
             if (val && !existing.includes(val)) {
@@ -201,7 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
             'Kesehatan THT': 'section_tht',
             'Kesehatan Gigi': 'section_gigi',
             'Kesehatan Jantung': 'section_jantung',
-            'Kesehatan TKHI': 'section_tkhi'
+            'Kesehatan TKHI': 'section_tkhi',
+            'Resume MCU': 'section_resume_mcu'
         };
 
         const allSectionIds = Object.values(sections);
@@ -219,7 +224,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Tampilkan dan AKTIFKAN section yang dipilih
         let targetId = sections[val];
-        if (!targetId && val.includes('Kesehatan')) {
+
+        // Spesialis Logic (Jika tidak ada di mapping dasar, cek spesialis)
+        const spesialisPoli = ['Dalam', 'Paru', 'Orthopedi'];
+        if (!targetId && (val.includes('Kesehatan') || spesialisPoli.some(s => val.includes(s)))) {
             targetId = 'section_poli_spesialis';
         }
 
@@ -250,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (val.includes('Paru')) autoSelectDokter('Paru');
         else if (val.includes('Dalam')) autoSelectDokter('Penyakit Dalam');
         else if (val.includes('Ortho')) autoSelectDokter('Orthopedi');
-        else if (val === 'Kesehatan TKHI') autoSelectDokter('Umum');
+        else if (val === 'Kesehatan TKHI' || val === 'Resume MCU') autoSelectDokter('Umum');
     }
 
     function handleTKHIUI(val) {
@@ -319,30 +327,70 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function calculateBMI() {
-        const tinggiEl = document.getElementById('mcu_tinggi');
-        const beratEl = document.getElementById('mcu_berat');
-        const bmiInput = document.getElementById('mcu_bmi');
-        const bmiKatInput = document.getElementById('mcu_bmi_kat');
+        // Helper to perform calculation
+        const performCalc = (tVal, bVal, bmiEl, catEl) => {
+            if (!tVal || !bVal || (!bmiEl && !catEl)) return;
 
-        if (!tinggiEl || !beratEl || !bmiInput || !bmiKatInput) return;
+            const tinggi = parseFloat(tVal) / 100;
+            const berat = parseFloat(bVal);
 
-        const tinggi = parseFloat(tinggiEl.value) / 100;
-        const berat = parseFloat(beratEl.value);
+            if (tinggi > 0 && berat > 0) {
+                const bmi = berat / (tinggi * tinggi);
+                const bmiFixed = bmi.toFixed(2);
 
-        if (tinggi > 0 && berat > 0) {
-            const bmi = berat / (tinggi * tinggi);
-            bmiInput.value = bmi.toFixed(2);
+                if (bmiEl) bmiEl.value = bmiFixed;
 
-            let kategori = '';
-            if (bmi < 18.5) kategori = 'Underweight';
-            else if (bmi < 25) kategori = 'Normal';
-            else if (bmi < 30) kategori = 'Overweight';
-            else kategori = 'Obesity';
+                if (catEl) {
+                    let kategori = '';
+                    if (bmi < 18.5) kategori = 'Underweight';
+                    else if (bmi < 25) kategori = 'Normal';
+                    else if (bmi < 30) kategori = 'Overweight';
+                    else kategori = 'Obesity';
+                    catEl.value = kategori;
+                }
+            } else {
+                if (bmiEl) bmiEl.value = '';
+                if (catEl) catEl.value = '';
+            }
+        };
 
-            bmiKatInput.value = kategori;
-        } else {
-            bmiInput.value = '';
-            bmiKatInput.value = '';
-        }
+        // 1. MCU TKHI
+        const mcuT = document.getElementById('mcu_tinggi');
+        const mcuB = document.getElementById('mcu_berat');
+        const mcuBMI = document.getElementById('mcu_bmi');
+        const mcuCat = document.getElementById('mcu_bmi_kat');
+        if (mcuT && mcuB) performCalc(mcuT.value, mcuB.value, mcuBMI, mcuCat);
+
+        // 2. Resume MCU
+        const resT = document.getElementById('resmcu_tb_input');
+        const resB = document.getElementById('resmcu_bb_input');
+        const resBMI = document.getElementById('resmcu_bmi_input');
+        const resCat = document.getElementById('resmcu_bmi_kat_input');
+        if (resT && resB) performCalc(resT.value, resB.value, resBMI, resCat);
+
+        // 3. General Health Certificate (Create)
+        const genT = document.getElementById('display_tinggi');
+        const genB = document.getElementById('display_berat');
+        const genBMI = document.getElementById('bmi_input');
+        if (genT && genB) performCalc(genT.value, genB.value, genBMI, null);
+
+        // 4. General Health Certificate (Edit)
+        const editT = document.getElementById('edit_tinggi_badan');
+        const editB = document.getElementById('edit_berat_badan');
+        const editBMI = document.getElementById('edit_bmi');
+        if (editT && editB) performCalc(editT.value, editB.value, editBMI, null);
     }
+
+    // Add listeners for real-time BMI calculation in Resume MCU
+    ['resmcu_tb_input', 'resmcu_bb_input'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', calculateBMI);
+    });
+
+    // GENERAL HEALTH CERTIFICATE BMI Auto-Calc
+    const inputsHealth = ['display_tinggi', 'display_berat', 'edit_tinggi_badan', 'edit_berat_badan'];
+    inputsHealth.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', calculateBMI);
+    });
 });

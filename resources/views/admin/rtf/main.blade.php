@@ -65,6 +65,8 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
     @include('admin.rtf.body_jantung')
 @elseif($surat->tipe_berkas === 'Kesehatan TKHI')
     @include('admin.rtf.body_tkhi')
+@elseif($surat->tipe_berkas === 'Resume MCU')
+    @include('admin.rtf.body_resume_mcu')
 @endif
 @php
     $isDualSig = str_contains($surat->tipe_berkas, 'Jantung') ||
@@ -78,6 +80,7 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         str_contains($surat->tipe_berkas, 'Dalam') ||
         str_contains($surat->tipe_berkas, 'Mata') ||
         str_contains($surat->tipe_berkas, 'Paru') ||
+        $surat->tipe_berkas == 'Resume MCU' ||
         str_contains($surat->tipe_berkas, 'Poli');
 @endphp
 @if(
@@ -92,6 +95,7 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         str_contains($surat->tipe_berkas, 'Dalam') ||
         str_contains($surat->tipe_berkas, 'Mata') ||
         str_contains($surat->tipe_berkas, 'Paru') ||
+        $surat->tipe_berkas == 'Resume MCU' ||
         str_contains($surat->tipe_berkas, 'Poli')
     )
     @if(!str_contains($surat->tipe_berkas, 'Gigi') && !str_contains($surat->tipe_berkas, 'THT'))
@@ -104,7 +108,8 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         \pard\intbl\qc NIP. {!! trim($m_nip) !!}\cell
         \pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par @endif
         \pard\intbl\qc\b\ul{\expndtw-15 {!! trim($surat->dokter->nama_dokter) !!}\expndtw0}\ulnone\b0\par
-        \pard\intbl\qc NIP. {!! trim(preg_replace('/\s+/', ' ', $surat->dokter->nip ?? '-')) !!}\cell\row\pard\par
+        \pard\intbl\qc {!! ($surat->identitas_pemeriksa ?? 'NIP') !!}.
+        {!! trim(preg_replace('/\s+/', ' ', ($surat->identitas_pemeriksa === 'SIP' ? ($surat->dokter->sip ?? '-') : ($surat->dokter->nip ?? '-')))) !!}\cell\row\pard\par
     @endif
 @endif
 @if(!str_contains($surat->tipe_berkas, 'TKHI') && !$isDualSig)

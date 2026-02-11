@@ -144,6 +144,7 @@ class SuratController extends Controller
                 'pendaftar_id' => $pendaftarId,
                 'tipe_berkas' => $tipeBerkas,
                 'dokter_id' => $request->dokter_id,
+                'identitas_pemeriksa' => $request->identitas_pemeriksa ?? 'NIP',
                 'tanggal_cetak' => $request->tanggal_cetak,
                 'pekerjaan' => $request->pekerjaan,
                 'pendidikan' => $request->pendidikan,
@@ -229,7 +230,7 @@ class SuratController extends Controller
         $content_view = 'poli';
         $judul_surat = 'Surat Keterangan Dokter';
         $jabatan_dokter = 'Dokter Pemeriksa';
-        $use_sip = false;
+        $use_sip = ($surat->identitas_pemeriksa === 'SIP');
 
         if ($tipe == 'Kesehatan') {
             $content_view = 'sehat';
@@ -249,7 +250,6 @@ class SuratController extends Controller
         } elseif (str_contains($tipe, 'THT')) {
             $content_view = 'tht';
             $judul_surat = 'Surat Keterangan Dokter';
-            $use_sip = true;
         } elseif (str_contains($tipe, 'Dalam')) {
             $content_view = 'poli';
             $judul_surat = 'Surat Keterangan Sehat';
@@ -257,13 +257,15 @@ class SuratController extends Controller
             $content_view = 'gigi';
             $judul_surat = 'Surat Keterangan Pemeriksaan Gigi';
             $jabatan_dokter = 'Dokter Gigi Pemeriksa';
-            $use_sip = true;
         } elseif (str_contains($tipe, 'Orthopedi') || str_contains($tipe, 'Ortopedi')) {
             $content_view = 'poli';
             $judul_surat = 'Surat Keterangan Sehat';
         } elseif (str_contains($tipe, 'Jantung')) {
             $content_view = 'jantung';
             $judul_surat = 'Surat Keterangan Sehat Jantung';
+        } elseif ($tipe == 'Resume MCU') {
+            $content_view = 'resume_mcu';
+            $judul_surat = 'Resume Pemeriksaan Fisik';
         } elseif ($tipe == 'Kesehatan TKHI') {
             $mengetahui = Dokter::where('jabatan', 'LIKE', '%Kepala Bidang Pelayanan%')->first();
             return view('admin.cetak.tkhi', compact('surat', 'mengetahui'));
@@ -290,18 +292,25 @@ class SuratController extends Controller
     private function mapDataByType(&$data, $request, $tipeBerkas, $format, $pendaftar)
     {
         if ($tipeBerkas == 'Kesehatan') {
-            if ($request->hasil_kondisi == 'Tidak Sehat') {
-                $data['hasil_pemeriksaan'] = 'Tidak Sehat';
-            } else {
-                $data['hasil_pemeriksaan'] = $format ?? 'Sehat';
-            }
-            $data['buta_warna'] = $request->buta_warna;
+            // Defaulted to Sehat/Tidak per standard request, but doctor marks manually on paper
+            // We keep rudimentary data here for database completeness if needed, or defaults
+            $data['hasil_pemeriksaan'] = 'Sehat';
+            $data['buta_warna'] = 'Tidak';
+
             $data['tinggi_badan'] = $request->tinggi_badan;
             $data['berat_badan'] = $request->berat_badan;
             $data['tensi'] = $request->tensi;
             $data['nadi'] = $request->nadi;
             $data['suhu'] = $request->suhu;
             $data['respirasi'] = $request->respirasi;
+
+            // Store extra fields in mcu_data
+            $data['mcu_data'] = [
+                'bmi' => $request->bmi,
+                'gangguan_motorik' => $request->gangguan_motorik,
+                'disabilitas' => $request->disabilitas,
+                'keterangan_lainnya' => $request->keterangan_lainnya,
+            ];
         } elseif ($tipeBerkas == 'Kesehatan Jiwa') {
             $data['pada_tanggal'] = $request->pada_tanggal_jiwa;
             $data['hasil_pemeriksaan'] = $request->hasil_jiwa ?? '-';
@@ -378,6 +387,25 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $mcuData;
+        } elseif ($tipeBerkas === 'Resume MCU') {
+            $data['no_lab'] = $request->resmcu_no_lab;
+            $data['perusahaan'] = $request->resmcu_perusahaan;
+            $data['tinggi_badan'] = $request->resmcu_tb;
+            $data['berat_badan'] = $request->resmcu_bb;
+            $data['tensi'] = ($request->resmcu_systolic && $request->resmcu_diastolic) ? $request->resmcu_systolic . '/' . $request->resmcu_diastolic : null;
+            $data['nadi'] = $request->resmcu_hr;
+            $data['respirasi'] = $request->resmcu_rr;
+            $data['buta_warna'] = $request->resmcu_buta_warna ?? 'Tidak';
+            $data['hasil_pemeriksaan'] = $request->resmcu_kesimpulan_fisik ?? 'SEHAT UNTUK BEKERJA';
+            $data['saran'] = $request->resmcu_rekomendasi ?? '-';
+
+            $mcuData = [];
+            foreach ($request->all() as $key => $value) {
+                if (strpos($key, 'resmcu_') === 0) {
+                    $mcuData[str_replace('resmcu_', '', $key)] = $value;
+                }
+            }
+            $data['mcu_data'] = $mcuData;
         } elseif (strpos($tipeBerkas, 'Kesehatan') !== false) {
             $data['tinggi_badan'] = $request->tinggi_badan_poli;
             $data['berat_badan'] = $request->berat_badan_poli;
@@ -389,18 +417,26 @@ class SuratController extends Controller
     private function mapUpdateDataByType(&$data, $request, $surat)
     {
         if ($surat->tipe_berkas == 'Kesehatan') {
-            if ($request->hasil_kondisi == 'Tidak Sehat') {
-                $data['hasil_pemeriksaan'] = 'Tidak Sehat';
-            } else {
-                $data['hasil_pemeriksaan'] = $request->format_cetak ?? 'Sehat';
-            }
-            $data['buta_warna'] = $request->buta_warna;
+            // Keep existing defaults or update if needed
+            // $data['hasil_pemeriksaan'] = 'Sehat'; // Optional: Don't overwrite if not needed, but form has no input
+
             $data['tinggi_badan'] = $request->tinggi_badan;
             $data['berat_badan'] = $request->berat_badan;
             $data['tensi'] = $request->tensi;
             $data['nadi'] = $request->nadi;
             $data['suhu'] = $request->suhu;
             $data['respirasi'] = $request->respirasi;
+
+            // Merge / Update mcu_data
+            $currentMcuData = $surat->mcu_data ?? [];
+            $newMcuData = [
+                'bmi' => $request->bmi,
+                'gangguan_motorik' => $request->gangguan_motorik,
+                'disabilitas' => $request->disabilitas,
+                'keterangan_lainnya' => $request->keterangan_lainnya,
+            ];
+            $data['mcu_data'] = array_merge($currentMcuData, $newMcuData);
+
         } elseif ($surat->tipe_berkas == 'Kesehatan Jiwa') {
             $data['pada_tanggal'] = $request->pada_tanggal_jiwa;
             $data['hasil_pemeriksaan'] = $request->hasil_jiwa;
@@ -471,6 +507,25 @@ class SuratController extends Controller
             foreach ($request->all() as $key => $value) {
                 if (strpos($key, 'mcu_') === 0 && !in_array($key, ['mcu_tinggi', 'mcu_berat', 'mcu_sistol', 'mcu_diastol', 'mcu_respirasi', 'mcu_nadi', 'mcu_suhu', 'mcu_buta_warna', 'mcu_hasil_pemeriksaan', 'mcu_saran', 'mcu_kesimpulan'])) {
                     $mcuData[str_replace('mcu_', '', $key)] = $value;
+                }
+            }
+            $data['mcu_data'] = $mcuData;
+        } elseif ($surat->tipe_berkas === 'Resume MCU') {
+            $data['no_lab'] = $request->resmcu_no_lab;
+            $data['perusahaan'] = $request->resmcu_perusahaan;
+            $data['tinggi_badan'] = $request->resmcu_tb;
+            $data['berat_badan'] = $request->resmcu_bb;
+            $data['tensi'] = ($request->resmcu_systolic && $request->resmcu_diastolic) ? $request->resmcu_systolic . '/' . $request->resmcu_diastolic : null;
+            $data['nadi'] = $request->resmcu_hr;
+            $data['respirasi'] = $request->resmcu_rr;
+            $data['buta_warna'] = $request->resmcu_buta_warna ?? 'Tidak';
+            $data['hasil_pemeriksaan'] = $request->resmcu_kesimpulan_fisik ?? 'SEHAT UNTUK BEKERJA';
+            $data['saran'] = $request->resmcu_rekomendasi ?? '-';
+
+            $mcuData = [];
+            foreach ($request->all() as $key => $value) {
+                if (strpos($key, 'resmcu_') === 0) {
+                    $mcuData[str_replace('resmcu_', '', $key)] = $value;
                 }
             }
             $data['mcu_data'] = $mcuData;

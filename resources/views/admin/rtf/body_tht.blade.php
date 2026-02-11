@@ -16,5 +16,5 @@ Demikian surat keterangan ini agar dapat digunakan sebagaimana mestinya\par\par
 \pard\intbl\qc NIP. {!! trim($m_nip) !!}\cell
 \pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par\par @endif
 \pard\intbl\qc\b\ul{\expndtw-15 {!! trim($surat->dokter->nama_dokter) !!}\expndtw0}\ulnone\b0\par
-\pard\intbl\qc NIP.
-{!! trim(preg_replace('/\s+/', ' ', $surat->dokter->sip ?? $surat->dokter->nip ?? '-')) !!}\cell\row\pard\par
+\pard\intbl\qc {!! ($surat->identitas_pemeriksa ?? 'NIP') !!}.
+{!! trim(preg_replace('/\s+/', ' ', ($surat->identitas_pemeriksa === 'SIP' ? ($surat->dokter->sip ?? '-') : ($surat->dokter->nip ?? '-')))) !!}\cell\row\pard\par
