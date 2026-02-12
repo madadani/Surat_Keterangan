@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <a href="{{ url('/admin/buat-surat') }}"
+        <a href="{{ url('/admin/data-surat') }}"
             class="w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-2xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-sm border border-red-100 shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:h-6 lg:w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -119,23 +119,27 @@
                         <!-- DYNAMIC SECTIONS BASED ON TYPE -->
                         @if($surat->tipe_berkas == 'Kesehatan')
                             @include('admin.partials.edit_sections.kesehatan')
+                        @elseif($surat->tipe_berkas == 'Dalam')
+                            @include('admin.partials.edit_sections.dalam')
+                        @elseif(in_array($surat->tipe_berkas, ['Orthopedi', 'Ortopedi']))
+                            @include('admin.partials.edit_sections.orthopedi')
                         @elseif($surat->tipe_berkas == 'Kesehatan Jiwa')
                             @include('admin.partials.edit_sections.jiwa')
                         @elseif($surat->tipe_berkas == 'Bebas Narkoba')
                             @include('admin.partials.edit_sections.narkoba')
-                        @elseif($surat->tipe_berkas == 'Kesehatan Mata')
+                        @elseif(str_contains($surat->tipe_berkas, 'Mata'))
                             @include('admin.partials.edit_sections.mata')
-                        @elseif($surat->tipe_berkas == 'Kesehatan THT')
+                        @elseif(str_contains($surat->tipe_berkas, 'THT'))
                             @include('admin.partials.edit_sections.tht')
-                        @elseif($surat->tipe_berkas == 'Kesehatan Gigi')
+                        @elseif(str_contains($surat->tipe_berkas, 'Gigi'))
                             @include('admin.partials.edit_sections.gigi')
-                        @elseif($surat->tipe_berkas == 'Kesehatan Jantung')
+                        @elseif(str_contains($surat->tipe_berkas, 'Jantung'))
                             @include('admin.partials.edit_sections.jantung')
                         @elseif($surat->tipe_berkas == 'Kesehatan TKHI')
                             @include('admin.partials.edit_sections.tkhi')
                         @elseif($surat->tipe_berkas == 'Resume MCU')
                             @include('admin.partials.edit_sections.resume_mcu')
-                        @elseif(str_contains($surat->tipe_berkas, 'Kesehatan ') || in_array($surat->tipe_berkas, ['Paru', 'Dalam', 'Orthopedi']))
+                        @elseif(str_contains($surat->tipe_berkas, 'Kesehatan ') || in_array($surat->tipe_berkas, ['Paru']))
                             @include('admin.partials.edit_sections.spesialis')
                         @endif
 
@@ -228,7 +232,7 @@
                             class="flex-1 bg-brand-blue text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl shadow-brand-blue/20 hover:bg-brand-darkblue hover:-translate-y-1 transition-all duration-300">
                             SIMPAN PERUBAHAN
                         </button>
-                        <a href="{{ url('/admin/buat-surat') }}"
+                        <a href="{{ url('/admin/data-surat') }}"
                             class="px-12 bg-gray-100 text-gray-500 py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-gray-200 transition-all text-center">
                             BATAL
                         </a>

@@ -121,50 +121,7 @@
                     </a>
                 @endforeach
 
-                <!-- Spesialis Category (Generic) -->
-                <a href="{{ url('/admin/laporan/Spesialis?start_date=' . ($startDate ?? '') . '&end_date=' . ($endDate ?? '')) }}"
-                    class="group bg-gradient-to-br from-brand-darkblue to-brand-blue p-6 rounded-[2.5rem] shadow-xl hover:shadow-2xl hover:shadow-brand-blue/30 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                    <div
-                        class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10">
-                    </div>
 
-                    <div class="relative z-10">
-                        <div class="flex items-start justify-between mb-4">
-                            <div
-                                class="w-14 h-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                                </svg>
-                            </div>
-                            <span
-                                class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
-                                @php
-                                    $knownPoli = collect($prices)->pluck('test_name')->toArray();
-                                    $othersCount = collect($stats)->filter(fn($v, $k) => !in_array($k, $knownPoli))->sum();
-                                @endphp
-                                {{ $othersCount }} Surat
-                            </span>
-                        </div>
-
-                        <h3 class="text-xl font-black text-white uppercase tracking-tight mb-1">Poli Lainnya</h3>
-                        <p class="text-white/60 font-bold text-[10px] uppercase tracking-wider mb-6">Poli Spesialis /
-                            Layanan Lainnya</p>
-
-                        <div class="flex items-center justify-between">
-                            <span
-                                class="text-xs font-black text-white uppercase tracking-widest bg-white/10 px-4 py-2 rounded-xl group-hover:bg-white group-hover:text-brand-darkblue transition-all">Lihat
-                                Detail</span>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </div>
-                    </div>
-                </a>
             </div>
         </div>
     </div>

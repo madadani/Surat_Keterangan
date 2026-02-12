@@ -201,4 +201,61 @@
         };
     </script>
     <script src="{{ asset('js/admin/dashboard.js') }}"></script>
+    <script>
+        // Realtime Clock
+        setInterval(() => {
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('liveClock').innerText = now.toLocaleDateString('id-ID', options).replace(',', ' |');
+        }, 1000);
+
+        // Realtime Stats Polling
+        const updateStats = async () => {
+            try {
+                const response = await fetch(window.dashboardConfig.statsUrl);
+                const data = await response.json();
+
+                // Animate Numbers Helper
+                const animateValue = (id, start, end, duration) => {
+                    if (start === end) return;
+                    const obj = document.getElementById(id);
+                    if (!obj) return;
+                    let startTimestamp = null;
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                        obj.innerHTML = new Intl.NumberFormat('id-ID').format(Math.floor(progress * (end - start) + start));
+                        if (progress < 1) {
+                            window.requestAnimationFrame(step);
+                        } else {
+                            obj.innerHTML = new Intl.NumberFormat('id-ID').format(end);
+                        }
+                    };
+                    window.requestAnimationFrame(step);
+                };
+
+                // Update elements if data changed
+                const simpleUpdate = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        // Optional: Check current val to decide animation
+                        el.innerText = new Intl.NumberFormat('id-ID').format(val);
+                    }
+                };
+
+                simpleUpdate('stat-sehat', data.sehat);
+                simpleUpdate('stat-jiwa', data.jiwa);
+                simpleUpdate('stat-narkoba', data.narkoba);
+                simpleUpdate('stat-spesialis', data.spesialis);
+                simpleUpdate('stat-total', data.total);
+                simpleUpdate('stat-pending', data.pending);
+
+            } catch (error) {
+                console.error('Failed to fetch realtime stats:', error);
+            }
+        };
+
+        // Poll every 5 seconds
+        setInterval(updateStats, 5000);
+    </script>
 @endpush

@@ -12,8 +12,7 @@ No. RM\tab : \b {!! ($pendaftar->no_rm ?? '.....................................
 dengan hasil dan tindakan sebagai berikut:\par\par
 \b 1. Hasil Pemeriksaan\b0\par
 \li360 Keadaan gigi dan jaringan sekitar gigi telah dilakukan pemeriksaan klinis :\par
-\li360\b Keluhan/Temuan :\b0\par
-\li720 {!! ($surat->hasil_pemeriksaan ?? '-') !!}\par\par
+\li360 {!! ($surat->hasil_pemeriksaan ?? '-') !!}\par\par
 \b 2. Perawatan yang Telah Dilakukan\b0\par
 @php
     $tindakan_saved = explode(', ', $surat->tindakan_gigi ?? '');

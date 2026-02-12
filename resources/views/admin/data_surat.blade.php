@@ -26,7 +26,7 @@
             <div class="hidden sm:flex flex-col items-end border-r border-gray-100 pr-4 mr-2">
                 <span class="text-[10px] font-black text-brand-darkblue/40 uppercase tracking-tighter">Total Arsip</span>
                 <span class="text-[10px] font-bold text-brand-blue flex items-center gap-1.5 uppercase tracking-widest">
-                    {{ number_format($surat->total()) }} Berkas
+                    {{ number_format($totalSurat) }} Berkas
                 </span>
             </div>
         </div>
@@ -79,99 +79,132 @@
                             <th class="px-6 py-6">Penerima Berkas</th>
                             <th class="px-6 py-6">Klasifikasi & Nomor</th>
                             <th class="px-6 py-6">Data Klinis</th>
-                            <th class="px-6 py-6">Pemeriksa</th>
+                            <th class="px-6 py-6 font-bold uppercase tracking-widest">Pemeriksa</th>
                             <th class="px-6 py-6 text-center">Tgl Terbit</th>
                             <th class="px-6 py-6 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 text-sm font-medium text-gray-700">
-                        @forelse($surat as $index => $row)
-                            <tr class="hover:bg-blue-50/20 transition-all group">
-                                <td class="px-8 py-6 text-center text-gray-400 font-mono text-xs">
-                                    {{ $surat->firstItem() + $index }}
+                        @forelse($pendaftar as $index => $row)
+                            {{-- Header Group Pasien --}}
+                            <tr class="bg-blue-50/10 border-t-2 border-brand-blue/10">
+                                <td class="px-8 py-5 text-center text-gray-400 font-mono text-xs">
+                                    {{ $pendaftar->firstItem() + $index }}
                                 </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex flex-col gap-0.5">
-                                        <span
-                                            class="font-black text-brand-darkblue uppercase tracking-tight text-base leading-none">{{ $row->pendaftar->nama_lengkap }}</span>
-                                        <div class="flex items-center gap-2 mt-1">
+                                <td colspan="6" class="px-6 py-5">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-darkblue rounded-2xl flex items-center justify-center font-black text-xl text-white shadow-lg shadow-brand-blue/10">
+                                            {{ strtoupper(substr($row->nama_lengkap, 0, 1)) }}
+                                        </div>
+                                        <div>
                                             <span
-                                                class="text-[9px] font-black text-brand-blue uppercase tracking-widest bg-brand-blue/5 px-2 py-0.5 rounded">NIK:
-                                                {{ $row->pendaftar->nik ?? '-' }}</span>
+                                                class="font-black text-brand-darkblue uppercase tracking-tight text-xl block leading-tight">{{ $row->nama_lengkap }}</span>
+                                            <div class="flex items-center gap-2 mt-0.5">
+                                                <span
+                                                    class="text-[9px] font-black text-brand-blue uppercase tracking-widest bg-brand-blue/5 px-2 py-0.5 rounded">ID:
+                                                    #{{ $row->no_registrasi }}</span>
+                                                <span
+                                                    class="text-[9px] font-black text-gray-400 uppercase tracking-widest bg-gray-50 px-2 py-0.5 rounded">NIK:
+                                                    {{ $row->nik ?? '-' }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex flex-col gap-1.5">
-                                        <span
-                                            class="text-[10px] font-black text-gray-500 uppercase tracking-widest">{{ $row->tipe_berkas }}</span>
-                                        <span
-                                            class="font-mono text-xs font-black text-brand-darkblue bg-gray-50 px-3 py-1 rounded w-max">{{ $row->nomor_surat }}</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6 font-mono text-xs text-gray-500">
-                                    <div class="space-y-1">
-                                        <p><span
-                                                class="w-16 inline-block font-black text-gray-300 uppercase tracking-tighter">Tensi:</span>
-                                            <span class="text-brand-darkblue font-bold">{{ $row->tensi ?? '-' }}</span></p>
-                                        <p><span
-                                                class="w-16 inline-block font-black text-gray-300 uppercase tracking-tighter">TB/BB:</span>
+                            </tr>
+
+                            {{-- Daftar Surat Pasien Tersebut --}}
+                            @foreach($row->suratKeterangan as $suratEntry)
+                                <tr
+                                    class="hover:bg-gray-50/50 transition-all group border-l-4 border-l-transparent hover:border-l-brand-blue">
+                                    <td class="px-8 py-5"></td>
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-1.5 h-1.5 bg-brand-green rounded-full shadow-[0_0_8px_rgba(16,185,129,0.3)]">
+                                            </div>
                                             <span
-                                                class="text-brand-darkblue font-bold">{{ $row->tinggi_badan ?? '-' }}/{{ $row->berat_badan ?? '-' }}</span>
-                                        </p>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <span
-                                        class="text-[10px] font-black text-brand-green uppercase tracking-wider block">{{ $row->dokter->nama_dokter }}</span>
-                                    <span
-                                        class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">{{ $row->dokter->spesialis }}</span>
-                                </td>
-                                <td class="px-6 py-6 text-center">
-                                    <span
-                                        class="text-[10px] font-black text-gray-400 uppercase tracking-tighter block leading-none mb-1">Terbit
-                                        Pada</span>
-                                    <span
-                                        class="text-xs font-black text-brand-darkblue">{{ \Carbon\Carbon::parse($row->tanggal_cetak)->format('d/m/Y') }}</span>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex items-center justify-center gap-2 lg:gap-3">
-                                        <a href="{{ url('/admin/buat-surat/cetak/' . $row->id) }}" target="_blank"
-                                            class="w-10 h-10 bg-brand-green text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-green/20 hover:bg-green-600 hover:-translate-y-0.5 transition-all"
-                                            title="Cetak Berkas">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                                            </svg>
-                                        </a>
-                                        <a href="{{ url('/admin/buat-surat/edit/' . $row->id) }}"
-                                            class="w-10 h-10 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-blue/20 hover:bg-brand-darkblue hover:-translate-y-0.5 transition-all"
-                                            title="Edit Data">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </a>
-                                        <form action="{{ url('/admin/buat-surat/delete/' . $row->id) }}" method="POST"
-                                            class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button"
-                                                onclick="confirmDeletePremium(this, 'Hapus Arsip?', 'Data berkas ini akan dihapus permanen dari sistem.')"
-                                                class="w-10 h-10 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-red-500/20 hover:bg-red-600 hover:-translate-y-0.5 transition-all"
-                                                title="Hapus Berkas">
+                                                class="text-xs font-black text-brand-darkblue uppercase tracking-tight">{{ $suratEntry->tipe_berkas }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <span
+                                            class="font-mono text-[11px] font-black text-brand-darkblue bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100 shadow-sm block w-max uppercase tracking-widest">
+                                            {{ $suratEntry->nomor_surat }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-5 font-mono text-[10px] text-gray-500">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-3">
+                                                <span class="w-12 text-gray-300 font-bold uppercase tracking-tighter">Tensi:</span>
+                                                <span
+                                                    class="text-brand-blue font-black underline decoration-brand-blue/20 underline-offset-2">{{ $suratEntry->tensi ?? '-' }}</span>
+                                            </div>
+                                            <div class="flex items-center gap-3">
+                                                <span class="w-12 text-gray-300 font-bold uppercase tracking-tighter">TB/BB:</span>
+                                                <span
+                                                    class="text-brand-blue font-black underline decoration-brand-blue/20 underline-offset-2">
+                                                    {{ $suratEntry->tinggi_badan ?? '-' }} / {{ $suratEntry->berat_badan ?? '-' }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-[10px] font-black text-brand-green uppercase tracking-wider block leading-tight">{{ $suratEntry->dokter->nama_dokter }}</span>
+                                            <span
+                                                class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">{{ $suratEntry->tipe_berkas }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 text-center">
+                                        <div class="flex flex-col items-center">
+                                            <span
+                                                class="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-1 leading-none">Terbit
+                                                Pada</span>
+                                            <span
+                                                class="text-xs font-black text-brand-darkblue tracking-tight">{{ \Carbon\Carbon::parse($suratEntry->tanggal_cetak)->format('d/m/Y') }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <a href="{{ url('/admin/buat-surat/cetak/' . $suratEntry->id) }}" target="_blank"
+                                                class="w-9 h-9 bg-brand-green text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-green/10 hover:bg-green-600 hover:-translate-y-0.5 transition-all"
+                                                title="Cetak Berkas">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                                                 </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
+                                            </a>
+                                            <a href="{{ url('/admin/buat-surat/edit/' . $suratEntry->id) }}"
+                                                class="w-9 h-9 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-blue/10 hover:bg-brand-darkblue hover:-translate-y-0.5 transition-all"
+                                                title="Edit Data">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                            <form action="{{ url('/admin/buat-surat/delete/' . $suratEntry->id) }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button"
+                                                    onclick="confirmDeletePremium(this, 'Hapus Berkas?', 'Data berkas ini akan dihapus permanen dari sistem.')"
+                                                    class="w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-red-500/10 hover:bg-red-600 hover:-translate-y-0.5 transition-all"
+                                                    title="Hapus Berkas">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @empty
                             <tr>
                                 <td colspan="7" class="px-6 py-40 text-center">
@@ -197,9 +230,10 @@
 
             <!-- Pagination -->
             <div class="px-8 py-6 border-t border-gray-50 bg-gray-50/30">
-                {{ $surat->links() }}
+                {{ $pendaftar->appends(request()->all())->links() }}
             </div>
         </div>
+
 
     </div>
 @endsection

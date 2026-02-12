@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
             'display_gender', 'display_tempat', 'display_tanggal', 'display_alamat', 'display_hp',
             'display_tinggi', 'display_berat', 'display_pekerjaan', 'display_pendidikan',
             'input_keperluan', 'display_perusahaan', 'tinggi_tht_input', 'berat_tht_input',
-            'tinggi_poli_input', 'berat_poli_input', 'mcu_tinggi', 'mcu_berat'
+            'tinggi_poli_input', 'berat_poli_input', 'bmi_poli_input', 'mcu_tinggi', 'mcu_berat'
         ];
         fields.forEach(id => {
             const el = document.getElementById(id);
@@ -199,6 +199,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function toggleSections(val) {
         const sections = {
             'Kesehatan': 'section_kesehatan',
+            'Dalam': 'section_dalam',
+            'Orthopedi': 'section_orthopedi',
+            'Ortopedi': 'section_orthopedi',
             'Kesehatan Jiwa': 'section_jiwa',
             'Bebas Narkoba': 'section_narkoba',
             'Kesehatan Mata': 'section_mata',
@@ -226,9 +229,12 @@ document.addEventListener('DOMContentLoaded', function () {
         let targetId = sections[val];
 
         // Spesialis Logic (Jika tidak ada di mapping dasar, cek spesialis)
-        const spesialisPoli = ['Dalam', 'Paru', 'Orthopedi'];
-        if (!targetId && (val.includes('Kesehatan') || spesialisPoli.some(s => val.includes(s)))) {
-            targetId = 'section_poli_spesialis';
+        const spesialisPoli = ['Paru'];
+
+        if (!targetId) {
+            if (val.includes('Kesehatan') || spesialisPoli.some(s => val.includes(s))) {
+                targetId = 'section_poli_spesialis';
+            }
         }
 
         if (targetId) {
@@ -244,6 +250,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else if (targetId === 'section_poli_spesialis') {
                     document.getElementById('title_poli').innerText = `HASIL PEMERIKSAAN ${val.toUpperCase()}`;
                     handleSpesialisUI(val);
+                }
+
+                // Penyesuaian Judul Cetak (Hanya muncul untuk Kesehatan umum)
+                const isPoliRedirect = val.includes('Dalam') || val.includes('Orthopedi') || val.includes('Ortopedi');
+                const rowJudulCetak = document.getElementById('row_judul_cetak');
+                const rowJudulCetakEdit = document.getElementById('row_judul_cetak_edit');
+
+                if (isPoliRedirect) {
+                    if (rowJudulCetak) rowJudulCetak.classList.add('hidden');
+                    if (rowJudulCetakEdit) rowJudulCetakEdit.classList.add('hidden');
+
+                    // Set default 'Sehat' jika poli spesialis agar tidak terjadi kosong
+                    const defaultRadio = document.querySelector('input[name="format_cetak"][value="Sehat"]');
+                    if (defaultRadio) defaultRadio.checked = true;
+                } else {
+                    if (rowJudulCetak) rowJudulCetak.classList.remove('hidden');
+                    if (rowJudulCetakEdit) rowJudulCetakEdit.classList.remove('hidden');
                 }
             }
         }
@@ -308,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 inputs.forEach(input => input.disabled = false);
             }
             if (labelHasil) labelHasil.innerText = 'Hasil Pemeriksaan';
-            if (labelSaran) labelSaran.innerText = val.includes('Orthopedi') ? 'Keterangan' : 'Saran / Terapi';
+            if (labelSaran) labelSaran.innerText = 'Saran / Terapi';
         }
     }
 
@@ -374,22 +397,34 @@ document.addEventListener('DOMContentLoaded', function () {
         const genBMI = document.getElementById('bmi_input');
         if (genT && genB) performCalc(genT.value, genB.value, genBMI, null);
 
-        // 4. General Health Certificate (Edit)
+        // 4. Poli Dalam (Create)
+        const dlmT = document.getElementById('tinggi_dalam_input');
+        const dlmB = document.getElementById('berat_dalam_input');
+        const dlmBMI = document.getElementById('bmi_dalam_input');
+        if (dlmT && dlmB) performCalc(dlmT.value, dlmB.value, dlmBMI, null);
+
+        // 5. Poli Orthopedi (Create)
+        const ortT = document.getElementById('tinggi_orthopedi_input');
+        const ortB = document.getElementById('berat_orthopedi_input');
+        const ortBMI = document.getElementById('bmi_orthopedi_input');
+        if (ortT && ortB) performCalc(ortT.value, ortB.value, ortBMI, null);
+
+        // 6. General Health & Specials Certificate (Edit)
         const editT = document.getElementById('edit_tinggi_badan');
         const editB = document.getElementById('edit_berat_badan');
         const editBMI = document.getElementById('edit_bmi');
         if (editT && editB) performCalc(editT.value, editB.value, editBMI, null);
     }
 
-    // Add listeners for real-time BMI calculation in Resume MCU
-    ['resmcu_tb_input', 'resmcu_bb_input'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', calculateBMI);
-    });
-
-    // GENERAL HEALTH CERTIFICATE BMI Auto-Calc
-    const inputsHealth = ['display_tinggi', 'display_berat', 'edit_tinggi_badan', 'edit_berat_badan'];
-    inputsHealth.forEach(id => {
+    // Add listeners for real-time BMI calculation
+    const bmiListeners = [
+        'resmcu_tb_input', 'resmcu_bb_input',
+        'display_tinggi', 'display_berat',
+        'tinggi_dalam_input', 'berat_dalam_input',
+        'tinggi_orthopedi_input', 'berat_orthopedi_input',
+        'edit_tinggi_badan', 'edit_berat_badan'
+    ];
+    bmiListeners.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', calculateBMI);
     });

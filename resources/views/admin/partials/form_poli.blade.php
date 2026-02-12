@@ -21,17 +21,28 @@
         <td class="space-y-4">
             <input type="text" name="segmen_anterior" placeholder="Segmen Anterior..."
                 class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
-            <div class="flex items-center gap-10">
-                <div class="flex items-center gap-4">
-                    <label class="flex items-center gap-2 cursor-pointer font-black text-xs text-gray-700"><input
-                            type="radio" name="hasil_mata" value="Normal" checked class="w-4 h-4 text-brand-blue">
-                        NORMAL</label>
-                    <label class="flex items-center gap-2 cursor-pointer font-black text-xs text-gray-700"><input
-                            type="radio" name="hasil_mata" value="Tidak Normal" class="w-4 h-4 text-brand-blue"> TIDAK
-                        NORMAL</label>
+            <div class="flex flex-col gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Status Mata (Digital)</span>
+                    <span class="text-[8px] font-bold text-brand-blue uppercase italic">* PDF/Word akan menampilkan "Normal / Tidak Normal"</span>
+                </div>
+                <div class="flex items-center gap-10">
+                    <div class="flex items-center gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer font-black text-xs text-gray-700"><input
+                                type="radio" name="hasil_mata" value="Normal" checked class="w-4 h-4 text-brand-blue">
+                            NORMAL</label>
+                        <label class="flex items-center gap-2 cursor-pointer font-black text-xs text-gray-700"><input
+                                type="radio" name="hasil_mata" value="Tidak Normal" class="w-4 h-4 text-brand-blue"> TIDAK
+                            NORMAL</label>
+                    </div>
+                </div>
+                <hr class="border-gray-200">
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Status Buta Warna (Digital)</span>
+                    <span class="text-[8px] font-bold text-brand-blue uppercase italic">* PDF/Word akan menampilkan "Buta Warna / Tidak Buta Warna"</span>
                 </div>
                 <select name="buta_warna_mata"
-                    class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
+                    class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
                     <option value="Tidak">TIDAK BUTA WARNA</option>
                     <option value="Ya">BUTA WARNA</option>
                 </select>
@@ -95,12 +106,21 @@
         </td>
     </tr>
     <tr>
+        <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Hasil Pemeriksaan</td>
+        <td class="text-center font-bold text-gray-300">:</td>
+        <td>
+            <textarea name="hasil_pemeriksaan_detail_tht" rows="3"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+                placeholder="Detail hasil pemeriksaan di bawah gambar (Contoh: Serumen minimal, Membran timpani intak, dll)..."></textarea>
+        </td>
+    </tr>
+    <tr>
         <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kesimpulan THT</td>
         <td class="text-center font-bold text-gray-300">:</td>
         <td>
             <textarea name="hasil_tht" rows="2"
                 class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
-                placeholder="Kesimpulan pemeriksaan... (contoh: SEHAT / TIDAK SEHAT)"></textarea>
+                placeholder="Kesimpulan pemeriksaan... (contoh: SEHAT / TIDAK SEHAT)">SEHAT THT</textarea>
         </td>
     </tr>
 </tbody>
@@ -133,14 +153,59 @@
         </td>
     </tr>
     <tr>
+        <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Odontogram</td>
+        <td class="text-center font-bold text-gray-300">:</td>
+        <td>
+            <div class="overflow-x-auto bg-gray-50/50 p-4 rounded-2xl border border-gray-100 shadow-inner">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="text-[8px] font-black text-gray-400 uppercase tracking-tighter">
+                            <th class="p-1 text-left w-16">RAHANG</th>
+                            <th class="p-1 text-center w-20">STATUS</th>
+                            @foreach(['M3', 'M2', 'M1', 'P2', 'P1', 'C', 'I2', 'I1'] as $tooth)
+                                <th class="p-1 text-center border-x border-gray-200">{{ $tooth }}</th>
+                            @endforeach
+                            @foreach(['I1', 'I2', 'C', 'P1', 'P2', 'M1', 'M2', 'M3'] as $tooth)
+                                <th class="p-1 text-center border-x border-gray-200">{{ $tooth }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody class="text-[9px]">
+                        @foreach(['atas', 'bawah'] as $rahang)
+                            <tr class="border-t border-gray-200">
+                                <td class="p-1 font-black text-brand-darkblue uppercase">{{ $rahang }}</td>
+                                <td class="p-1">
+                                    <input type="text" name="odontogram_{{ $rahang }}_status" placeholder="Status..." 
+                                        class="w-full bg-white border border-gray-300 rounded-md px-1 py-1 text-[9px] font-bold text-center">
+                                </td>
+                                @for($i = 1; $i <= 16; $i++)
+                                    <td class="p-1 border-x border-gray-100">
+                                        <input type="text" name="odontogram_{{ $rahang }}_g{{ $i }}" 
+                                            class="w-full min-w-[30px] bg-white border border-gray-200 rounded-md px-1 py-1 text-[9px] font-bold text-center focus:border-brand-blue outline-none transition-all">
+                                    </td>
+                                @endfor
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <p class="mt-2 text-[8px] font-bold text-gray-400 italic uppercase">
+                    * Input: M3 s/d I1 (Rahang Kanan) dan I1 s/d M3 (Rahang Kiri). Kosongkan jika normal.
+                </p>
+            </div>
+        </td>
+    </tr>
+    <tr>
         <td class="text-xs font-black text-gray-400 uppercase tracking-widest">1. Hasil Pemeriksaan</td>
         <td class="text-center font-bold text-gray-300">:</td>
         <td>
-            <textarea name="hasil_gigi" rows="3"
-                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
-                placeholder="Keluhan / Temuan Klinis..."></textarea>
+            <div class="space-y-4">
+                <textarea name="hasil_gigi" rows="2"
+                    class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+                    placeholder="Hasil Pemeriksaan Gigi & Mulut..."></textarea>
+            </div>
         </td>
     </tr>
+
     <tr>
         <td class="text-xs font-black text-gray-400 uppercase tracking-widest">2. Perawatan yang Dilakukan</td>
         <td class="text-center font-bold text-gray-300">:</td>
@@ -162,11 +227,10 @@
         </td>
     </tr>
     <tr>
-         
-                      <td class="text-xs font-black text-gray-400 uppercase tr
-       a                cking-widest">3. Rencana Lanjutan</td>
+        <td class="text-xs font-black text-gray-400 uppercase tracking-widest">3. Rencana Lanjutan</td>
         <td class="text-center font-bold text-gray-300">:</td>
         <td>
+
             <div class="space-y-4">
 
                                        <div class="space-y-1.5">
@@ -261,27 +325,38 @@
     <tr id="row_fisik_poli">
         <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Antropometri</td>
         <td class="text-center font-bold text-gray-300">:</td>
-        <td class="flex gap-4"><input type="number" name="tinggi_badan_poli" id="tinggi_poli_input" placeholder="TB (cm)"
-                class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black"><input
-                type="number" step="0.1" name="berat_badan_poli" id="berat_poli_input" placeholder="BB (kg)"
-                class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black"></td>
+        <td class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-1.5">
+                <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">TB (cm)</label>
+                <input type="number" name="tinggi_badan_poli" id="tinggi_poli_input" placeholder="TB"
+                    class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
+            </div>
+            <div class="space-y-1.5">
+                <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BB (kg)</label>
+                <input type="number" step="0.1" name="berat_badan_poli" id="berat_poli_input" placeholder="BB"
+                    class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black">
+            </div>
+        </td>
     </tr>
     <tr>
         <td id="label_hasil_poli" class="text-xs font-black text-gray-400 uppercase tracking-widest">Hasil Pemeriksaan
         </td>
         <td class="text-center font-bold text-gray-300">:</td>
-        <td><textarea name="hasil_poli" rows="4"
-                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"></textarea>
-        </td>
+        <td><textarea name="hasil_poli" id="hasil_poli_input" rows="4"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+                placeholder="Hasil pemeriksaan medis..."></textarea></td>
     </tr>
     <tr>
         <td id="label_saran_poli" class="text-xs font-black text-gray-400 uppercase tracking-widest">Saran / Terapi</td>
         <td class="text-center font-bold text-gray-300">:</td>
-        <td><textarea name="saran_poli" rows="3"
-                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"></textarea>
-        </td>
+        <td><textarea name="saran_poli" id="saran_poli_input" rows="3"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+                placeholder="Saran atau terapi dokter..."></textarea></td>
     </tr>
 </tbody>
+
+@include('admin.partials.sections.dalam')
+@include('admin.partials.sections.orthopedi')
 
 <!-- Section: TKHI -->
 <tbody id="section_tkhi" class="hidden animate__animated animate__fadeIn">

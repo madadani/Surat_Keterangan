@@ -49,7 +49,13 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
 \pard\sl276\slmult1\qc\b{!! $titleSize !!} @if(!str_contains($judul_surat, 'LEMBAR BANTU'))\ul
 {!! $judul_surat !!}\ulnone\par @else {!! $judul_surat !!}\par @endif
 \b0{!! $fontCode !!} No. {!! $surat->nomor_surat !!}\par\par
-@if($surat->tipe_berkas == 'Kesehatan' || str_contains($surat->tipe_berkas, 'Ortho') || str_contains($surat->tipe_berkas, 'Dalam') || str_contains($surat->tipe_berkas, 'Poli') || str_contains($surat->tipe_berkas, 'Mata'))
+@if($surat->tipe_berkas == 'Kesehatan Mata' || str_contains($surat->tipe_berkas, 'Mata'))
+    @include('admin.rtf.body_mata')
+@elseif($surat->tipe_berkas == 'Dalam')
+    @include('admin.rtf.body_dalam')
+@elseif(str_contains($surat->tipe_berkas, 'Ortho'))
+    @include('admin.rtf.body_orthopedi')
+@elseif($surat->tipe_berkas == 'Kesehatan' || str_contains($surat->tipe_berkas, 'Poli'))
     @include('admin.rtf.body_kesehatan')
 @elseif(str_contains($surat->tipe_berkas, 'Paru'))
     @include('admin.rtf.body_paru')

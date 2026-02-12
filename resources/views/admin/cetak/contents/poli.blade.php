@@ -35,28 +35,79 @@
             <span class="dots">:</span>
             <span class="value">{{ $surat->pendaftar->alamat }}</span>
         </div>
-        @if($surat->tinggi_badan || $surat->berat_badan)
+        @php
+            $extraFields = str_contains($surat->tipe_berkas, 'Dalam') || str_contains($surat->tipe_berkas, 'Orthopedi') || str_contains($surat->tipe_berkas, 'Ortopedi');
+        @endphp
+
+        <div class="field">
+            <span class="label">Tinggi/Berat Badan</span>
+            <span class="dots">:</span>
+            <span class="value">{{ $surat->tinggi_badan ?? '-' }} cm / {{ $surat->berat_badan ?? '-' }} kg
+                @if($extraFields) (IMT: {{ $surat->mcu_data['bmi_poli'] ?? '-' }}) @endif
+            </span>
+        </div>
+
+        @if($extraFields)
             <div class="field">
-                <span class="label">Tinggi/Berat Badan</span>
+                <span class="label">Tekanan Darah</span>
                 <span class="dots">:</span>
-                <span class="value">{{ $surat->tinggi_badan ?? '-' }} cm / {{ $surat->berat_badan ?? '-' }} kg</span>
+                <span class="value">{{ $surat->tensi ?? '-' }} mmHg</span>
+            </div>
+            <div class="field">
+                <span class="label">Nadi / Suhu / RR</span>
+                <span class="dots">:</span>
+                <span class="value">{{ $surat->nadi ?? '-' }} x/mnt / {{ $surat->suhu ?? '-' }} &deg;C /
+                    {{ $surat->respirasi ?? '-' }} x/mnt</span>
+            </div>
+            <div class="field">
+                <span class="label">Pemeriksaan Fisik</span>
+                <span class="dots">:</span>
+                <span class="value">
+                    <strong>Gangguan Motorik : {{ $surat->mcu_data['motorik_poli'] ?? '-' }}</strong>
+                </span>
+            </div>
+            <div class="field" style="margin-top: -5px;">
+                <span class="label">&nbsp;</span>
+                <span class="dots">&nbsp;</span>
+                <span class="value">
+                    <strong>Disabilitas : {{ $surat->mcu_data['disabilitas_poli'] ?? '-' }}</strong>
+                </span>
             </div>
         @endif
     </div>
 
-    <p style="text-align: justify; margin-top: 20px;">
-        Telah diperiksa dengan teliti dan berpendapat bahwa yang diperiksa, ternyata
-        <strong>{{ strtoupper($surat->hasil_pemeriksaan) }}</strong>@if($surat->buta_warna),
-            <strong>{{ $surat->buta_warna == 'Ya' ? 'BUTA WARNA' : 'TIDAK BUTA WARNA' }}</strong>
-        @endif
-    </p>
+    @if($extraFields)
+        <p style="text-align: justify; margin-top: 20px;">
+            Telah diperiksa dengan teliti dan berpendapat bahwa yang diperiksa, ternyata :
+        </p>
+        <div style="margin-left: 25px; line-height: 1.6;">
+            <strong>
+                1. {{ strtoupper($surat->hasil_pemeriksaan) }} /
+                {{ strtoupper($surat->hasil_pemeriksaan) == 'SEHAT' ? 'TIDAK SEHAT' : 'SEHAT' }} *)<br>
+                2.
+                {{ ($surat->buta_warna == 'BUTA WARNA' || ($surat->mcu_data['buta_warna_poli'] ?? '') == 'BUTA WARNA') ? 'BUTA WARNA' : 'TIDAK BUTA WARNA' }}
+                /
+                {{ ($surat->buta_warna == 'BUTA WARNA' || ($surat->mcu_data['buta_warna_poli'] ?? '') == 'BUTA WARNA') ? 'TIDAK BUTA WARNA' : 'BUTA WARNA' }}
+                *)
+            </strong>
+        </div>
+        <p style="font-size: 9pt; font-style: italic; margin-top: 10px;">*) Coret yang tidak perlu</p>
+    @else
+        <p style="text-align: justify; margin-top: 20px;">
+            Telah diperiksa dengan teliti dan berpendapat bahwa yang diperiksa, ternyata
+            <strong>{{ strtoupper($surat->hasil_pemeriksaan) }}</strong>@if($surat->buta_warna),
+                <strong>{{ $surat->buta_warna == 'Ya' ? 'BUTA WARNA' : 'TIDAK BUTA WARNA' }}</strong>
+            @endif
+        </p>
+    @endif
 
     @if($surat->keperluan)
         <div class="field" style="margin-top: 20px;">
-            <span class="label" style="width: auto; margin-right: 10px;">Keperluan Untuk :</span>
+            <span class="label" style="width: auto; margin-right: 10px;">Keperluan :</span>
             <span class="value" style="font-weight: bold; text-transform: uppercase;">{{ $surat->keperluan }}</span>
         </div>
     @endif
 
     <p style="margin-top: 20px;">Demikian Surat keterangan ini dibuat untuk dapat dipergunakan seperlunya.</p>
+
 </div>

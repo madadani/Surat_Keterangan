@@ -25,14 +25,62 @@
     </td>
 </tr>
 <tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Odontogram</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td>
+        <div class="overflow-x-auto bg-gray-50/50 p-4 rounded-2xl border border-gray-100 shadow-inner">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="text-[8px] font-black text-gray-400 uppercase tracking-tighter">
+                        <th class="p-1 text-left w-16">RAHANG</th>
+                        <th class="p-1 text-center w-20">STATUS</th>
+                        @foreach(['M3', 'M2', 'M1', 'P2', 'P1', 'C', 'I2', 'I1'] as $tooth)
+                            <th class="p-1 text-center border-x border-gray-200">{{ $tooth }}</th>
+                        @endforeach
+                        @foreach(['I1', 'I2', 'C', 'P1', 'P2', 'M1', 'M2', 'M3'] as $tooth)
+                            <th class="p-1 text-center border-x border-gray-200">{{ $tooth }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody class="text-[9px]">
+                    @foreach(['atas', 'bawah'] as $rahang)
+                        <tr class="border-t border-gray-200">
+                            <td class="p-1 font-black text-brand-darkblue uppercase">{{ $rahang }}</td>
+                            <td class="p-1">
+                                <input type="text" name="odontogram_{{ $rahang }}_status" 
+                                    value="{{ $surat->mcu_data['odontogram_'.$rahang.'_status'] ?? '' }}"
+                                    placeholder="Status..." 
+                                    class="w-full bg-white border border-gray-300 rounded-md px-1 py-1 text-[9px] font-bold text-center">
+                            </td>
+                            @for($i = 1; $i <= 16; $i++)
+                                <td class="p-1 border-x border-gray-100">
+                                    <input type="text" name="odontogram_{{ $rahang }}_g{{ $i }}" 
+                                        value="{{ $surat->mcu_data['odontogram_'.$rahang.'_g'.$i] ?? '' }}"
+                                        class="w-full min-w-[30px] bg-white border border-gray-200 rounded-md px-1 py-1 text-[9px] font-bold text-center focus:border-brand-blue outline-none transition-all">
+                                </td>
+                            @endfor
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <p class="mt-2 text-[8px] font-bold text-gray-400 italic uppercase">
+                * Input: M3 s/d I1 (Rahang Kanan) dan I1 s/d M3 (Rahang Kiri). Kosongkan jika normal.
+            </p>
+        </div>
+    </td>
+</tr>
+<tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">1. Hasil Pemeriksaan</td>
     <td class="text-center font-bold text-gray-300">:</td>
     <td>
-        <textarea name="hasil_gigi" rows="3"
-            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
-            placeholder="Keluhan / Temuan Klinis...">{{ $surat->hasil_pemeriksaan }}</textarea>
+        <div class="space-y-4">
+            <textarea name="hasil_gigi" rows="2"
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+                placeholder="Hasil Pemeriksaan Gigi & Mulut...">{{ $surat->hasil_pemeriksaan }}</textarea>
+        </div>
     </td>
 </tr>
+
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">2. Perawatan yang Dilakukan</td>
     <td class="text-center font-bold text-gray-300">:</td>
@@ -58,8 +106,8 @@
 </tr>
 <tr>
          
-              <td class="text-xs font-black text-gray-400 uppercase tracking-widest">3. Rencana Lanjutan</
-   t                d>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">3. Rencana Lanjutan</td>
+
     <td class="text-center font-bold text-gray-300">:</td>
     <td>
         <div class="space-y-4">

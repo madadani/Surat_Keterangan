@@ -1,14 +1,8 @@
-{{-- Content: Surat Keterangan Sehat --}}
+{{-- Content: Surat Keterangan Poli Orthopedi --}}
 <div style="text-align: center; margin-bottom: 20px;">
     <div
         style="display: inline-block; border-bottom: 1.5px solid #000; padding-bottom: 0px; line-height: 1; font-weight: bold; font-size: 14pt; text-transform: uppercase;">
-        @if($surat->hasil_pemeriksaan == 'Sehat Fisik')
-            SURAT KETERANGAN SEHAT FISIK
-        @elseif($surat->hasil_pemeriksaan == 'Sehat Jasmani')
-            SURAT KETERANGAN SEHAT JASMANI
-        @else
-            SURAT KETERANGAN SEHAT
-        @endif
+        SURAT KETERANGAN SEHAT
     </div>
     <div style="margin-top: 5px; font-size: 12pt; text-decoration: underline;">
         No. {{ $surat->nomor_surat }}

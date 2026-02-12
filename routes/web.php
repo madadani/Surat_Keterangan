@@ -35,6 +35,7 @@ Route::middleware([\App\Http\Middleware\CheckAdmin::class])->group(function () {
 
     // Pendaftar Management
     Route::get('/admin/data-pendaftar', [PendaftarMgController::class, 'index']);
+    Route::get('/admin/data-pendaftar/json', [PendaftarMgController::class, 'json'])->name('pendaftar.json');
     Route::get('/admin/data-pendaftar/tambah', [PendaftarMgController::class, 'create']);
     Route::post('/admin/data-pendaftar/tambah', [PendaftarMgController::class, 'store']);
     Route::get('/admin/data-pendaftar/edit/{id}', [PendaftarMgController::class, 'edit']);

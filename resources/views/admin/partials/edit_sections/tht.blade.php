@@ -28,3 +28,21 @@
             name="tenggorokan" value="{{ $surat->tenggorokan }}"
             class="flex-1 bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black"></td>
 </tr>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Hasil Pemeriksaan</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td>
+        <textarea name="hasil_pemeriksaan_detail_tht" rows="3"
+            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+            placeholder="Detail hasil pemeriksaan di bawah gambar...">{{ $surat->mcu_data['hasil_pemeriksaan_detail_tht'] ?? '' }}</textarea>
+    </td>
+</tr>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kesimpulan</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td>
+        <textarea name="hasil_tht" rows="2"
+            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black resize-none"
+            placeholder="Kesimpulan pemeriksaan...">{{ $surat->hasil_pemeriksaan }}</textarea>
+    </td>
+</tr>

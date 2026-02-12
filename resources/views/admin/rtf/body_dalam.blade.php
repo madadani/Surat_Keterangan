@@ -27,22 +27,10 @@ Alamat\tab : {!! $pendaftar->alamat !!}\par
     @endif
 @endif
 Keperluan\tab : {!! $surat->keperluan ?? '-' !!}\par
-@php
-    $isSehatFormat = in_array($surat->tipe_berkas, ['Kesehatan', 'Dalam', 'Orthopedi', 'Ortopedi']);
-@endphp
-
-@if(!$isSehatFormat)
-    Keterangan\tab : {!! $surat->saran ?? '-' !!}\par
-@endif
 \par
 \pard\sl276\slmult1\ql\qj Telah diperiksa dengan teliti dan berpendapat bahwa yang diperiksa, ternyata \b
-@if($isSehatFormat)
-    :\par
-    \pard\li720\sa100 1. SEHAT / TIDAK SEHAT *)\par
-    2. TIDAK BUTA WARNA / BUTA WARNA *)\par
-    \pard\li0\i\fs20 *) Coret yang tidak perlu\i0\fs24
-@else
-    {!! strtoupper($surat->hasil_pemeriksaan) !!}\b0 @if($surat->buta_warna), Buta warna \b
-    {!! ($surat->buta_warna == 'Ya' ? 'BUTA WARNA' : 'TIDAK BUTA WARNA') !!}\b0 @endif
-@endif
+:\par
+\pard\li720\sa100 1. SEHAT / TIDAK SEHAT *)\par
+2. TIDAK BUTA WARNA / BUTA WARNA *)\par
+\pard\li0\i\fs20 *) Coret yang tidak perlu\i0\fs24
 Demikian surat keterangan ini dibuat untuk dapat dipergunakan seperlunya.\par\par

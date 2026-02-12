@@ -13,65 +13,44 @@ class SuratController extends Controller
     public function index()
     {
         $search = request('search');
-        $type = request('type');
         $startDate = request('start_date');
         $endDate = request('end_date');
 
-        if ($type) {
-            // VIEW FLAT (List semua surat berdasarkan tipe)
-            $query = SuratKeterangan::with(['pendaftar', 'dokter'])->latest();
-
-            if ($type == 'Spesialis') {
-                $query->where(function ($q) {
-                    $q->where('tipe_berkas', 'LIKE', 'Kesehatan %')
-                        ->whereNotIn('tipe_berkas', ['Kesehatan', 'Kesehatan Jiwa'])
-                        ->orWhere('tipe_berkas', 'LIKE', 'Poli %');
-                });
-            } else {
-                $query->where('tipe_berkas', $type);
-            }
-
-            if ($startDate && $endDate) {
-                $query->whereBetween('tanggal_cetak', [$startDate, $endDate]);
-            }
-
-            if ($search) {
-                $query->whereHas('pendaftar', function ($q) use ($search) {
-                    $q->where('nama_lengkap', 'LIKE', "%{$search}%")
-                        ->orWhere('no_registrasi', 'LIKE', "%{$search}%");
-                });
-            }
-
-            $surat = $query->paginate(15);
-            return view('admin.buat_surat', compact('surat'));
-        }
-
-        // VIEW GRUP (Default: Grouped by Pendaftar)
-        $query = Pendaftar::has('suratKeterangan')->with([
+        // Kueri dasar: Ambil pendaftar yang memiliki surat keterangan
+        $query = Pendaftar::whereHas('suratKeterangan')->with([
             'suratKeterangan' => function ($q) use ($startDate, $endDate) {
-                $q->latest()->with('dokter');
+                $q->with('dokter')->latest();
                 if ($startDate && $endDate) {
                     $q->whereBetween('tanggal_cetak', [$startDate, $endDate]);
                 }
             }
         ]);
 
+        // Filter berdasarkan pencarian (Nama, No Registrasi, NIK, atau Nomor Surat)
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_lengkap', 'LIKE', "%{$search}%")
+                    ->orWhere('no_registrasi', 'LIKE', "%{$search}%")
+                    ->orWhere('nik', 'LIKE', "%{$search}%")
+                    ->orWhereHas('suratKeterangan', function ($sq) use ($search) {
+                        $sq->where('nomor_surat', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        // Filter pendaftar yang memiliki surat dalam rentang tanggal tertentu (jika filter tanggal aktif)
         if ($startDate && $endDate) {
             $query->whereHas('suratKeterangan', function ($q) use ($startDate, $endDate) {
                 $q->whereBetween('tanggal_cetak', [$startDate, $endDate]);
             });
         }
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nama_lengkap', 'LIKE', "%{$search}%")
-                    ->orWhere('no_registrasi', 'LIKE', "%{$search}%");
-            });
-        }
-
         $pendaftar = $query->latest()->paginate(10);
-        return view('admin.buat_surat', compact('pendaftar'));
+        $totalSurat = SuratKeterangan::count();
+
+        return view('admin.data_surat', compact('pendaftar', 'totalSurat'));
     }
+
 
     public function redirectToCreate()
     {
@@ -251,14 +230,14 @@ class SuratController extends Controller
             $content_view = 'tht';
             $judul_surat = 'Surat Keterangan Dokter';
         } elseif (str_contains($tipe, 'Dalam')) {
-            $content_view = 'poli';
+            $content_view = 'dalam';
             $judul_surat = 'Surat Keterangan Sehat';
         } elseif (str_contains($tipe, 'Gigi')) {
             $content_view = 'gigi';
             $judul_surat = 'Surat Keterangan Pemeriksaan Gigi';
             $jabatan_dokter = 'Dokter Gigi Pemeriksa';
         } elseif (str_contains($tipe, 'Orthopedi') || str_contains($tipe, 'Ortopedi')) {
-            $content_view = 'poli';
+            $content_view = 'orthopedi';
             $judul_surat = 'Surat Keterangan Sehat';
         } elseif (str_contains($tipe, 'Jantung')) {
             $content_view = 'jantung';
@@ -334,7 +313,14 @@ class SuratController extends Controller
             $data['hasil_pemeriksaan'] = $request->hasil_mata ?? 'Normal';
             $data['buta_warna'] = $request->buta_warna_mata ?? 'Tidak';
             $data['keperluan'] = $request->keperluan_mata;
-        } elseif ($tipeBerkas == 'Kesehatan THT') {
+        } elseif (str_contains($tipeBerkas, 'Mata')) {
+            $data['visus_kanan'] = $request->visus_kanan ?? '-';
+            $data['visus_kiri'] = $request->visus_kiri ?? '-';
+            $data['segmen_anterior'] = $request->segmen_anterior ?? '-';
+            $data['hasil_pemeriksaan'] = $request->hasil_mata ?? 'Normal';
+            $data['buta_warna'] = $request->buta_warna_mata ?? 'Tidak';
+            $data['keperluan'] = $request->keperluan_mata;
+        } elseif (str_contains($tipeBerkas, 'THT')) {
             $data['tensi'] = $request->tekanan_darah_tht;
             $data['golongan_darah'] = $request->golongan_darah_tht;
             $data['tinggi_badan'] = $request->tinggi_tht;
@@ -345,18 +331,34 @@ class SuratController extends Controller
             $data['hidung'] = $request->hidung ?? 'Normal';
             $data['tenggorokan'] = $request->tenggorokan ?? 'Normal';
             $data['hasil_pemeriksaan'] = $request->hasil_tht ?? 'SEHAT THT';
+            $data['mcu_data'] = [
+                'hasil_pemeriksaan_detail_tht' => $request->hasil_pemeriksaan_detail_tht,
+            ];
             $data['pada_tanggal'] = date('Y-m-d');
-        } elseif ($tipeBerkas == 'Kesehatan Gigi') {
+        } elseif (str_contains($tipeBerkas, 'Gigi')) {
             $data['hasil_pemeriksaan'] = $request->hasil_gigi ?? 'SEHAT GIGI';
             $data['saran'] = $request->saran_gigi ?? '-';
             $data['tindakan_gigi'] = $request->tindakan_gigi_list ? implode(', ', $request->tindakan_gigi_list) : null;
             $data['kontrol_ulang'] = $request->kontrol_ulang_gigi;
             $data['keperluan'] = $request->keperluan_gigi;
             $data['pada_tanggal'] = date('Y-m-d');
+
+            // Store odontogram and kelainan in mcu_data
+            $gigiData = [
+                'kelainan_mulut_gigi' => $request->kelainan_mulut_gigi,
+            ];
+            foreach ($request->all() as $key => $value) {
+                if (strpos($key, 'odontogram_') === 0 && !empty($value)) {
+                    $gigiData[$key] = $value;
+                }
+            }
+            $data['mcu_data'] = $gigiData;
+
             if ($request->no_rm_gigi) {
                 $pendaftar->update(['no_rm' => $request->no_rm_gigi]);
             }
-        } elseif ($tipeBerkas == 'Kesehatan Jantung') {
+
+        } elseif (str_contains($tipeBerkas, 'Jantung')) {
             $data['hasil_pemeriksaan'] = $request->hasil_jantung ?? 'SEHAT JANTUNG';
             $data['saran'] = $request->saran_jantung ?? '-';
             $data['pada_tanggal'] = date('Y-m-d');
@@ -367,6 +369,48 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $heartData;
+        } elseif ($tipeBerkas == 'Kesehatan') {
+            $data['tinggi_badan'] = $request->tinggi_badan;
+            $data['berat_badan'] = $request->berat_badan;
+            $data['tensi'] = $request->tensi;
+            $data['nadi'] = $request->nadi;
+            $data['suhu'] = $request->suhu;
+            $data['respirasi'] = $request->respirasi;
+            $data['hasil_pemeriksaan'] = $request->hasil_pemeriksaan ?? 'Sehat';
+            $data['mcu_data'] = [
+                'bmi' => $request->bmi,
+                'gangguan_motorik' => $request->gangguan_motorik,
+                'disabilitas' => $request->disabilitas,
+                'keterangan_lainnya' => $request->keterangan_lainnya,
+            ];
+        } elseif ($tipeBerkas == 'Dalam') {
+            $data['tinggi_badan'] = $request->tinggi_badan_dalam;
+            $data['berat_badan'] = $request->berat_badan_dalam;
+            $data['tensi'] = $request->tensi_dalam;
+            $data['nadi'] = $request->nadi_dalam;
+            $data['suhu'] = $request->suhu_dalam;
+            $data['respirasi'] = $request->respirasi_dalam;
+            $data['hasil_pemeriksaan'] = 'Sehat';
+            $data['mcu_data'] = [
+                'bmi' => $request->bmi_dalam,
+                'gangguan_motorik' => $request->gangguan_motorik_dalam,
+                'disabilitas' => $request->disabilitas_dalam,
+                'keterangan_lainnya' => $request->keterangan_lainnya_dalam,
+            ];
+        } elseif ($tipeBerkas == 'Orthopedi' || $tipeBerkas == 'Ortopedi') {
+            $data['tinggi_badan'] = $request->tinggi_badan_orthopedi;
+            $data['berat_badan'] = $request->berat_badan_orthopedi;
+            $data['tensi'] = $request->tensi_orthopedi;
+            $data['nadi'] = $request->nadi_orthopedi;
+            $data['suhu'] = $request->suhu_orthopedi;
+            $data['respirasi'] = $request->respirasi_orthopedi;
+            $data['hasil_pemeriksaan'] = 'Sehat';
+            $data['mcu_data'] = [
+                'bmi' => $request->bmi_orthopedi,
+                'gangguan_motorik' => $request->gangguan_motorik_orthopedi,
+                'disabilitas' => $request->disabilitas_orthopedi,
+                'keterangan_lainnya' => $request->keterangan_lainnya_orthopedi,
+            ];
         } elseif ($tipeBerkas === 'Kesehatan TKHI') {
             $data['no_lab'] = $request->no_lab;
             $data['perusahaan'] = $request->perusahaan;
@@ -406,7 +450,7 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $mcuData;
-        } elseif (strpos($tipeBerkas, 'Kesehatan') !== false) {
+        } elseif (str_contains($tipeBerkas, 'Paru')) {
             $data['tinggi_badan'] = $request->tinggi_badan_poli;
             $data['berat_badan'] = $request->berat_badan_poli;
             $data['hasil_pemeriksaan'] = $request->hasil_poli ?? 'SEHAT';
@@ -417,9 +461,6 @@ class SuratController extends Controller
     private function mapUpdateDataByType(&$data, $request, $surat)
     {
         if ($surat->tipe_berkas == 'Kesehatan') {
-            // Keep existing defaults or update if needed
-            // $data['hasil_pemeriksaan'] = 'Sehat'; // Optional: Don't overwrite if not needed, but form has no input
-
             $data['tinggi_badan'] = $request->tinggi_badan;
             $data['berat_badan'] = $request->berat_badan;
             $data['tensi'] = $request->tensi;
@@ -427,7 +468,6 @@ class SuratController extends Controller
             $data['suhu'] = $request->suhu;
             $data['respirasi'] = $request->respirasi;
 
-            // Merge / Update mcu_data
             $currentMcuData = $surat->mcu_data ?? [];
             $newMcuData = [
                 'bmi' => $request->bmi,
@@ -436,6 +476,38 @@ class SuratController extends Controller
                 'keterangan_lainnya' => $request->keterangan_lainnya,
             ];
             $data['mcu_data'] = array_merge($currentMcuData, $newMcuData);
+
+        } elseif ($surat->tipe_berkas == 'Dalam') {
+            $data['tinggi_badan'] = $request->tinggi_badan;
+            $data['berat_badan'] = $request->berat_badan;
+            $data['tensi'] = $request->tensi;
+            $data['nadi'] = $request->nadi;
+            $data['suhu'] = $request->suhu;
+            $data['respirasi'] = $request->respirasi;
+
+            $currentMcuData = $surat->mcu_data ?? [];
+            $data['mcu_data'] = array_merge($currentMcuData, [
+                'bmi' => $request->bmi,
+                'gangguan_motorik' => $request->gangguan_motorik,
+                'disabilitas' => $request->disabilitas,
+                'keterangan_lainnya' => $request->keterangan_lainnya,
+            ]);
+
+        } elseif (in_array($surat->tipe_berkas, ['Orthopedi', 'Ortopedi'])) {
+            $data['tinggi_badan'] = $request->tinggi_badan;
+            $data['berat_badan'] = $request->berat_badan;
+            $data['tensi'] = $request->tensi;
+            $data['nadi'] = $request->nadi;
+            $data['suhu'] = $request->suhu;
+            $data['respirasi'] = $request->respirasi;
+
+            $currentMcuData = $surat->mcu_data ?? [];
+            $data['mcu_data'] = array_merge($currentMcuData, [
+                'bmi' => $request->bmi,
+                'gangguan_motorik' => $request->gangguan_motorik,
+                'disabilitas' => $request->disabilitas,
+                'keterangan_lainnya' => $request->keterangan_lainnya,
+            ]);
 
         } elseif ($surat->tipe_berkas == 'Kesehatan Jiwa') {
             $data['pada_tanggal'] = $request->pada_tanggal_jiwa;
@@ -453,13 +525,13 @@ class SuratController extends Controller
             $data['benzodiazepine'] = $request->benzodiazepine;
             $data['metamfetamin'] = $request->metamfetamin;
             $data['cocaine'] = $request->cocaine;
-        } elseif ($surat->tipe_berkas == 'Kesehatan Mata') {
+        } elseif (str_contains($surat->tipe_berkas, 'Mata')) {
             $data['visus_kanan'] = $request->visus_kanan;
             $data['visus_kiri'] = $request->visus_kiri;
             $data['segmen_anterior'] = $request->segmen_anterior;
             $data['hasil_pemeriksaan'] = $request->hasil_mata;
             $data['buta_warna'] = $request->buta_warna_mata;
-        } elseif ($surat->tipe_berkas == 'Kesehatan THT') {
+        } elseif (str_contains($surat->tipe_berkas, 'THT')) {
             $data['tensi'] = $request->tekanan_darah_tht;
             $data['golongan_darah'] = $request->golongan_darah_tht;
             $data['tinggi_badan'] = $request->tinggi_tht;
@@ -470,15 +542,32 @@ class SuratController extends Controller
             $data['hidung'] = $request->hidung ?? 'Normal';
             $data['tenggorokan'] = $request->tenggorokan ?? 'Normal';
             $data['hasil_pemeriksaan'] = $request->hasil_tht ?? 'SEHAT THT';
-        } elseif ($surat->tipe_berkas == 'Kesehatan Gigi') {
+            $currentMcuData = $surat->mcu_data ?? [];
+            $data['mcu_data'] = array_merge($currentMcuData, [
+                'hasil_pemeriksaan_detail_tht' => $request->hasil_pemeriksaan_detail_tht,
+            ]);
+        } elseif (str_contains($surat->tipe_berkas, 'Gigi')) {
             $data['hasil_pemeriksaan'] = $request->hasil_gigi;
             $data['saran'] = $request->saran_gigi;
             $data['tindakan_gigi'] = $request->tindakan_gigi_list ? implode(', ', $request->tindakan_gigi_list) : null;
             $data['kontrol_ulang'] = $request->kontrol_ulang_gigi;
             $data['keperluan'] = $request->keperluan_gigi;
+
+            // Update odontogram and kelainan in mcu_data
+            $gigiData = [
+                'kelainan_mulut_gigi' => $request->kelainan_mulut_gigi,
+            ];
+            foreach ($request->all() as $key => $value) {
+                if (strpos($key, 'odontogram_') === 0 && !empty($value)) {
+                    $gigiData[$key] = $value;
+                }
+            }
+            $data['mcu_data'] = $gigiData;
+
             if ($request->no_rm_gigi) {
                 $surat->pendaftar->update(['no_rm' => $request->no_rm_gigi]);
             }
+
         } elseif ($surat->tipe_berkas == 'Kesehatan Jantung') {
             $data['hasil_pemeriksaan'] = $request->hasil_jantung;
             $data['saran'] = $request->saran_jantung;
@@ -489,6 +578,21 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $heartData;
+        } elseif ($surat->tipe_berkas == 'Kesehatan' || str_contains($surat->tipe_berkas, 'Dalam') || str_contains($surat->tipe_berkas, 'Orthopedi') || str_contains($surat->tipe_berkas, 'Ortopedi')) {
+            $data['tinggi_badan'] = $request->tinggi_badan;
+            $data['berat_badan'] = $request->berat_badan;
+            $data['tensi'] = $request->tensi;
+            $data['nadi'] = $request->nadi;
+            $data['suhu'] = $request->suhu;
+            $data['respirasi'] = $request->respirasi;
+            $data['hasil_pemeriksaan'] = $request->hasil_pemeriksaan;
+
+            $data['mcu_data'] = [
+                'bmi' => $request->bmi,
+                'gangguan_motorik' => $request->gangguan_motorik,
+                'disabilitas' => $request->disabilitas,
+                'keterangan_lainnya' => $request->keterangan_lainnya,
+            ];
         } elseif ($surat->tipe_berkas === 'Kesehatan TKHI') {
             $data['no_lab'] = $request->no_lab;
             $data['perusahaan'] = $request->perusahaan;
@@ -529,7 +633,7 @@ class SuratController extends Controller
                 }
             }
             $data['mcu_data'] = $mcuData;
-        } elseif (strpos($surat->tipe_berkas, 'Kesehatan') !== false) {
+        } elseif (str_contains($surat->tipe_berkas, 'Paru')) {
             $data['tinggi_badan'] = $request->tinggi_badan_poli;
             $data['berat_badan'] = $request->berat_badan_poli;
             $data['hasil_pemeriksaan'] = $request->hasil_poli ?? 'SEHAT';

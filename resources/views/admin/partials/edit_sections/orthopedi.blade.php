@@ -1,12 +1,11 @@
-<!-- SECTION: KESEHATAN UMUM -->
+<!-- SECTION: POLI ORTHOPEDI -->
 <tr>
     <td class="pt-6">
-        <h3 class="text-brand-blue font-black uppercase tracking-tighter">Data Pemeriksaan Fisik</h3>
+        <h3 class="text-brand-blue font-black uppercase tracking-tighter">Data Pemeriksaan Poli Orthopedi</h3>
     </td>
     <td></td>
     <td></td>
 </tr>
-<tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Antropometri</td>
     <td class="text-center font-bold text-gray-300">:</td>
@@ -49,7 +48,7 @@
     </td>
 </tr>
 <tr>
-    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Lain</td>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Fisik</td>
     <td class="text-center font-bold text-gray-300">:</td>
     <td class="space-y-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -88,7 +87,7 @@
             <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Keterangan Lainnya</label>
             <input type="text" name="keterangan_lainnya" value="{{ $surat->mcu_data['keterangan_lainnya'] ?? '' }}"
                 placeholder="Catatan tambahan (opsional)..."
-                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
+                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
         </div>
     </td>
 </tr>
@@ -103,23 +102,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Kesimpulan Klinis (Sehat/Tidak) dan Status Buta Warna diisi manual oleh Dokter Pemeriksa pada lembar cetak
-            (Coret yang tidak perlu).
-        </div>
-    </td>
-</tr>
-<tr id="row_judul_cetak_edit">
-    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Judul Cetak</td>
-    <td class="text-center font-bold text-gray-300">:</td>
-    <td>
-        <div class="flex flex-wrap gap-6">
-            @foreach(['Sehat' => 'SURAT KET. SEHAT', 'Sehat Fisik' => 'KET. SEHAT FISIK', 'Sehat Jasmani' => 'KET. SEHAT JASMANI'] as $val => $lbl)
-                <label class="flex items-center gap-2.5 cursor-pointer group">
-                    <input type="radio" name="format_cetak" value="{{ $val }}" {{ $surat->hasil_pemeriksaan == $val ? 'checked' : '' }} class="w-4 h-4 text-brand-blue">
-                    <span
-                        class="text-[10px] font-black {{ $surat->hasil_pemeriksaan == $val ? 'text-brand-blue' : 'text-gray-500' }} uppercase tracking-widest group-hover:text-brand-blue transition-colors">{{ $lbl }}</span>
-                </label>
-            @endforeach
+            Kesimpulan Klinis dan Buta Warna diisi manual pada lembar cetak.
         </div>
     </td>
 </tr>

@@ -102,12 +102,32 @@
 
     <p>Test pendengaran kuantitatif (bisik) : <strong>{{ $surat->tes_bisik ?? '' }}</strong></p>
 
-    <div class="diagram-container">
-        <img src="{{ asset('img/diagram_tht.png') }}" class="diagram-image">
-        <div class="diagram-value val-telinga-kiri">{{ $surat->telinga_kiri ?? '' }}</div>
-        <div class="diagram-value val-telinga-kanan">{{ $surat->telinga_kanan ?? '' }}</div>
-        <div class="diagram-value val-hidung">{{ $surat->hidung ?? '' }}</div>
-        <div class="diagram-value val-tenggorokan">{{ $surat->tenggorokan ?? '' }}</div>
+    <div class="diagram-container" style="border: none; height: auto; text-align: center;">
+        <img src="{{ asset('img/diagram_tht.png') }}" class="diagram-image" style="max-height: 180px;">
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 10pt;">
+        <tr>
+            <td style="width: 25%; font-weight: bold; border: 1px solid #ccc; padding: 5px; background: #f9f9f9;">
+                Telinga Kanan</td>
+            <td style="width: 25%; border: 1px solid #ccc; padding: 5px;">{{ $surat->telinga_kanan ?? '-' }}</td>
+            <td style="width: 25%; font-weight: bold; border: 1px solid #ccc; padding: 5px; background: #f9f9f9;">Hidung
+            </td>
+            <td style="width: 25%; border: 1px solid #ccc; padding: 5px;">{{ $surat->hidung ?? '-' }}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; border: 1px solid #ccc; padding: 5px; background: #f9f9f9;">Telinga Kiri</td>
+            <td style="border: 1px solid #ccc; padding: 5px;">{{ $surat->telinga_kiri ?? '-' }}</td>
+            <td style="font-weight: bold; border: 1px solid #ccc; padding: 5px; background: #f9f9f9;">Tenggorokan</td>
+            <td style="border: 1px solid #ccc; padding: 5px;">{{ $surat->tenggorokan ?? '-' }}</td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 15px; font-size: 11pt;">
+        <strong style="border-bottom: 1px solid #eee; padding-bottom: 2px;">Hasil Pemeriksaan Detail :</strong>
+        <span style="font-size: 10.5pt; color: #333; margin-left: 5px;">
+            {!! nl2br(e($surat->mcu_data['hasil_pemeriksaan_detail_tht'] ?? '-')) !!}
+        </span>
     </div>
 
     <p style="margin-top: 15px;">
