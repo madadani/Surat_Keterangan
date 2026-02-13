@@ -66,9 +66,9 @@
                             class="bg-gray-50/80 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">
                             <th class="px-6 py-5 text-center w-12">No</th>
                             <th class="px-6 py-5 min-w-[280px]">Identitas Pasien</th>
-                            <th class="px-6 py-5 min-w-[150px]">Tempat, Tgl Lahir</th>
-                            <th class="px-6 py-5 min-w-[100px]">Gender</th>
-                            <th class="px-6 py-5 min-w-[200px]">Kontak & Alamat</th>
+                            <th class="px-6 py-5 min-w-[150px] hidden md:table-cell">Tempat, Tgl Lahir</th>
+                            <th class="px-6 py-5 min-w-[100px] hidden lg:table-cell">Gender</th>
+                            <th class="px-6 py-5 min-w-[200px] hidden xl:table-cell">Kontak & Alamat</th>
                             <th class="px-6 py-5 min-w-[180px]">Keperluan & Test</th>
                             <th class="px-6 py-5 min-w-[120px]">Estimasi Biaya</th>
                             <th class="px-6 py-5 min-w-[100px]">Status</th>
@@ -113,12 +113,12 @@
                 .catch(error => {
                     console.error('Error loading data:', error);
                     document.getElementById('tableBody').innerHTML = `
-                                        <tr>
-                                            <td colspan="9" class="px-6 py-32 text-center text-red-500 font-bold">
-                                                Gagal memuat data. Silakan refresh halaman.
-                                            </td>
-                                        </tr>
-                                    `;
+                                                <tr>
+                                                    <td colspan="9" class="px-6 py-32 text-center text-red-500 font-bold">
+                                                        Gagal memuat data. Silakan refresh halaman.
+                                                    </td>
+                                                </tr>
+                                            `;
                 });
         };
 
@@ -127,12 +127,12 @@
 
             if (!items || items.length === 0) {
                 tbody.innerHTML = `
-                                    <tr>
-                                        <td colspan="9" class="px-6 py-32 text-center text-gray-300 font-black uppercase tracking-[0.3em]">
-                                            Data pendaftar tidak ditemukan
-                                        </td>
-                                    </tr>
-                                `;
+                                            <tr>
+                                                <td colspan="9" class="px-6 py-32 text-center text-gray-300 font-black uppercase tracking-[0.3em]">
+                                                    Data pendaftar tidak ditemukan
+                                                </td>
+                                            </tr>
+                                        `;
                 return;
             }
 
@@ -152,71 +152,75 @@
                 const estimatedPrice = item.estimasi_biaya || 0;
 
                 return `
-                                    <tr class="hover:bg-blue-50/20 transition-colors group">
-                                        <td class="px-6 py-5 text-center text-gray-400 font-mono text-xs">${item.DT_RowIndex}</td>
-                                        <td class="px-6 py-5">
-                                            <div class="space-y-2">
-                                                <div class="font-black text-brand-darkblue uppercase tracking-tight text-sm">${item.nama_lengkap}</div>
-                                                <div class="inline-block text-[10px] font-mono font-bold text-blue-600 bg-blue-50/50 px-3 py-1 rounded-lg">#${item.no_registrasi}</div>
-                                                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">${item.pekerjaan || '-'}</div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5">
-                                            <div class="space-y-0.5">
-                                                <div class="text-xs font-bold text-gray-700">${item.tempat_lahir || '-'}</div>
-                                                <div class="text-[10px] text-gray-500">${formattedBirthDate}</div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5">
-                                            <span class="px-2.5 py-1.5 text-[10px] font-bold uppercase rounded ${item.jenis_kelamin === 'Laki-laki' ? 'bg-blue-50 text-blue-600' : 'bg-pink-50 text-pink-600'}">${item.jenis_kelamin || '-'}</span>
-                                        </td>
-                                        <td class="px-6 py-5">
-                                            <div class="space-y-1">
-                                                <div class="text-xs font-mono text-gray-700">📞 ${item.no_hp || '-'}</div>
-                                                <div class="text-[10px] text-gray-500 line-clamp-2">${item.alamat || '-'}</div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5">
-                                            <div class="space-y-1">
-                                                <div class="text-xs font-bold text-gray-700 mb-1">${item.keperluan || '-'}</div>
-                                                <div>${tests}</div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-5">
-                                            <div class="text-xs font-black text-green-600">Rp ${estimatedPrice.toLocaleString('id-ID')}</div>
-                                            <div class="text-[9px] text-gray-400 uppercase">Estimasi</div>
-                                        </td>
-                                        <td class="px-6 py-5">
-                                            <span class="px-2.5 py-1.5 text-[9px] font-black uppercase rounded-lg bg-${statusColor}-50 text-${statusColor}-600 border border-${statusColor}-100">${item.status}</span>
-                                        </td>
-                                        <td class="px-6 py-5 text-center">
-                                            <div class="flex items-center justify-center gap-2">
-                                                <a href="/admin/buat-surat/tambah?pendaftar_id=${item.id}"
-                                                    class="w-9 h-9 bg-green-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-green-500/20 hover:bg-green-600 hover:-translate-y-0.5 transition-all"
-                                                    title="Buat Surat">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                                    </svg>
-                                                </a>
-                                                <a href="/admin/data-pendaftar/edit/${item.id}"
-                                                    class="w-9 h-9 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-blue/20 hover:bg-blue-600 hover:-translate-y-0.5 transition-all">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                    </svg>
-                                                </a>
-                                                <form action="/admin/data-pendaftar/delete/${item.id}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="inline">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button type="submit" class="w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-red-500/20 hover:bg-red-600 hover:-translate-y-0.5 transition-all">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                        </svg>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `;
+                                            <tr class="hover:bg-blue-50/20 transition-colors group">
+                                                <td class="px-6 py-5 text-center text-gray-400 font-mono text-xs">${item.DT_RowIndex}</td>
+                                                <td class="px-6 py-5">
+                                                    <div class="space-y-2">
+                                                        <div class="font-black text-brand-darkblue uppercase tracking-tight text-sm">${item.nama_lengkap}</div>
+                                                        <div class="inline-block text-[10px] font-mono font-bold text-blue-600 bg-blue-50/50 px-3 py-1 rounded-lg">#${item.no_registrasi}</div>
+                                                        <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">${item.pekerjaan || '-'}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-5 hidden md:table-cell">
+                                                    <div class="space-y-0.5">
+                                                        <div class="text-xs font-bold text-gray-700">${item.tempat_lahir || '-'}</div>
+                                                        <div class="text-[10px] text-gray-500">${formattedBirthDate}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-5 hidden lg:table-cell">
+                                                    <span class="px-2.5 py-1.5 text-[10px] font-bold uppercase rounded ${item.jenis_kelamin === 'Laki-laki' ? 'bg-blue-50 text-blue-600' : 'bg-pink-50 text-pink-600'}">${item.jenis_kelamin || '-'}</span>
+                                                </td>
+                                                <td class="px-6 py-5 hidden xl:table-cell">
+                                                    <div class="space-y-1">
+                                                        <div class="text-xs font-mono text-gray-700">📞 ${item.no_hp || '-'}</div>
+                                                        <div class="text-[10px] text-gray-500 line-clamp-2">${item.alamat || '-'}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-5">
+                                                    <div class="space-y-1">
+                                                        <div class="text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">${item.keperluan || '-'}</div>
+                                                        <div>${tests}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-5">
+                                                <div class="inline-flex items-center gap-2 bg-green-50 px-3 py-2 rounded-xl border border-green-100 whitespace-nowrap">
+                                                    <div class="text-[13px] font-black text-green-600">
+                                                        Rp. ${item.estimasi_biaya.min.toLocaleString('id-ID')}
+                                                        ${item.estimasi_biaya.max > item.estimasi_biaya.min ? ' - ' + item.estimasi_biaya.max.toLocaleString('id-ID') : ''}
+                                                    </div>
+                                                </div>
+                                                </td>
+                                                <td class="px-6 py-5">
+                                                    <span class="px-2.5 py-1.5 text-[9px] font-black uppercase rounded-lg bg-${statusColor}-50 text-${statusColor}-600 border border-${statusColor}-100">${item.status}</span>
+                                                </td>
+                                                <td class="px-6 py-5 text-center">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <a href="/admin/buat-surat/tambah?pendaftar_id=${item.id}"
+                                                            class="w-9 h-9 bg-green-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-green-500/20 hover:bg-green-600 hover:-translate-y-0.5 transition-all"
+                                                            title="Buat Surat">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                                            </svg>
+                                                        </a>
+                                                        <a href="/admin/data-pendaftar/edit/${item.id}"
+                                                            class="w-9 h-9 bg-brand-blue text-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-blue/20 hover:bg-blue-600 hover:-translate-y-0.5 transition-all">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                            </svg>
+                                                        </a>
+                                                        <form action="/admin/data-pendaftar/delete/${item.id}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="inline">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <button type="submit" class="w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-red-500/20 hover:bg-red-600 hover:-translate-y-0.5 transition-all">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `;
             }).join('');
         };
 

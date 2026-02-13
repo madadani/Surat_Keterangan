@@ -65,57 +65,48 @@
         tindakan sebagai berikut:
     </p>
 
-    <div class="section-title">1. Hasil Pemeriksaan</div>
-    <p style="margin-left: 20px; margin-top: 0;">Keadaan gigi dan jaringan sekitar gigi telah dilakukan pemeriksaan
-        klinis</p>
+    <div class="section-title">A. PEMERIKSAAN MULUT DAN GIGI (ODONTOGRAM) </div>
+    
 
-    <div style="margin-left: 20px; margin-bottom: 25px; display: flex; gap: 30px; align-items: start;">
-        <div style="flex: 1;">
-            <div
-                style="font-weight: bold; font-size: 10pt; text-transform: uppercase; border-bottom: 2px solid #000; display: inline-block; margin-bottom: 10px;">
-                A. DATA PEMERIKSAAN MULUT DAN GIGI (ODONTOGRAM) :</div>
-
-            <table
-                style="width: 100%; border-collapse: collapse; font-size: 8pt; text-align: center; font-family: 'Courier New', Courier, monospace;">
-                <thead>
-                    <tr style="background: #f9f9f9;">
-                        <th style="border: 1px solid #000; padding: 4px; width: 60px;">RAHANG</th>
-                        <th style="border: 1px solid #000; padding: 4px; width: 80px;">STATUS</th>
-                        @foreach(['M3', 'M2', 'M1', 'P2', 'P1', 'C', 'I2', 'I1', 'I1', 'I2', 'C', 'P1', 'P2', 'M1', 'M2', 'M3'] as $tooth)
-                            <th style="border: 1px solid #000; padding: 4px;">{{ $tooth }}</th>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(['atas' => 'ATAS', 'bawah' => 'BAWAH'] as $key => $label)
-                        <tr>
-                            <td style="border: 1px solid #000; padding: 6px; font-weight: bold; background: #fdfdfd;">
-                                {{ $label }}
-                            </td>
-                            <td style="border: 1px solid #000; padding: 4px;">
-                                {{ $surat->mcu_data['odontogram_' . $key . '_status'] ?? '-' }}
-                            </td>
-                            @for($i = 1; $i <= 16; $i++)
-                                <td style="border: 1px solid #000; padding: 4px; color: #333; font-weight: bold;">
-                                    {{ $surat->mcu_data['odontogram_' . $key . '_g' . $i] ?? '' }}
-                                </td>
-                            @endfor
-                        </tr>
+    <div style="margin-left: 20px; margin-bottom: 20px;">
+        <table
+            style="width: 100%; border-collapse: collapse; font-size: 8pt; text-align: center; font-family: 'Courier New', Courier, monospace;">
+            <thead>
+                <tr style="background: #f9f9f9;">
+                    <th style="border: 1px solid #000; padding: 4px; width: 60px;">RAHANG</th>
+                    <th style="border: 1px solid #000; padding: 4px; width: 80px;">STATUS</th>
+                    @foreach(['M3', 'M2', 'M1', 'P2', 'P1', 'C', 'I2', 'I1', 'I1', 'I2', 'C', 'P1', 'P2', 'M1', 'M2', 'M3'] as $tooth)
+                        <th style="border: 1px solid #000; padding: 4px;">{{ $tooth }}</th>
                     @endforeach
-                </tbody>
-            </table>
-            <div style="margin-top: 5px; font-size: 7.5pt; color: #666; font-style: italic;"> * Posisi data: Baris
-                Rahang
-                (Kanan ke Kiri untuk M3-I1, Kiri ke Kanan untuk I1-M3) </div>
-        </div>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(['atas' => 'ATAS', 'bawah' => 'BAWAH'] as $key => $label)
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px; font-weight: bold; background: #fdfdfd;">
+                            {{ $label }}
+                        </td>
+                        <td style="border: 1px solid #000; padding: 4px;">
+                            {{ $surat->mcu_data['odontogram_' . $key . '_status'] ?? '-' }}
+                        </td>
+                        @for($i = 1; $i <= 16; $i++)
+                            <td style="border: 1px solid #000; padding: 4px; color: #333; font-weight: bold;">
+                                {{ $surat->mcu_data['odontogram_' . $key . '_g' . $i] ?? '' }}
+                            </td>
+                        @endfor
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div style="margin-top: 5px; font-size: 7.5pt; color: #666; font-style: italic;"> * Posisi data: Baris Rahang
+            (Kanan ke Kiri untuk M3-I1, Kiri ke Kanan untuk I1-M3) </div>
+    </div>
 
-        <div style="width: 250px; min-width: 200px;">
-            <div
-                style="margin-bottom: 5px; font-weight: bold; font-size: 11pt; border-bottom: 2px solid #000; display: inline-block;">
-                Hasil Pemeriksaan :</div>
-            <div style="padding: 5px 0; font-size: 10pt; line-height: 1.5;">
-                {{ $surat->hasil_pemeriksaan }}
-            </div>
+    <div style="margin-left: 20px; margin-bottom: 25px; display: flex; align-items: baseline; gap: 8px;">
+        <div style="font-weight: bold; font-size: 11pt; border-bottom: 1.5px solid #000; white-space: nowrap;">
+            Hasil Pemeriksaan :</div>
+        <div style="font-size: 11pt; line-height: 1.4;">
+            {{ $surat->hasil_pemeriksaan }}
         </div>
     </div>
 

@@ -38,9 +38,37 @@ class PendaftarMgController extends Controller
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('estimasi_biaya', function ($row) {
-                // Get price from database based on keperluan
-                $price = Price::where('test_name', $row->keperluan)->first();
-                return $price ? $price->price : 0;
+                $minTotal = 0;
+                $maxTotal = 0;
+
+                $calculatePrice = function ($testName) use (&$minTotal, &$maxTotal) {
+                    $testName = trim($testName);
+                    if (!empty($testName)) {
+                        $priceRecord = Price::where('test_name', 'LIKE', $testName)->first();
+                        if ($priceRecord) {
+                            $minTotal += $priceRecord->price;
+                            $maxTotal += $priceRecord->max_price ?: $priceRecord->price;
+                        }
+                    }
+                };
+
+                // 1. Get price from keperluan
+                if ($row->keperluan) {
+                    $calculatePrice($row->keperluan);
+                }
+
+                // 2. Get prices from jenis_test (comma separated)
+                if ($row->jenis_test) {
+                    $tests = explode(',', $row->jenis_test);
+                    foreach ($tests as $test) {
+                        $calculatePrice($test);
+                    }
+                }
+
+                return [
+                    'min' => $minTotal,
+                    'max' => $maxTotal
+                ];
             })
             ->addColumn('status_badge', function ($row) {
                 $color = 'gray';

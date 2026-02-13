@@ -12,5 +12,6 @@ class Price extends Model
     protected $fillable = [
         'test_name',
         'price',
+        'max_price',
     ];
 }

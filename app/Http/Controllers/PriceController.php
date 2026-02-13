@@ -17,11 +17,15 @@ class PriceController extends Controller
     {
         $data = $request->validate([
             'prices' => 'required|array',
-            'prices.*' => 'required|numeric|min:0',
+            'prices.*.min' => 'required|numeric|min:0',
+            'prices.*.max' => 'nullable|numeric|min:0',
         ]);
 
-        foreach ($data['prices'] as $id => $price) {
-            Price::where('id', $id)->update(['price' => $price]);
+        foreach ($data['prices'] as $id => $values) {
+            Price::where('id', $id)->update([
+                'price' => $values['min'],
+                'max_price' => $values['max']
+            ]);
         }
 
         return redirect()->back()->with('success', 'Harga estimasi berhasil diperbarui!');

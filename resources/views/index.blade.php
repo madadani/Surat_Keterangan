@@ -288,7 +288,9 @@
                                     @foreach($prices as $price)
                                         <label class="group relative cursor-pointer">
                                             <input type="checkbox" name="jenis_test[]" value="{{ $price->test_name }}"
-                                                data-price="{{ $price->price }}" class="peer opacity-0 absolute test-checkbox"
+                                                data-price="{{ $price->price }}" 
+                                                data-max-price="{{ $price->max_price ?: $price->price }}"
+                                                class="peer opacity-0 absolute test-checkbox"
                                                 {{ is_array(old('jenis_test')) && in_array($price->test_name, old('jenis_test')) ? 'checked' : '' }}>
                                             <div
                                                 class="flex flex-row items-center gap-3 p-3 bg-white border-2 border-slate-200 rounded-2xl transition-all duration-200 peer-checked:bg-brand-green peer-checked:text-white peer-checked:border-brand-green peer-checked:shadow-[0_15px_30px_-10px_rgba(0,200,83,0.3)] peer-checked:-translate-y-1 group-hover:border-brand-green/30 active:scale-[0.98] shadow-sm">
@@ -406,11 +408,18 @@
             const totalDisplay = document.getElementById('js-total-price');
 
             function updateTotal() {
-                let total = 0;
+                let minTotal = 0;
+                let maxTotal = 0;
                 document.querySelectorAll('.test-checkbox:checked').forEach(cb => {
-                    total += parseInt(cb.getAttribute('data-price')) || 0;
+                    minTotal += parseInt(cb.getAttribute('data-price')) || 0;
+                    maxTotal += parseInt(cb.getAttribute('data-max-price')) || 0;
                 });
-                totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(total);
+                
+                if (maxTotal > minTotal) {
+                    totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(minTotal) + ' - ' + new Intl.NumberFormat('id-ID').format(maxTotal);
+                } else {
+                    totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(minTotal);
+                }
             }
 
             checkboxes.forEach(cb => {
@@ -480,13 +489,19 @@
 
         function updatePriceSummary() {
             const checkboxes = document.querySelectorAll('.test-checkbox:checked');
-            let total = 0;
+            let minTotal = 0;
+            let maxTotal = 0;
             checkboxes.forEach(cb => {
-                total += parseInt(cb.getAttribute('data-price')) || 0;
+                minTotal += parseInt(cb.getAttribute('data-price')) || 0;
+                maxTotal += parseInt(cb.getAttribute('data-max-price')) || 0;
             });
             const totalDisplay = document.getElementById('total-estimation');
             if (totalDisplay) {
-                totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(total);
+                if (maxTotal > minTotal) {
+                    totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(minTotal) + ' - ' + new Intl.NumberFormat('id-ID').format(maxTotal);
+                } else {
+                    totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(minTotal);
+                }
             }
         }
         document.addEventListener('DOMContentLoaded', updatePriceSummary);

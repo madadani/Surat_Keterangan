@@ -25,7 +25,13 @@ class ReportController extends Controller
 
         $stats = $query->groupBy('tipe_berkas')
             ->get()
-            ->pluck('total', 'tipe_berkas');
+            ->pluck('total', 'tipe_berkas')->toArray();
+
+        // Combine THT and Kesehatan THT counts
+        if (isset($stats['THT'])) {
+            $stats['Kesehatan THT'] = ($stats['Kesehatan THT'] ?? 0) + $stats['THT'];
+            unset($stats['THT']);
+        }
 
         return view('admin.reports.index', compact('prices', 'stats', 'startDate', 'endDate'));
     }
@@ -51,7 +57,11 @@ class ReportController extends Controller
             $prices = Price::pluck('test_name')->toArray();
             $query->whereNotIn('tipe_berkas', $prices);
         } else {
-            $query->where('tipe_berkas', $type);
+            if ($type == 'Kesehatan THT') {
+                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
+            } else {
+                $query->where('tipe_berkas', $type);
+            }
         }
 
         if ($startDate && $endDate) {
@@ -84,7 +94,11 @@ class ReportController extends Controller
             $prices = Price::pluck('test_name')->toArray();
             $query->whereNotIn('tipe_berkas', $prices);
         } else {
-            $query->where('tipe_berkas', $type);
+            if ($type == 'Kesehatan THT') {
+                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
+            } else {
+                $query->where('tipe_berkas', $type);
+            }
         }
 
         if ($startDate && $endDate) {

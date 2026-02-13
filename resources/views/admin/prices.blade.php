@@ -6,7 +6,14 @@
     <!-- Header -->
     <header
         class="h-20 lg:h-24 bg-white/80 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 lg:px-8 z-20 sticky top-0 transition-all duration-300">
-        <div class="flex items-center gap-3 lg:gap-5 flex-1 min-w-0">
+        <div class="flex items-center gap-3 lg:gap-4 flex-1">
+            <button id="sidebarToggle"
+                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-brand-darkblue hover:bg-brand-blue hover:text-white transition-all shadow-sm border border-gray-100 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
             <div class="min-w-0">
                 <h2
                     class="text-base lg:text-2xl font-black text-brand-darkblue tracking-tight truncate leading-tight uppercase">
@@ -42,20 +49,39 @@
                                         </span>
                                     </label>
 
-                                    <div class="relative">
-                                        <div class="absolute left-5 top-1/2 -translate-y-1/2 flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 bg-white rounded-lg shadow-sm border border-slate-100 flex items-center justify-center text-brand-blue font-black text-[10px] group-focus-within:bg-brand-blue group-focus-within:text-white transition-all duration-300">
-                                                Rp
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="relative group">
+                                            <label class="flex items-center gap-2 mb-2 px-1">
+                                                <span
+                                                    class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Harga
+                                                    Min</span>
+                                            </label>
+                                            <div class="relative">
+                                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center">
+                                                    <span class="text-brand-blue font-black text-[10px]">Rp</span>
+                                                </div>
+                                                <input type="number" name="prices[{{ $price->id }}][min]"
+                                                    value="{{ $price->price }}"
+                                                    class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-xl pl-10 pr-4 py-3 font-black text-brand-darkblue text-sm focus:bg-white focus:border-brand-blue outline-none transition-all shadow-sm"
+                                                    required min="0">
                                             </div>
                                         </div>
-                                        <input type="number" name="prices[{{ $price->id }}]" value="{{ $price->price }}"
-                                            class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl pl-16 pr-6 py-5 font-black text-brand-darkblue text-lg focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 outline-none transition-all duration-300 shadow-sm group-hover:border-slate-200"
-                                            required min="0">
 
-                                        <!-- Interactive Border Bottom -->
-                                        <div
-                                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-brand-blue rounded-full transition-all duration-500 group-focus-within:w-[80%]">
+                                        <div class="relative group">
+                                            <label class="flex items-center gap-2 mb-2 px-1">
+                                                <span
+                                                    class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Harga
+                                                    Max</span>
+                                            </label>
+                                            <div class="relative">
+                                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center">
+                                                    <span class="text-brand-blue font-black text-[10px]">Rp</span>
+                                                </div>
+                                                <input type="number" name="prices[{{ $price->id }}][max]"
+                                                    value="{{ $price->max_price }}"
+                                                    class="w-full bg-slate-50/50 border-2 border-slate-100 rounded-xl pl-10 pr-4 py-3 font-black text-brand-darkblue text-sm focus:bg-white focus:border-brand-blue outline-none transition-all shadow-sm"
+                                                    min="0">
+                                            </div>
                                         </div>
                                     </div>
 

@@ -52,7 +52,11 @@ class PoliReport extends Component
                     ->orWhere('tipe_berkas', 'LIKE', 'Poli %');
             });
         } else {
-            $query->where('tipe_berkas', $this->type);
+            if ($this->type == 'Kesehatan THT') {
+                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
+            } else {
+                $query->where('tipe_berkas', $this->type);
+            }
         }
 
         if ($this->startDate && $this->endDate) {
@@ -115,7 +119,11 @@ class PoliReport extends Component
                     ->orWhere('tipe_berkas', 'LIKE', 'Poli %');
             });
         } else {
-            $query->where('tipe_berkas', $this->type);
+            if ($this->type == 'Kesehatan THT') {
+                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
+            } else {
+                $query->where('tipe_berkas', $this->type);
+            }
         }
 
         if ($this->startDate && $this->endDate) {
