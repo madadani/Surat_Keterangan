@@ -12,97 +12,106 @@ class PendaftarMgController extends Controller
 {
     public function json(Request $request)
     {
-        $query = Pendaftar::query();
+        try {
+            $query = Pendaftar::query();
 
-        // Filter by status
-        if ($request->has('status') && $request->status != '') {
-            $status = $request->status;
-            if ($status == 'Queue') {
-                $query->whereIn('status', ['Pending', 'Proses']);
-            } else {
-                $query->where('status', $status);
+            // Filter by status
+            if ($request->has('status') && $request->status != '') {
+                $status = $request->status;
+                if ($status == 'Queue') {
+                    $query->whereIn('status', ['Pending', 'Proses']);
+                } else {
+                    $query->where('status', $status);
+                }
             }
-        }
 
-        // Search by name or registration number
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('nama_lengkap', 'LIKE', "%{$search}%")
-                    ->orWhere('no_registrasi', 'LIKE', "%{$search}%");
-            });
-        }
+            // Search by name or registration number
+            if ($request->has('search') && $request->search != '') {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('nama_lengkap', 'LIKE', "%{$search}%")
+                        ->orWhere('no_registrasi', 'LIKE', "%{$search}%");
+                });
+            }
 
-        $query->latest();
+            $query->latest();
 
-        return DataTables::of($query)
-            ->addIndexColumn()
-            ->addColumn('estimasi_biaya', function ($row) {
-                $minTotal = 0;
-                $maxTotal = 0;
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->addColumn('estimasi_biaya', function ($row) {
+                    $minTotal = 0;
+                    $maxTotal = 0;
 
-                $calculatePrice = function ($testName) use (&$minTotal, &$maxTotal) {
-                    $testName = trim($testName);
-                    if (!empty($testName)) {
-                        $priceRecord = Price::where('test_name', 'LIKE', $testName)->first();
-                        if ($priceRecord) {
-                            $minTotal += $priceRecord->price;
-                            $maxTotal += $priceRecord->max_price ?: $priceRecord->price;
+                    $calculatePrice = function ($testName) use (&$minTotal, &$maxTotal) {
+                        try {
+                            $testName = trim($testName);
+                            if (!empty($testName)) {
+                                $priceRecord = Price::where('test_name', 'LIKE', $testName)->first();
+                                if ($priceRecord) {
+                                    $minTotal += (int) $priceRecord->price;
+                                    $maxTotal += (int) ($priceRecord->max_price ?: $priceRecord->price);
+                                }
+                            }
+                        } catch (\Exception $e) {
+                            \Illuminate\Support\Facades\Log::error('Price calculation error for ' . $testName . ': ' . $e->getMessage());
+                        }
+                    };
+
+                    // 1. Get price from keperluan
+                    if ($row->keperluan) {
+                        $calculatePrice($row->keperluan);
+                    }
+
+                    // 2. Get prices from jenis_test (comma separated)
+                    if ($row->jenis_test) {
+                        $tests = explode(',', $row->jenis_test);
+                        foreach ($tests as $test) {
+                            $calculatePrice($test);
                         }
                     }
-                };
 
-                // 1. Get price from keperluan
-                if ($row->keperluan) {
-                    $calculatePrice($row->keperluan);
-                }
+                    return [
+                        'min' => $minTotal,
+                        'max' => $maxTotal
+                    ];
+                })
+                ->addColumn('status_badge', function ($row) {
+                    $color = 'gray';
+                    if ($row->status == 'Pending')
+                        $color = 'yellow';
+                    elseif ($row->status == 'Proses')
+                        $color = 'blue';
+                    elseif ($row->status == 'Selesai')
+                        $color = 'green';
 
-                // 2. Get prices from jenis_test (comma separated)
-                if ($row->jenis_test) {
-                    $tests = explode(',', $row->jenis_test);
-                    foreach ($tests as $test) {
-                        $calculatePrice($test);
-                    }
-                }
+                    return '<span class="px-2 py-1 text-[10px] font-bold uppercase rounded bg-' . $color . '-50 text-' . $color . '-600 border border-' . $color . '-100">' . $row->status . '</span>';
+                })
+                ->addColumn('action', function ($row) {
+                    $editUrl = url('/admin/data-pendaftar/edit/' . $row->id);
+                    $deleteUrl = url('/admin/data-pendaftar/delete/' . $row->id);
+                    $csrf = csrf_field();
+                    $method = method_field('DELETE');
 
-                return [
-                    'min' => $minTotal,
-                    'max' => $maxTotal
-                ];
-            })
-            ->addColumn('status_badge', function ($row) {
-                $color = 'gray';
-                if ($row->status == 'Pending')
-                    $color = 'yellow';
-                elseif ($row->status == 'Proses')
-                    $color = 'blue';
-                elseif ($row->status == 'Selesai')
-                    $color = 'green';
-
-                return '<span class="px-2 py-1 text-[10px] font-bold uppercase rounded bg-' . $color . '-50 text-' . $color . '-600 border border-' . $color . '-100">' . $row->status . '</span>';
-            })
-            ->addColumn('action', function ($row) {
-                $editUrl = url('/admin/data-pendaftar/edit/' . $row->id);
-                $deleteUrl = url('/admin/data-pendaftar/delete/' . $row->id);
-                $csrf = csrf_field();
-                $method = method_field('DELETE');
-
-                return '
-                    <div class="flex items-center gap-2">
-                        <a href="' . $editUrl . '" class="w-8 h-8 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-                        </a>
-                        <form action="' . $deleteUrl . '" method="POST" onsubmit="return confirm(\'Yakin ingin menghapus data ini?\')">
-                            ' . $csrf . $method . '
-                            <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                            </button>
-                        </form>
-                    </div>
-                ';
-            })
-            ->rawColumns(['status_badge', 'action'])
-            ->make(true);
+                    return '
+                        <div class="flex items-center gap-2">
+                            <a href="' . $editUrl . '" class="w-8 h-8 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            </a>
+                            <form action="' . $deleteUrl . '" method="POST" onsubmit="return confirm(\'Yakin ingin menghapus data ini?\')">
+                                ' . $csrf . $method . '
+                                <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                </button>
+                            </form>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['status_badge', 'action'])
+                ->make(true);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('PendaftarMgController@json error: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function index()

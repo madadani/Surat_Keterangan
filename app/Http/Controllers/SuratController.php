@@ -31,7 +31,7 @@ class SuratController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('nama_lengkap', 'LIKE', "%{$search}%")
                     ->orWhere('no_registrasi', 'LIKE', "%{$search}%")
-                    ->orWhere('nik', 'LIKE', "%{$search}%")
+                    ->orWhere('no_registrasi', 'LIKE', "%{$search}%")
                     ->orWhereHas('suratKeterangan', function ($sq) use ($search) {
                         $sq->where('nomor_surat', 'LIKE', "%{$search}%");
                     });
