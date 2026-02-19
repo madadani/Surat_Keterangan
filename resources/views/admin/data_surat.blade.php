@@ -5,8 +5,8 @@
 @section('content')
     <!-- Header -->
     <header
-        class="h-20 lg:h-24 bg-white/80 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0 transition-all duration-300">
-        <div class="flex items-center gap-3 lg:gap-4 flex-1">
+        class="h-20 lg:h-28 bg-white/80 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0 transition-all duration-300">
+        <div class="flex items-center gap-3 lg:gap-6 flex-1">
             <button id="sidebarToggle"
                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-brand-darkblue hover:bg-brand-blue hover:text-white transition-all shadow-sm border border-gray-100 shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -14,70 +14,67 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            <div class="truncate">
-                <h2 class="text-sm lg:text-2xl font-black text-brand-darkblue tracking-tight truncate uppercase">Arsip Surat
-                    Keterangan</h2>
-                <p class="text-[8px] lg:text-xs text-brand-gray font-medium truncate uppercase tracking-widest mt-0.5">
-                    Database Seluruh Berkas Terbit</p>
+            <div class="hidden md:block">
+                <h2 class="text-sm lg:text-xl font-black text-brand-darkblue tracking-tight uppercase">Arsip Surat</h2>
+                <p class="text-[8px] lg:text-[10px] text-brand-gray font-bold uppercase tracking-widest mt-0.5">Database
+                    Berkas</p>
             </div>
+
+            <!-- Integrated Filter inside Header -->
+            <form action="{{ url('/admin/data-surat') }}" method="GET"
+                class="flex-1 max-w-2xl flex items-center gap-3 ml-2 lg:ml-6">
+                <div class="relative flex-1 group">
+                    <input type="text" name="search" placeholder="Cari nama, nomor, atau NIK..."
+                        value="{{ request('search') }}"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:bg-white focus:border-brand-blue transition-all outline-none">
+                    <div
+                        class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-brand-blue transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="bg-brand-orange text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-orange/20 hover:bg-orange-600 transition-all flex items-center gap-2 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    FILTER
+                </button>
+                @if(request('search'))
+                    <a href="{{ url('/admin/data-surat') }}"
+                        class="text-[10px] font-black text-red-500 hover:text-red-700 uppercase tracking-tighter shrink-0">Reset</a>
+                @endif
+            </form>
         </div>
 
-        <div class="flex items-center gap-2 lg:gap-4 flex-wrap justify-end">
-            <div class="hidden sm:flex flex-col items-end border-r border-gray-100 pr-4 mr-2">
-                <span class="text-[10px] font-black text-brand-darkblue/40 uppercase tracking-tighter">Total Arsip</span>
+        <div class="flex items-center gap-4 ml-4">
+            <div class="hidden xl:flex flex-col items-end border-r border-gray-100 pr-4 mr-2">
+                <span class="text-[9px] font-black text-brand-darkblue/40 uppercase tracking-tighter">Total Arsip</span>
                 <span class="text-[10px] font-bold text-brand-blue flex items-center gap-1.5 uppercase tracking-widest">
-                    {{ number_format($totalSurat) }} Berkas
+                    {{ number_format($totalSurat) }}
                 </span>
             </div>
         </div>
     </header>
 
     <!-- Content Body -->
-    <div class="flex-1 overflow-y-auto p-4 lg:p-10 space-y-6 lg:space-y-8">
+    <div class="flex-1 flex flex-col p-4 lg:px-8 lg:py-6 bg-[#f8fafc] overflow-hidden">
 
-        <!-- Filters Card -->
-        <div
-            class="bg-white p-6 lg:p-8 rounded-[2.5rem] shadow-sm border border-gray-100 mb-6 transition-all hover:shadow-md">
-            <form action="{{ url('/admin/data-surat') }}" method="GET" class="flex flex-wrap items-center gap-6">
-                <div class="flex items-center flex-1 max-w-md">
-                    <div class="relative w-full group">
-                        <input type="text" name="search" placeholder="Cari nama, nomor surat, atau NIK..."
-                            value="{{ request('search') }}"
-                            class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-3 pl-12 pr-4 text-sm font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:bg-white focus:border-brand-blue transition-all outline-none">
-                        <div
-                            class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-brand-blue transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <button type="submit"
-                        class="bg-brand-orange text-white px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg shadow-brand-orange/20 hover:bg-orange-600 transition-all flex items-center gap-2">
-                        FILTER DATA
-                    </button>
-                    @if(request('search'))
-                        <a href="{{ url('/admin/data-surat') }}"
-                            class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-red-100 transition-all">Reset</a>
-                    @endif
-                </div>
-            </form>
-        </div>
-
-        <!-- Table Card -->
-        <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-            <div class="overflow-x-auto">
+        <!-- Table Card (Scrollable area) -->
+        <div class="flex-1 min-h-0 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
+            <div class="flex-1 overflow-auto">
                 <table class="w-full text-left border-collapse min-w-[1200px]">
-                    <thead>
+                    <thead class="sticky top-0 z-[5] bg-white">
                         <tr
                             class="bg-gray-50/80 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">
                             <th class="px-8 py-6 text-center w-20">No</th>
                             <th class="px-6 py-6">Penerima Berkas</th>
-                            <th class="px-6 py-6">Klasifikasi & Nomor</th>
+                            <th class="px-6 py-6 font-bold uppercase tracking-widest">Klasifikasi & Nomor</th>
                             <th class="px-6 py-6">Data Klinis</th>
                             <th class="px-6 py-6 font-bold uppercase tracking-widest">Pemeriksa</th>
                             <th class="px-6 py-6 text-center">Tgl Terbit</th>
@@ -174,7 +171,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                                                        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-1 1v3M4 7h16" />
                                                 </svg>
                                             </a>
                                             <a href="{{ url('/admin/buat-surat/edit/' . $suratEntry->id) }}"
@@ -207,33 +204,25 @@
                             @endforeach
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-40 text-center">
-                                    <div class="flex flex-col items-center gap-4">
-                                        <div class="w-20 h-20 bg-gray-50 rounded-[2rem] flex items-center justify-center mb-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-300" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                        </div>
-                                        <span class="text-base font-black text-gray-400 uppercase tracking-[0.2em]">Database
-                                            Kosong</span>
-                                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">Belum ada data
-                                            surat keterangan yang ditemukan</p>
-                                    </div>
+                                <td colspan="7"
+                                    class="px-6 py-32 text-center text-gray-300 font-black uppercase tracking-[0.3em]">
+                                    Data arsip surat tidak ditemukan
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
-            </div>
 
-            <!-- Pagination -->
-            <div class="px-8 py-6 border-t border-gray-50 bg-gray-50/30">
-                {{ $pendaftar->appends(request()->all())->links() }}
+                <!-- Pagination (Inside Scroll for Bottom Scrollbar) -->
+                <div id="paginationContainer"
+                    class="sticky left-0 bottom-0 shrink-0 px-8 py-4 border-t border-gray-50 bg-gray-50/50 backdrop-blur-sm z-10">
+                    {{ $pendaftar->appends(request()->all())->links() }}
+                </div>
             </div>
         </div>
-
-
     </div>
 @endsection
+
+@push('scripts')
+    <!-- No extra scripts needed for responsive scroll -->
+@endpush

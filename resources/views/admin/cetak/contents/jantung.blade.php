@@ -92,46 +92,23 @@
     <div class="section-title">I. PEMERIKSAAN PENUNJANG</div>
     <table class="field-table" style="margin-top: 0;">
         <tr>
-            <td class="label-col">Hasil EKG</td>
+            <td style="width: 250px;">1. Kesimpulan EKG</td>
             <td class="dots-col">:</td>
             <td>{{ $surat->mcu_data['jantung_ekg'] ?? '-' }}</td>
         </tr>
         <tr>
-            <td class="label-col">Hasil Treadmill Stress</td>
+            <td style="width: 250px;">2. Kesimpulan Treadmill Stress</td>
             <td class="dots-col">:</td>
             <td>{{ $surat->mcu_data['jantung_treadmill'] ?? '-' }}</td>
         </tr>
-    </table>
-
-    <div class="section-title">II. DETAIL PARAMETER EKG</div>
-    <table class="bordered">
         <tr>
-            <td style="width: 35%;">Irama</td>
-            <td>{{ $surat->mcu_data['jantung_irama'] ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td>Heart Rate (HR)</td>
-            <td>{{ $surat->mcu_data['jantung_hr'] ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td>Gelombang P</td>
-            <td>{{ $surat->mcu_data['jantung_p_wave'] ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td>Interval PR</td>
-            <td>{{ $surat->mcu_data['jantung_pr_interval'] ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td>Kompleks QRS</td>
-            <td>{{ $surat->mcu_data['jantung_qrs_complex'] ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td>Gelombang T</td>
-            <td>{{ $surat->mcu_data['jantung_t_wave'] ?? '-' }}</td>
+            <td style="width: 250px;">3. Kesimpulan Echocardiografi</td>
+            <td class="dots-col">:</td>
+            <td>{{ $surat->mcu_data['jantung_echo'] ?? '-' }}</td>
         </tr>
     </table>
 
-    <div class="section-title" style="margin-top: 15px;">III. KESIMPULAN</div>
+    <div class="section-title" style="margin-top: 15px;">II. KESIMPULAN</div>
     <p style="text-align: justify; margin: 5px 0; line-height: 1.4;">
         Telah diperiksa dengan teliti dan berpendapat bahwa yang diperiksa :<br>
         <span style="font-weight: bold; font-size: 11pt;">{{ strtoupper($surat->hasil_pemeriksaan) }}</span>
@@ -140,7 +117,8 @@
     <div style="margin-top: 10px; display: table; width: 100%;">
         <div style="display: table-cell; width: 160px;">Keterangan / Saran :</div>
         <div style="display: table-cell; border-bottom: 1px dotted #000; padding-bottom: 2px;">
-            {{ $surat->saran ?? 'Tidak Ada' }}</div>
+            {{ $surat->saran ?? 'Tidak Ada' }}
+        </div>
     </div>
 
     <p style="margin-top: 20px;">Demikian surat keterangan ini dibuat untuk dapat dipergunakan seperlunya.</p>

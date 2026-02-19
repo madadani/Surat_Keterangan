@@ -568,7 +568,7 @@ class SuratController extends Controller
                 $surat->pendaftar->update(['no_rm' => $request->no_rm_gigi]);
             }
 
-        } elseif ($surat->tipe_berkas == 'Kesehatan Jantung') {
+        } elseif (str_contains($surat->tipe_berkas, 'Jantung')) {
             $data['hasil_pemeriksaan'] = $request->hasil_jantung;
             $data['saran'] = $request->saran_jantung;
             $heartData = [];

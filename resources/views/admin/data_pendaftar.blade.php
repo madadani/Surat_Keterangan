@@ -5,8 +5,8 @@
 @section('content')
     <!-- Header -->
     <header
-        class="h-20 lg:h-24 bg-white/80 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0 transition-all duration-300">
-        <div class="flex items-center gap-3 lg:gap-4 flex-1">
+        class="h-20 lg:h-28 bg-white/80 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0 transition-all duration-300">
+        <div class="flex items-center gap-3 lg:gap-6 flex-1">
             <button id="sidebarToggle"
                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-brand-darkblue hover:bg-brand-blue hover:text-white transition-all shadow-sm border border-gray-100 shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -14,54 +14,51 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            <div class="truncate">
-                <h2 class="text-sm lg:text-2xl font-black text-brand-darkblue tracking-tight truncate uppercase">Master Data
-                    Pendaftar</h2>
-                <p class="text-[8px] lg:text-xs text-brand-gray font-medium truncate uppercase tracking-widest mt-0.5">
-                    Kelola data pendaftaran pasien</p>
+            <div class="hidden md:block">
+                <h2 class="text-sm lg:text-xl font-black text-brand-darkblue tracking-tight uppercase">Data Pendaftar</h2>
+                <p class="text-[8px] lg:text-[10px] text-brand-gray font-bold uppercase tracking-widest mt-0.5">Manajemen Pasien</p>
+            </div>
+
+            <!-- Integrated Header Filter -->
+            <div class="flex-1 max-w-4xl flex items-center gap-3 ml-2 lg:ml-6">
+                <div class="relative flex-1 group">
+                    <input type="text" id="searchInput" placeholder="Cari nama, reg, NIK..."
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:bg-white focus:border-brand-blue transition-all outline-none">
+                    <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-brand-blue transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <select id="filterStatus"
+                    class="bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-3 text-[10px] font-black uppercase tracking-widest text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 outline-none cursor-pointer hidden sm:block">
+                    <option value="">Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Proses">Proses</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+
+                <a href="{{ url('/admin/data-pendaftar/tambah') }}"
+                    class="bg-brand-blue text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-blue/20 hover:bg-brand-darkblue transition-all flex items-center gap-2 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span class="hidden sm:inline">PENDAFTAR BARU</span>
+                    <span class="sm:hidden">BARU</span>
+                </a>
             </div>
         </div>
     </header>
 
     <!-- Content Body -->
-    <div class="flex-1 overflow-y-auto p-4 lg:p-10 space-y-6 lg:space-y-8 bg-[#f8fafc]">
-
-        <!-- Filters Card -->
-        <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 transition-all hover:shadow-md">
-            <div class="flex flex-wrap items-center gap-6">
-                <!-- Search -->
-                <div class="flex items-center flex-1 max-w-sm">
-                    <div class="relative w-full group">
-                        <input type="text" id="searchInput" placeholder="Cari nama atau no registrasi..."
-                            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 pl-11 pr-4 text-sm font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:bg-white focus:border-brand-blue transition-all outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4 absolute left-4 top-3 text-gray-400 group-focus-within:text-brand-blue transition-colors"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Filter Status -->
-                <div class="flex items-center gap-2">
-                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</span>
-                    <select id="filterStatus"
-                        class="bg-gray-50 border border-gray-200 rounded-xl py-2 px-3 text-xs font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 outline-none">
-                        <option value="">Semua Status</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Proses">Proses</option>
-                        <option value="Selesai">Selesai</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- Table Card -->
-        <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden relative">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse min-w-[1000px]">
-                    <thead>
+    <div class="flex-1 flex flex-col p-4 lg:px-8 lg:py-6 bg-[#f8fafc] overflow-hidden">
+        
+        <!-- Table Card (Scrollable area) -->
+        <div class="flex-1 min-h-0 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col overflow-hidden relative">
+            <div class="flex-1 overflow-auto">
+                <table id="mainTable" class="w-full text-left border-collapse min-w-[1000px]">
+                    <thead class="sticky top-0 z-[5] bg-white">
                         <tr
                             class="bg-gray-50/80 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">
                             <th class="px-6 py-5 text-center w-12">No</th>
@@ -79,11 +76,11 @@
                         <!-- Data will be loaded here -->
                     </tbody>
                 </table>
-            </div>
 
-            <!-- Pagination -->
-            <div id="paginationContainer" class="px-8 py-6 border-t border-gray-50 bg-gray-50/30">
-                <!-- Pagination links will be loaded here -->
+                <!-- Pagination (Inside Scroll for Bottom Scrollbar) -->
+                <div id="paginationContainer" class="sticky left-0 bottom-0 shrink-0 px-8 py-4 border-t border-gray-50 bg-gray-50/50 backdrop-blur-sm z-10">
+                    <!-- Pagination links will be loaded here -->
+                </div>
             </div>
         </div>
     </div>
