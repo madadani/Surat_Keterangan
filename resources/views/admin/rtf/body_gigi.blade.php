@@ -49,7 +49,7 @@ dengan hasil dan tindakan sebagai berikut:\par\par
     ];
 @endphp
 @foreach($tindakan_list as $t)
-    \li360 [ {!! in_array($t, $tindakan_saved) ? 'X' : '  ' !!} ] {!! $t !!}\par
+    \li360 [ {!! in_array($t, $tindakan_saved) ? '{\f3\'fc}' : '  ' !!} ] {!! $t !!}\par
 @endforeach
 \par
 \b C. RENCANA / PEMERIKSAAN LANJUTAN\b0\par
@@ -59,3 +59,14 @@ dengan hasil dan tindakan sebagai berikut:\par\par
 \li360 Perawatan lanjutan : \b {!! ($surat->saran ?? '-') !!}\b0\par\par
 \pard\sl276\slmult1\ql Demikian surat keterangan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana
 mestinya @if($surat->keperluan) untuk \b {!! strtoupper($surat->keperluan) !!}\b0 @endif.\par\par
+\trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
+\pard\intbl\qc Mengetahui\par Kepala Bidang Pelayanan RSUD dr. Soeratno\par Gemolong Kabupaten Sragen\cell
+\pard\intbl\qc Sragen, {!! $tanggal_cetak !!}\par Dokter Pemeriksa\cell\row
+\trowd\trgaph108\trleft-108\clvertalt\cellx5000\clvertalt\cellx10000
+\pard\intbl\qc @if($isMayaMengetahui) {!! $ttdMaya !!}\par @else \par\par\par\par\par @endif
+\pard\intbl\qc\b\ul {!! trim($m_nama) !!}\ulnone\b0\par
+\pard\intbl\qc NIP. {!! trim($m_nip) !!}\cell
+\pard\intbl\qc @if($isMayaPemeriksa) {!! $ttdMaya !!}\par @else \par\par\par\par @endif
+\pard\intbl\qc\b\ul{\expndtw-15 {!! trim($surat->dokter->nama_dokter) !!}\expndtw0}\ulnone\b0\par
+\pard\intbl\qc {!! ($surat->identitas_pemeriksa ?? 'NIP') !!}.
+{!! trim(preg_replace('/\s+/', ' ', ($surat->identitas_pemeriksa === 'SIP' ? ($surat->dokter->sip ?? '-') : ($surat->dokter->nip ?? '-')))) !!}\cell\row\pard\par
