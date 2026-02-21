@@ -118,7 +118,10 @@ document.addEventListener('DOMContentLoaded', function () {
             'display_gender', 'display_tempat', 'display_tanggal', 'display_alamat', 'display_hp',
             'display_tinggi', 'display_berat', 'display_pekerjaan', 'display_pendidikan',
             'input_keperluan', 'display_perusahaan', 'tinggi_tht_input', 'berat_tht_input',
-            'tinggi_poli_input', 'berat_poli_input', 'bmi_poli_input', 'mcu_tinggi', 'mcu_berat'
+            'tinggi_poli_input', 'berat_poli_input', 'bmi_poli_input',
+            'tinggi_orthopedi_input', 'berat_orthopedi_input', 'bmi_orthopedi_input',
+            'tinggi_dalam_input', 'berat_dalam_input', 'bmi_dalam_input',
+            'mcu_tinggi', 'mcu_berat'
         ];
         fields.forEach(id => {
             const el = document.getElementById(id);
@@ -149,6 +152,10 @@ document.addEventListener('DOMContentLoaded', function () {
         setVal('berat_tht_input', data.berat);
         setVal('tinggi_poli_input', data.tinggi);
         setVal('berat_poli_input', data.berat);
+        setVal('tinggi_orthopedi_input', data.tinggi);
+        setVal('berat_orthopedi_input', data.berat);
+        setVal('tinggi_dalam_input', data.tinggi);
+        setVal('berat_dalam_input', data.berat);
         setVal('mcu_tinggi', data.tinggi);
         setVal('mcu_berat', data.berat);
         setVal('resmcu_tb_input', data.tinggi);
