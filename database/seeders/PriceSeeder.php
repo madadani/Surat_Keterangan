@@ -20,7 +20,7 @@ class PriceSeeder extends Seeder
             'Dalam',
             'Gigi',
             'Jantung',
-            'MCU',
+            'Resume MCU',
             'TKHI'
         ];
 

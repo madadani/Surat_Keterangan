@@ -10,7 +10,7 @@ class PendaftaranController extends Controller
 {
     public function index()
     {
-        $prices = Price::where('test_name', '!=', 'MCU')->get()->sortBy(function ($price) {
+        $prices = Price::all()->sortBy(function ($price) {
             return $price->test_name === 'Kesehatan' ? 0 : 1;
         });
         return view('index', compact('prices'));
