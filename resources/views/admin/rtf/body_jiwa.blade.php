@@ -1,18 +1,15 @@
-\pard\sl276\slmult1\ql\qj Yang bertanda tangan di bawah ini, Dokter Pemerintah pada RSUD dr. Soeratno Gemolong, dengan
-ini menerangkan bahwa :\par\par
+\pard\sl276\slmult1\ql\qj Yang bertanda tangan di bawah ini, Dokter Pemerintah pada RSUD dr. Soeratno Gemolong,
+menerangkan bahwa:\par\par
 \pard\sl276\slmult1\ql\li360{!! $tab_set !!} Nama Lengkap\tab : \b {!! $pendaftar->nama_lengkap !!}\b0\par
-Tempat / Tanggal Lahir\tab : {!! $pendaftar->tempat_lahir !!}, {!! $tanggal_lahir !!} ({!! $umur !!} Th)\par
-Jenis Kelamin\tab : {!! $pendaftar->jenis_kelamin !!}\par
-Pekerjaan\tab : {!! $surat->pekerjaan ?? '-' !!}\par
-Pendidikan\tab : {!! $surat->pendidikan ?? '-' !!}\par
-Alamat\tab : {!! $pendaftar->alamat !!}\par
-Pada Tanggal\tab : {!! $pada_tanggal !!}\par\par
-\pard\sl276\slmult1\ql\qj Berdasarkan pemeriksaan kesehatan jiwa pada tanggal \b {!! $pada_tanggal !!}\b0 , yang
-bersangkutan pada saat ini dinyatakan :\par
-\pard\sl276\slmult1\qc\b\fs28 {!! strtoupper($surat->hasil_pemeriksaan) !!}\b0\fs24\par\par
-\pard\sl276\slmult1\ql Keterangan / Saran :\par
-\b {!! $surat->saran ?: '-' !!}\b0\par\par
-\pard\sl276\slmult1\ql\qj Demikian surat keterangan ini dipergunakan sebagaimana mestinya sebagai \b
-{!! strtoupper($surat->keperluan) !!}\b0.\par\par
-Surat keterangan ini berlaku 1 (satu) bulan sejak diterbitkan dan tidak dapat digunakan untuk kepentingan hukum
-lain.\par\par
+{!! $tab_set !!} Tempat/Tgl Lahir\tab : \b {!! $pendaftar->tempat_lahir !!}, {!! $tanggal_lahir !!}\b0\par
+{!! $tab_set !!} Pekerjaan\tab : \b {!! $surat->pekerjaan ?? '-' !!}\b0\par
+{!! $tab_set !!} Pendidikan\tab : \b {!! $surat->pendidikan ?? '-' !!}\b0\par
+{!! $tab_set !!} Jenis Kelamin\tab : \b {!! $pendaftar->jenis_kelamin !!}\b0\par
+{!! $tab_set !!} Alamat\tab : \b {!! $pendaftar->alamat !!}\b0\par\par
+{!! $tab_set !!} Pada Tanggal\tab : \b {!! $pada_tanggal !!}\b0\par\par
+{!! $tab_set !!} Hasil Pemeriksaan\tab : \b {!! $surat->hasil_pemeriksaan !!}\b0\par
+{!! $tab_set !!} Saran\tab : \b {!! $surat->saran ?: 'Tidak Ada' !!}\b0\par
+{!! $tab_set !!} Keperluan\tab : \b {!! $surat->keperluan !!}\b0\par\par
+
+\pard\sl276\slmult1\ql\qj\li360 Surat keterangan ini berlaku 1 (satu) bulan sejak diterbitkan dan tidak dapat digunakan
+untuk kepentingan hukum lain.\par\par
