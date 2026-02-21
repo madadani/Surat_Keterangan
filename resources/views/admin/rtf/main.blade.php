@@ -87,6 +87,7 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         str_contains($surat->tipe_berkas, 'Mata') ||
         str_contains($surat->tipe_berkas, 'Paru') ||
         $surat->tipe_berkas == 'Resume MCU' ||
+        str_contains($surat->tipe_berkas, 'TKHI') ||
         str_contains($surat->tipe_berkas, 'Poli');
 @endphp
 @if(
@@ -102,6 +103,7 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         str_contains($surat->tipe_berkas, 'Mata') ||
         str_contains($surat->tipe_berkas, 'Paru') ||
         $surat->tipe_berkas == 'Resume MCU' ||
+        str_contains($surat->tipe_berkas, 'TKHI') ||
         str_contains($surat->tipe_berkas, 'Poli')
     )
     @if(!str_contains($surat->tipe_berkas, 'Gigi') && !str_contains($surat->tipe_berkas, 'THT'))

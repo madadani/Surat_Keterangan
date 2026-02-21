@@ -5,9 +5,6 @@
     $check = function ($key) use ($getVal) {
         return $getVal($key) == 'Ya' ? '[X]' : '[  ]';
     };
-    $checkNapza = function ($key) use ($getVal) {
-        return $getVal('napza_' . $key) == 'Positif' ? '[X]' : '[  ]';
-    };
 @endphp
 
 \b I. ANAMNESIS (RIWAYAT KESEHATAN)\b0\par
@@ -20,7 +17,8 @@
 \trowd\trgaph108\trleft360\cellx2500\cellx4500\cellx7000\cellx9000
 \pard\intbl\ql {!! $check('riwayat_skrng_kanker-keganasan') !!} Kanker\cell
 {!! $check('riwayat_skrng_penyakit-hati') !!} Peny. Hati\cell {!! $check('riwayat_skrng_penyakit-alergi') !!}
-Alergi\cell {!! $check('riwayat_skrng_jantung') !!} Jantung\cell\row
+Alergi\cell
+{!! $check('riwayat_skrng_jantung') !!} Jantung\cell\row
 \trowd\trgaph108\trleft360\cellx2500\cellx9000
 \pard\intbl\ql {!! $check('riwayat_skrng_ginjal') !!} Gagal Ginjal\cell
 {!! $getVal('riwayat_dahulu_lainnya') ? 'Lainnya: ' . $getVal('riwayat_dahulu_lainnya') : '' !!}\cell\row
@@ -28,23 +26,25 @@ Alergi\cell {!! $check('riwayat_skrng_jantung') !!} Jantung\cell\row
 \b 2. Riwayat Kesehatan Dahulu & Keluarga :\b0\par
 \trowd\trgaph108\trleft360\cellx2500\cellx4500\cellx7000\cellx9000
 \pard\intbl\ql {!! $check('riwayat_dahulu_tuberkulosis') !!} TB Paru\cell {!! $check('riwayat_dahulu_covid-19') !!}
-Covid-19\cell {!! $check('riwayat_keluarga_hipertensi') !!} R.Kel Hiper\cell
+Covid-19\cell
+{!! $check('riwayat_keluarga_hipertensi') !!} R.Kel Hiper\cell
 {!! $check('riwayat_keluarga_diabetes-melitus') !!} R.Kel DM\cell\row
 
 \b 3. Riwayat Sosial/Kebiasaan :\b0\par
 \trowd\trgaph108\trleft360\cellx2500\cellx4500\cellx7000\cellx9000
 \pard\intbl\ql {!! $check('riwayat_sosial_merokok') !!} Merokok\cell {!! $check('riwayat_sosial_minum-alkohol') !!}
-Alkohol\cell {!! $check('riwayat_sosial_obat') !!} Obat Rutin\cell\cell\row
+Alkohol\cell
+{!! $check('riwayat_sosial_obat') !!} Obat Rutin\cell\cell\row
 \par
 
 \b II. PEMERIKSAAN FISIK\b0\par
-\trowd\trgaph108\trleft360\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx2500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx5500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx8000
+\trowd\trgaph108\trleft360\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx2500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx5500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx9000
 \pard\intbl\ql Tinggi : {!! $surat->tinggi_badan !!} cm\cell Berat : {!! $surat->berat_badan !!} kg\cell TD :
 {!! $surat->tensi !!} mmHg\cell\row
-\trowd\trgaph108\trleft360\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx2500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx5500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx8000
+\trowd\trgaph108\trleft360\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx2500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx5500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx9000
 \pard\intbl\ql Nadi : {!! $surat->nadi !!} x/m\cell Suhu : {!! $surat->suhu !!} C\cell RR : {!! $surat->respirasi !!}
 x/m\cell\row
-\trowd\trgaph108\trleft360\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx2500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx5500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx8000
+\trowd\trgaph108\trleft360\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx2500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx5500\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cellx9000
 \pard\intbl\ql Lk.Perut : {!! $getVal('lk_perut') !!} cm\cell Lk.Dada : {!! $getVal('lk_dada') !!} cm\cell BMI :
 {!! $surat->tinggi_badan > 0 ? number_format($surat->berat_badan / (($surat->tinggi_badan / 100) ** 2), 1) : '-' !!}\cell\row
 
@@ -84,7 +84,7 @@ Urogenital: {!! $getVal('fisik_uro_urogenital') !!}\cell\row
 SGOT: {!! $getVal('lab_sgot') !!}, SGPT: {!! $getVal('lab_sgpt') !!}\cell\row
 \trowd\trgaph108\trleft360\cellx2500\cellx9000
 \pard\intbl\ql Urine/Lainnya\cell Urine: {!! $getVal('lab_urine_warna') !!}/{!! $getVal('lab_urine_kejernihan') !!}, Tes
-Hamil (WUS): {!! $getVal('lab_tes_kehamilan') !!}\cell\row
+Hamil: {!! $getVal('lab_tes_kehamilan') !!}\cell\row
 \trowd\trgaph108\trleft360\cellx2500\cellx9000
 \pard\intbl\ql Rad / EKG\cell Rad: {!! $getVal('rad_hasil') !!}, EKG: {!! $getVal('ekg_hasil') !!}\cell\row
 \par
