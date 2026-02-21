@@ -89,7 +89,7 @@
             <!-- Poli Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($prices as $price)
-                    <a href="{{ url('/admin/laporan/' . str_replace(' ', '-', $price->test_name) . '?start_date=' . ($startDate ?? '') . '&end_date=' . ($endDate ?? '')) }}"
+                    <a href="{{ url('/admin/laporan/' . str_replace(' ', '-', trim($price->test_name)) . '?start_date=' . ($startDate ?? '') . '&end_date=' . ($endDate ?? '')) }}"
                         class="group bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-brand-blue/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
 
                         <!-- Decorative Element -->
@@ -109,7 +109,7 @@
                                 </div>
                                 <span
                                     class="bg-brand-green/10 text-brand-green px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                                    {{ $stats[$price->test_name] ?? 0 }} Surat
+                                    {{ $stats[trim($price->test_name)] ?? 0 }} Surat
                                 </span>
                             </div>
 

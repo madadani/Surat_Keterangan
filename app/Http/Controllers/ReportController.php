@@ -24,24 +24,41 @@ class ReportController extends Controller
         }
 
         $rawStats = $query->groupBy('tipe_berkas')
-            ->get()
-            ->pluck('total', 'tipe_berkas')->toArray();
+            ->get();
 
         $stats = [];
+        // Inisialisasi semua price dengan 0
         foreach ($prices as $p) {
-            $name = $p->test_name;
-            $count = $rawStats[$name] ?? 0;
+            $stats[trim($p->test_name)] = 0;
+        }
 
-            // Cari variasi (misal: jika 'Kesehatan THT' di price, cari juga 'THT' di db)
-            $altName = strpos($name, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $name) : 'Kesehatan ' . $name;
-            $count += $rawStats[$altName] ?? 0;
+        foreach ($rawStats as $row) {
+            $dbType = strtolower(trim($row->tipe_berkas));
+            $count = $row->total;
 
-            // Khusus MCU vs Resume MCU jika diperlukan
-            if ($name == 'Resume MCU') {
-                $count += $rawStats['MCU'] ?? 0;
+            foreach ($prices as $p) {
+                $priceName = trim($p->test_name);
+                $lowPriceName = strtolower($priceName);
+
+                // Cek match langsung
+                if ($dbType === $lowPriceName) {
+                    $stats[$priceName] += $count;
+                    continue 2;
+                }
+
+                // Cek variasi "Kesehatan "
+                $alt = strpos($lowPriceName, 'kesehatan ') === 0 ? str_replace('kesehatan ', '', $lowPriceName) : 'kesehatan ' . $lowPriceName;
+                if ($dbType === $alt) {
+                    $stats[$priceName] += $count;
+                    continue 2;
+                }
+
+                // Khusus Resume MCU / MCU
+                if ($lowPriceName === 'resume mcu' && ($dbType === 'mcu' || $dbType === 'resume mcu')) {
+                    $stats[$priceName] += $count;
+                    continue 2;
+                }
             }
-
-            $stats[$name] = $count;
         }
 
         return view('admin.reports.index', compact('prices', 'stats', 'startDate', 'endDate'));
