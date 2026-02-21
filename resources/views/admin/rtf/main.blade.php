@@ -33,8 +33,8 @@
     $isMayaPemeriksa = str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati');
 @endphp
 {\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fswiss\fcharset0 Arial;}{\f1\froman\fcharset0 Times New
-Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
-\paperw11906\paperh16838\margl992\margr1134\margt567\margb709
+Roman;}{\f2\fnil\fcharset128 MS Gothic;}{\f3\fnil\fcharset2 Wingdings;}}
+\paperw11906\paperh16838\margl992\margr1134\margt567\margb709\sl276\slmult1
 {\colortbl ;\red0\green0\blue0;\red211\green227\blue253;}
 {\header\pard\trowd\trgaph108\trleft-108
 \clvertalc\cellx1200\clvertalc\cellx8800\clvertalc\cellx10200
@@ -103,7 +103,6 @@ Roman;}{\f2\fnil\fcharset128 MS Gothic;}}
         str_contains($surat->tipe_berkas, 'Mata') ||
         str_contains($surat->tipe_berkas, 'Paru') ||
         $surat->tipe_berkas == 'Resume MCU' ||
-        str_contains($surat->tipe_berkas, 'TKHI') ||
         str_contains($surat->tipe_berkas, 'Poli')
     )
     @if(!str_contains($surat->tipe_berkas, 'Gigi') && !str_contains($surat->tipe_berkas, 'THT'))
