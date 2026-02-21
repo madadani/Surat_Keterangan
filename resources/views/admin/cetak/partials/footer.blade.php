@@ -8,15 +8,16 @@
     $isMayaPemeriksa = str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati');
 @endphp
 
-<table style="width: 100%; margin-top: {{ $marginTop }}; border-collapse: collapse;">
+<table style="width: 100%; margin-top: {{ $marginTop }}; border-collapse: collapse; font-size: 11pt;">
     <tr>
         <td style="width: 50%; text-align: center; vertical-align: top;">
             Mengetahui<br>
             @if($mengetahui)
-                {{ $mengetahui->jabatan }}
+                {!! str_replace(['Pelayanan ', 'Kabupaten Sragen'], ['Pelayanan<br>', '<br>Kabupaten Sragen'], e($mengetahui->jabatan)) !!}
             @else
                 Kepala Bidang Pelayanan<br>
-                RSUD dr. Soeratno Gemolong
+                RSUD dr. Soeratno Gemolong<br>
+                Kabupaten Sragen
             @endif
         </td>
         <td style="width: 50%; text-align: center; vertical-align: top;">

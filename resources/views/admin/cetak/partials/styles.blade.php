@@ -7,6 +7,7 @@
         padding: 0;
         line-height: 1.4;
         color: #000;
+        font-size: 12pt;
     }
 
     @page {

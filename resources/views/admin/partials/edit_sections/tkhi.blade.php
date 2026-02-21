@@ -81,7 +81,7 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Riwayat Kes. Sekarang</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-3 gap-3 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
         @php
             $riwayatSkrng = [
                 'riwayat_skrng_hipertensi' => 'Hipertensi',
@@ -95,10 +95,11 @@
                 'riwayat_skrng_ginjal' => 'Gagal Ginjal',
             ];
         @endphp
-        @foreach($riwayatSkrng as $key => $label)
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold w-28">{{ $label }}:</span>
-                <select name="mcu_{{ $key }}" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs font-bold">
+        @foreach ($riwayatSkrng as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <select name="mcu_{{ $key }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                     <option value="Tidak" {{ $getVal($key) != 'Ya' ? 'selected' : '' }}>Tidak</option>
                     <option value="Ya" {{ $getVal($key) == 'Ya' ? 'selected' : '' }}>Ya</option>
                 </select>
@@ -109,24 +110,29 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Riwayat Peny. Dahulu</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
-        @foreach(['riwayat_dahulu_tuberkulosis' => 'Tuberkulosis', 'riwayat_dahulu_covid-19' => 'COVID-19', 'riwayat_dahulu_operasi' => 'Operasi'] as $key => $label)
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold w-24">{{ $label }}:</span>
-                <select name="mcu_{{ $key }}" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs font-bold">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+        @foreach (['riwayat_dahulu_tuberkulosis' => 'Tuberkulosis', 'riwayat_dahulu_covid-19' => 'COVID-19', 'riwayat_dahulu_operasi' => 'Operasi'] as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <select name="mcu_{{ $key }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                     <option value="Tidak" {{ $getVal($key) != 'Ya' ? 'selected' : '' }}>Tidak</option>
                     <option value="Ya" {{ $getVal($key) == 'Ya' ? 'selected' : '' }}>Ya</option>
                 </select>
             </div>
         @endforeach
-        <input type="text" name="mcu_riwayat_dahulu_lainnya" value="{{ $getVal('riwayat_dahulu_lainnya') }}" placeholder="Lainnya..."
-            class="bg-white border border-gray-400 rounded px-2 py-1 text-xs">
+        <div class="flex flex-col gap-1.5 sm:col-span-2 lg:col-span-1">
+            <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">Lainnya</span>
+            <input type="text" name="mcu_riwayat_dahulu_lainnya" value="{{ $getVal('riwayat_dahulu_lainnya') }}"
+                placeholder="Lainnya..."
+                class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+        </div>
     </td>
 </tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Riwayat Peny. Keluarga</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
         @php
             $riwayatKel = [
                 'riwayat_keluarga_hipertensi' => 'Hipertensi',
@@ -137,10 +143,11 @@
                 'riwayat_keluarga_diabetes-melitus' => 'Diabetes Melitus',
             ];
         @endphp
-        @foreach($riwayatKel as $key => $label)
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold w-24">{{ $label }}:</span>
-                <select name="mcu_{{ $key }}" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs font-bold">
+        @foreach ($riwayatKel as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <select name="mcu_{{ $key }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                     <option value="Tidak" {{ $getVal($key) != 'Ya' ? 'selected' : '' }}>Tidak</option>
                     <option value="Ya" {{ $getVal($key) == 'Ya' ? 'selected' : '' }}>Ya</option>
                 </select>
@@ -183,20 +190,35 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Visus Mata</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 lg:grid-cols-5 gap-3">
-        <input type="text" name="mcu_od_tanpa" value="{{ $getVal('od_tanpa') }}" placeholder="OD Tanpa Kacamata"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_od_kaca" value="{{ $getVal('od_kaca') }}" placeholder="OD Kacamata"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_os_tanpa" value="{{ $getVal('os_tanpa') }}" placeholder="OS Tanpa Kacamata"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_os_kaca" value="{{ $getVal('os_kaca') }}" placeholder="OS Kacamata"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <select name="mcu_buta_warna" class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-            <option value="Tidak Buta Warna" {{ $surat->buta_warna == 'Tidak Buta Warna' ? 'selected' : '' }}>Normal</option>
-            <option value="Buta Warna Total" {{ $surat->buta_warna == 'Buta Warna Total' ? 'selected' : '' }}>Buta Warna Total</option>
-            <option value="Buta Warna Parsial" {{ $surat->buta_warna == 'Buta Warna Parsial' ? 'selected' : '' }}>Buta Warna Parsial</option>
-        </select>
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        @php
+            $visusFields = [
+                'od_tanpa' => 'OD Tanpa Kacamata',
+                'od_kaca' => 'OD Kacamata',
+                'os_tanpa' => 'OS Tanpa Kacamata',
+                'os_kaca' => 'OS Kacamata',
+            ];
+        @endphp
+        @foreach ($visusFields as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <input type="text" name="mcu_{{ $key }}" value="{{ $getVal($key) }}"
+                    placeholder="{{ $label }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+            </div>
+        @endforeach
+        <div class="flex flex-col gap-1.5">
+            <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">Buta Warna</span>
+            <select name="mcu_buta_warna"
+                class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+                <option value="Tidak Buta Warna" {{ $surat->buta_warna == 'Tidak Buta Warna' ? 'selected' : '' }}>Normal
+                </option>
+                <option value="Buta Warna Total" {{ $surat->buta_warna == 'Buta Warna Total' ? 'selected' : '' }}>Buta Warna
+                    Total</option>
+                <option value="Buta Warna Parsial" {{ $surat->buta_warna == 'Buta Warna Parsial' ? 'selected' : '' }}>Buta
+                    Warna Parsial</option>
+            </select>
+        </div>
     </td>
 </tr>
 
@@ -210,7 +232,7 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest align-top pt-2">Inspeksi & Palpasi</td>
     <td class="text-center font-bold text-gray-300 align-top pt-2">:</td>
-    <td class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-4">
+    <td class="grid grid-cols-1 md:grid-cols-2 gap-4">
         @php
             $fisikParts = [
                 'fisik_kulit' => 'Kulit',
@@ -222,15 +244,19 @@
                 'fisik_leher-dan-getah-bening' => 'Leher & Getah Bening',
             ];
         @endphp
-        @foreach($fisikParts as $key => $label)
-            <div class="flex items-center gap-3">
-                <span class="w-40 text-[10px] font-bold text-gray-600 uppercase whitespace-nowrap">{{ $label }}</span>
-                <select name="mcu_{{ $key }}" class="w-24 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-colors">
-                    <option value="Tidak" {{ $getVal($key) == 'Tidak' ? 'selected' : '' }}>Tidak Ada Kelainan</option>
-                    <option value="Ada" {{ $getVal($key) == 'Ada' ? 'selected' : '' }}>Ada Kelainan</option>
-                </select>
-                <input type="text" name="mcu_ket_{{ $key }}" value="{{ $getVal('ket_' . $key) }}" placeholder="Ket..."
-                    class="w-28 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none transition-colors">
+        @foreach ($fisikParts as $key => $label)
+            <div class="flex flex-col gap-2 p-3 border border-gray-100 rounded-xl bg-gray-50/30">
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <div class="flex gap-2">
+                    <select name="mcu_{{ $key }}"
+                        class="w-32 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-colors shadow-sm">
+                        <option value="Tidak" {{ $getVal($key) == 'Tidak' ? 'selected' : '' }}>Normal</option>
+                        <option value="Ada" {{ $getVal($key) == 'Ada' ? 'selected' : '' }}>Kelainan</option>
+                    </select>
+                    <input type="text" name="mcu_ket_{{ $key }}" value="{{ $getVal('ket_' . $key) }}"
+                        placeholder="Keterangan..."
+                        class="flex-1 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none transition-colors shadow-sm">
+                </div>
             </div>
         @endforeach
     </td>
@@ -239,15 +265,17 @@
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest align-top pt-2">Thoraks (Dada)</td>
     <td class="text-center font-bold text-gray-300 align-top pt-2">:</td>
     <td class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        @foreach(['fisik_dada_dada' => 'Dada', 'fisik_dada_paru' => 'Paru', 'fisik_dada_jantung' => 'Jantung'] as $key => $label)
-            <div class="flex flex-col gap-1.5">
-                <span class="text-[9px] font-black text-gray-400 uppercase">{{ $label }}</span>
-                <select name="mcu_{{ $key }}" class="w-full bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none">
+        @foreach (['fisik_dada_dada' => 'Dada', 'fisik_dada_paru' => 'Paru', 'fisik_dada_jantung' => 'Jantung'] as $key => $label)
+            <div class="flex flex-col gap-2 p-3 border border-gray-100 rounded-xl bg-gray-50/30">
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <select name="mcu_{{ $key }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                     <option value="Tidak" {{ $getVal($key) == 'Tidak' ? 'selected' : '' }}>Normal</option>
                     <option value="Ada" {{ $getVal($key) == 'Ada' ? 'selected' : '' }}>Kelainan</option>
                 </select>
-                <input type="text" name="mcu_ket_{{ $key }}" value="{{ $getVal('ket_' . $key) }}" placeholder="Keterangan..."
-                    class="w-full bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none">
+                <input type="text" name="mcu_ket_{{ $key }}" value="{{ $getVal('ket_' . $key) }}"
+                    placeholder="Keterangan..."
+                    class="w-full bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none transition-all shadow-sm">
             </div>
         @endforeach
     </td>
@@ -255,66 +283,60 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Ekstremitas</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="space-y-1">
-            <label class="text-[9px] font-black text-gray-400 uppercase">Otot Tangan Kanan (0-5)</label>
-            <input type="text" name="mcu_ekst_tangan_kanan" value="{{ $getVal('ekst_tangan_kanan', '5') }}"
-                class="w-full bg-white border border-gray-400 rounded px-2 py-1 text-xs">
-        </div>
-        <div class="space-y-1">
-            <label class="text-[9px] font-black text-gray-400 uppercase">Otot Tangan Kiri (0-5)</label>
-            <input type="text" name="mcu_ekst_tangan_kiri" value="{{ $getVal('ekst_tangan_kiri', '5') }}"
-                class="w-full bg-white border border-gray-400 rounded px-2 py-1 text-xs">
-        </div>
-        <div class="space-y-1">
-            <label class="text-[9px] font-black text-gray-400 uppercase">Otot Kaki Kanan (0-5)</label>
-            <input type="text" name="mcu_ekst_kaki_kanan" value="{{ $getVal('ekst_kaki_kanan', '5') }}"
-                class="w-full bg-white border border-gray-400 rounded px-2 py-1 text-xs">
-        </div>
-        <div class="space-y-1">
-            <label class="text-[9px] font-black text-gray-400 uppercase">Otot Kaki Kiri (0-5)</label>
-            <input type="text" name="mcu_ekst_kaki_kiri" value="{{ $getVal('ekst_kaki_kiri', '5') }}"
-                class="w-full bg-white border border-gray-400 rounded px-2 py-1 text-xs">
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="text-[10px] font-bold">Disabilitas Tangan:</span>
-            <select name="mcu_ekst_dis_tangan" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        @php
+            $ekstFields = [
+                'ekst_tangan_kanan' => 'Otot Tangan Kanan (0-5)',
+                'ekst_tangan_kiri' => 'Otot Tangan Kiri (0-5)',
+                'ekst_kaki_kanan' => 'Otot Kaki Kanan (0-5)',
+                'ekst_kaki_kiri' => 'Otot Kaki Kiri (0-5)',
+                'ekst_refleks' => 'Refleks',
+                'ekst_patologis' => 'Patologis',
+            ];
+        @endphp
+        @foreach ($ekstFields as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <input type="text" name="mcu_{{ $key }}"
+                    value="{{ $getVal($key, in_array($key, ['ekst_refleks', 'ekst_patologis']) ? ($key == 'ekst_refleks' ? '+' : '-') : '5') }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+            </div>
+        @endforeach
+        <div class="flex flex-col gap-1.5">
+            <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">Disabilitas Tangan</span>
+            <select name="mcu_ekst_dis_tangan"
+                class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                 <option value="Tidak" {{ $getVal('ekst_dis_tangan') != 'Ya' ? 'selected' : '' }}>Tidak</option>
                 <option value="Ya" {{ $getVal('ekst_dis_tangan') == 'Ya' ? 'selected' : '' }}>Ya</option>
             </select>
         </div>
-        <div class="flex items-center gap-2">
-            <span class="text-[10px] font-bold">Disabilitas Kaki:</span>
-            <select name="mcu_ekst_dis_kaki" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs">
+        <div class="flex flex-col gap-1.5">
+            <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">Disabilitas Kaki</span>
+            <select name="mcu_ekst_dis_kaki"
+                class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                 <option value="Tidak" {{ $getVal('ekst_dis_kaki') != 'Ya' ? 'selected' : '' }}>Tidak</option>
                 <option value="Ya" {{ $getVal('ekst_dis_kaki') == 'Ya' ? 'selected' : '' }}>Ya</option>
             </select>
-        </div>
-        <div class="space-y-1">
-            <label class="text-[9px] font-black text-gray-400 uppercase">Refleks</label>
-            <input type="text" name="mcu_ekst_refleks" value="{{ $getVal('ekst_refleks', '+') }}"
-                class="w-full bg-white border border-gray-400 rounded px-2 py-1 text-xs">
-        </div>
-        <div class="space-y-1">
-            <label class="text-[9px] font-black text-gray-400 uppercase">Patologis</label>
-            <input type="text" name="mcu_ekst_patologis" value="{{ $getVal('ekst_patologis', '-') }}"
-                class="w-full bg-white border border-gray-400 rounded px-2 py-1 text-xs">
         </div>
     </td>
 </tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest align-top pt-2">Rectum & Urogenital</td>
     <td class="text-center font-bold text-gray-300 align-top pt-2">:</td>
-    <td class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-4">
-        @foreach(['fisik_uro_rectum' => 'Rectum', 'fisik_uro_urogenital' => 'Urogenital'] as $key => $label)
-            <div class="flex items-center gap-3">
-                <span class="w-28 text-[10px] font-bold text-gray-600 uppercase whitespace-nowrap">{{ $label }}</span>
-                <select name="mcu_{{ $key }}" class="w-24 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none">
-                    <option value="Tidak" {{ $getVal($key) == 'Tidak' ? 'selected' : '' }}>Tidak Ada Kelainan</option>
-                    <option value="Ada" {{ $getVal($key) == 'Ada' ? 'selected' : '' }}>Ada Kelainan</option>
-                </select>
-                <input type="text" name="mcu_fisik_uro_ket_{{ str_replace('fisik_uro_', '', $key) }}" value="{{ $getVal('fisik_uro_ket_' . str_replace('fisik_uro_', '', $key)) }}" placeholder="Ket..."
-                    class="w-28 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none">
+    <td class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        @foreach (['fisik_uro_rectum' => 'Rectum', 'fisik_uro_urogenital' => 'Urogenital'] as $key => $label)
+            <div class="flex flex-col gap-2 p-3 border border-gray-100 rounded-xl bg-gray-50/30">
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <div class="flex gap-2">
+                    <select name="mcu_{{ $key }}"
+                        class="w-32 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-colors shadow-sm">
+                        <option value="Tidak" {{ $getVal($key) == 'Tidak' ? 'selected' : '' }}>Normal</option>
+                        <option value="Ada" {{ $getVal($key) == 'Ada' ? 'selected' : '' }}>Kelainan</option>
+                    </select>
+                    <input type="text" name="mcu_fisik_uro_ket_{{ str_replace('fisik_uro_', '', $key) }}"
+                        value="{{ $getVal('fisik_uro_ket_' . str_replace('fisik_uro_', '', $key)) }}" placeholder="Keterangan..."
+                        class="flex-1 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none transition-colors shadow-sm">
+                </div>
             </div>
         @endforeach
     </td>
@@ -329,87 +351,106 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Darah Lengkap</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <input type="number" step="any" name="mcu_lab_hb" value="{{ $getVal('lab_hb') }}" placeholder="Hemoglobin"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" name="mcu_lab_lekosit" value="{{ $getVal('lab_lekosit') }}" placeholder="Lekosit"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" name="mcu_lab_trombosit" value="{{ $getVal('lab_trombosit') }}" placeholder="Trombosit"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_eritrosit" value="{{ $getVal('lab_eritrosit') }}" placeholder="Eritrosit"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
+    <td class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        @php
+            $darahLengkap = [
+                'lab_hb' => 'Hemoglobin',
+                'lab_lekosit' => 'Lekosit',
+                'lab_trombosit' => 'Trombosit',
+                'lab_eritrosit' => 'Eritrosit',
+            ];
+        @endphp
+        @foreach ($darahLengkap as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <input type="{{ in_array($key, ['lab_hb', 'lab_eritrosit']) ? 'number' : 'number' }}"
+                    @if (in_array($key, ['lab_hb', 'lab_eritrosit'])) step="any" @endif name="mcu_{{ $key }}"
+                    value="{{ $getVal($key) }}" placeholder="{{ $label }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+            </div>
+        @endforeach
     </td>
 </tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Hitung Jenis</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-6 gap-3">
-        <input type="number" step="any" name="mcu_lab_hematokrit" value="{{ $getVal('lab_hematokrit') }}" placeholder="Hematokrit"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hj_basofil" value="{{ $getVal('lab_hj_basofil') }}" placeholder="Basofil"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hj_eosinophil" value="{{ $getVal('lab_hj_eosinophil') }}" placeholder="Eosinophil"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hj_monosit" value="{{ $getVal('lab_hj_monosit') }}" placeholder="Monosit"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hj_limfosit" value="{{ $getVal('lab_hj_limfosit') }}" placeholder="Limfosit"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hj_netrofil" value="{{ $getVal('lab_hj_netrofil') }}" placeholder="Netrofil"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" name="mcu_lab_hj_led" value="{{ $getVal('lab_hj_led') }}" placeholder="LED"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_golda" value="{{ $getVal('lab_golda') }}" placeholder="Gol. Darah & Rhesus"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        @php
+            $hitungJenis = [
+                'lab_hematokrit' => 'Hematokrit',
+                'lab_hj_basofil' => 'Basofil',
+                'lab_hj_eosinophil' => 'Eosinophil',
+                'lab_hj_monosit' => 'Monosit',
+                'lab_hj_limfosit' => 'Limfosit',
+                'lab_hj_netrofil' => 'Netrofil',
+                'lab_hj_led' => 'LED',
+                'lab_golda' => 'Gol. Darah & Rhesus',
+            ];
+        @endphp
+        @foreach ($hitungJenis as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <input type="{{ $key == 'lab_golda' ? 'text' : 'number' }}"
+                    @if ($key != 'lab_golda' && $key != 'lab_hj_led') step="any" @endif name="mcu_{{ $key }}"
+                    value="{{ $getVal($key) }}" placeholder="{{ $label }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+            </div>
+        @endforeach
     </td>
 </tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Kimia Darah</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <input type="number" step="any" name="mcu_lab_gdp" value="{{ $getVal('lab_gdp') }}" placeholder="Gula Darah Puasa"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_gd2pp" value="{{ $getVal('lab_gd2pp') }}" placeholder="GD2PP"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hba1c" value="{{ $getVal('lab_hba1c') }}" placeholder="HbA1c"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_cholesterol" value="{{ $getVal('lab_cholesterol') }}" placeholder="Cholesterol"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_trigliserida" value="{{ $getVal('lab_trigliserida') }}" placeholder="Trigliserida"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_hdl" value="{{ $getVal('lab_hdl') }}" placeholder="HDL"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_ldl" value="{{ $getVal('lab_ldl') }}" placeholder="LDL"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_ureum" value="{{ $getVal('lab_ureum') }}" placeholder="Ureum"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_kreatinin" value="{{ $getVal('lab_kreatinin') }}" placeholder="Kreatinin"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_sgot" value="{{ $getVal('lab_sgot') }}" placeholder="SGOT"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_sgpt" value="{{ $getVal('lab_sgpt') }}" placeholder="SGPT"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="number" step="any" name="mcu_lab_uric_acid" value="{{ $getVal('lab_uric_acid') }}" placeholder="Asam Urat"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        @php
+            $kimiaDarah = [
+                'lab_gdp' => 'Gula Darah Puasa',
+                'lab_gd2pp' => 'GD2PP',
+                'lab_hba1c' => 'HbA1c',
+                'lab_cholesterol' => 'Cholesterol',
+                'lab_trigliserida' => 'Trigliserida',
+                'lab_hdl' => 'HDL',
+                'lab_ldl' => 'LDL',
+                'lab_ureum' => 'Ureum',
+                'lab_kreatinin' => 'Kreatinin',
+                'lab_sgot' => 'SGOT',
+                'lab_sgpt' => 'SGPT',
+                'lab_uric_acid' => 'Asam Urat',
+            ];
+        @endphp
+        @foreach ($kimiaDarah as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <input type="number" step="any" name="mcu_{{ $key }}" value="{{ $getVal($key) }}"
+                    placeholder="{{ $label }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+            </div>
+        @endforeach
     </td>
 </tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Urine</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <input type="text" name="mcu_lab_urine_warna" value="{{ $getVal('lab_urine_warna') }}" placeholder="Warna"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_urine_kejernihan" value="{{ $getVal('lab_urine_kejernihan') }}" placeholder="Kejernihan"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_urine_bau" value="{{ $getVal('lab_urine_bau') }}" placeholder="Bau"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_urine_micro_sedimen" value="{{ $getVal('lab_urine_micro_sedimen') }}" placeholder="Sedimen"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_urine_micro_glukosa_urin" value="{{ $getVal('lab_urine_micro_glukosa_urin') }}" placeholder="Glukosa Urin"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_urine_micro_protein_urin" value="{{ $getVal('lab_urine_micro_protein_urin') }}" placeholder="Protein Urin"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
-        <input type="text" name="mcu_lab_tes_kehamilan" value="{{ $getVal('lab_tes_kehamilan') }}" placeholder="Tes Kehamilan (WUS)"
-            class="bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        @php
+            $urineFields = [
+                'lab_urine_warna' => 'Warna',
+                'lab_urine_kejernihan' => 'Kejernihan',
+                'lab_urine_bau' => 'Bau',
+                'lab_urine_micro_sedimen' => 'Sedimen',
+                'lab_urine_micro_glukosa_urin' => 'Glukosa Urin',
+                'lab_urine_micro_protein_urin' => 'Protein Urin',
+                'lab_tes_kehamilan' => 'Tes Kehamilan (WUS)',
+            ];
+        @endphp
+        @foreach ($urineFields as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <input type="text" name="mcu_{{ $key }}" value="{{ $getVal($key) }}"
+                    placeholder="{{ $label }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
+            </div>
+        @endforeach
     </td>
 </tr>
 
@@ -470,7 +511,7 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Skrining NAPZA</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+    <td class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 p-4 border border-gray-100 rounded-xl bg-gray-50/50">
         @php
             $napzaList = [
                 'napza_morphine' => 'Morphine / Opiate',
@@ -481,10 +522,11 @@
                 'napza_benzodiazepine' => 'Benzodiazepine',
             ];
         @endphp
-        @foreach($napzaList as $key => $label)
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold w-28">{{ $label }}:</span>
-                <select name="mcu_{{ $key }}" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs font-bold">
+        @foreach ($napzaList as $key => $label)
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <select name="mcu_{{ $key }}"
+                    class="w-full bg-white border border-gray-400 rounded-lg px-3 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-all shadow-sm">
                     <option value="Negatif" {{ $getVal($key) != 'Positif' ? 'selected' : '' }}>NEGATIF</option>
                     <option value="Positif" {{ $getVal($key) == 'Positif' ? 'selected' : '' }}>POSITIF</option>
                 </select>
@@ -502,7 +544,7 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Jiwa TKHI</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td class="space-y-3">
+    <td class="grid grid-cols-1 md:grid-cols-2 gap-4">
         @php
             $jiwaList = [
                 'jiwa_1' => 'Penampilan umum (sikap, perilaku, psikomotor)',
@@ -516,15 +558,20 @@
                 'jiwa_9' => 'Kemampuan menilai realitas',
             ];
         @endphp
-        @foreach($jiwaList as $key => $label)
-            <div class="flex items-center gap-2">
-                <span class="w-72 text-[10px] font-bold">{{ $label }}:</span>
-                <select name="mcu_{{ $key }}" class="bg-white border border-gray-400 rounded px-2 py-1 text-xs font-bold">
-                    <option value="Normal" {{ $getVal($key) == 'Normal' || $getVal($key) == '' ? 'selected' : '' }}>NORMAL</option>
-                    <option value="Kelainan" {{ $getVal($key) == 'Kelainan' ? 'selected' : '' }}>KELAINAN</option>
-                </select>
-                <input type="text" name="mcu_{{ $key }}_ket" value="{{ $getVal($key . '_ket') }}" placeholder="Keterangan..."
-                    class="flex-1 bg-white border border-gray-400 rounded px-2 py-1 text-xs">
+        @foreach ($jiwaList as $key => $label)
+            <div class="flex flex-col gap-2 p-3 border border-gray-100 rounded-xl bg-gray-50/20">
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-tight">{{ $label }}</span>
+                <div class="flex gap-2">
+                    <select name="mcu_{{ $key }}"
+                        class="w-32 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs font-bold focus:border-brand-blue outline-none transition-colors shadow-sm">
+                        <option value="Normal" {{ $getVal($key) == 'Normal' || $getVal($key) == '' ? 'selected' : '' }}>NORMAL
+                        </option>
+                        <option value="Kelainan" {{ $getVal($key) == 'Kelainan' ? 'selected' : '' }}>KELAINAN</option>
+                    </select>
+                    <input type="text" name="mcu_{{ $key }}_ket" value="{{ $getVal($key . '_ket') }}"
+                        placeholder="Keterangan..."
+                        class="flex-1 bg-white border border-gray-400 rounded-lg px-2 py-2 text-xs focus:border-brand-blue outline-none transition-colors shadow-sm">
+                </div>
             </div>
         @endforeach
     </td>

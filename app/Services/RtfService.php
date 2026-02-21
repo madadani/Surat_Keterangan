@@ -90,4 +90,25 @@ class RtfService
 
         return "{\\pict\\pngblip\\picw{$w_orig}\\pich{$h_orig}\\picwgoal{$picwgoal}\\pichgoal{$pichgoal} {$hex}}";
     }
+
+    public static function escape($text)
+    {
+        if (is_null($text))
+            return '';
+
+        // 1. Escape backslashes first to prevent double-escaping later
+        $text = str_replace('\\', '\\\\', $text);
+
+        // 2. Escape curly braces
+        $text = str_replace('{', '\\{', $text);
+        $text = str_replace('}', '\\}', $text);
+
+        // 3. Convert newlines to RTF paragraph breaks
+        // Note: We do this AFTER escaping backslashes so \par isn't escaped
+        $text = str_replace("\r\n", "\n", $text);
+        $text = str_replace("\r", "\n", $text);
+        $text = str_replace("\n", '\\par ', $text);
+
+        return $text;
+    }
 }

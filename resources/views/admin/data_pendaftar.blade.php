@@ -38,15 +38,6 @@
                     <option value="Proses">Proses</option>
                     <option value="Selesai">Selesai</option>
                 </select>
-
-                <a href="{{ url('/admin/data-pendaftar/tambah') }}"
-                    class="bg-brand-blue text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-blue/20 hover:bg-brand-darkblue transition-all flex items-center gap-2 shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span class="hidden sm:inline">PENDAFTAR BARU</span>
-                    <span class="sm:hidden">BARU</span>
-                </a>
             </div>
         </div>
     </header>

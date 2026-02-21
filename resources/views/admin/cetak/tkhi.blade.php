@@ -9,7 +9,7 @@
     <title>Hasil Pemeriksaan Kesehatan TKHI - {{ $surat->pendaftar->nama_lengkap }}</title>
     <style>
         body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: Arial, sans-serif;
             background-color: white;
             margin: 0;
             padding: 0;
@@ -268,15 +268,13 @@
                         style="height: 80px; width: auto;" width="80">
                 </td>
                 <td style="text-align: center; padding-bottom: 5px;">
-                    <h3
-                        style="margin: 0; font-size: 13pt; font-weight: normal; font-family: 'Times New Roman', Times, serif;">
+                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
                         PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1
-                        style="margin: 0; font-size: 17pt; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
                         RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt; font-family: 'Times New Roman', Times, serif;">Jl. R. Ngt.
+                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
                         Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt; font-family: 'Times New Roman', Times, serif;">
+                    <p style="margin: 0; font-size: 9pt;">
                         Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
                 </td>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -490,15 +488,13 @@
                         style="height: 80px; width: auto;" width="80">
                 </td>
                 <td style="text-align: center; padding-bottom: 5px;">
-                    <h3
-                        style="margin: 0; font-size: 13pt; font-weight: normal; font-family: 'Times New Roman', Times, serif;">
+                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
                         PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1
-                        style="margin: 0; font-size: 17pt; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
                         RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt; font-family: 'Times New Roman', Times, serif;">Jl. R. Ngt.
+                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
                         Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt; font-family: 'Times New Roman', Times, serif;">
+                    <p style="margin: 0; font-size: 9pt;">
                         Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
                 </td>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -708,15 +704,13 @@
                         style="height: 80px; width: auto;" width="80">
                 </td>
                 <td style="text-align: center; padding-bottom: 5px;">
-                    <h3
-                        style="margin: 0; font-size: 13pt; font-weight: normal; font-family: 'Times New Roman', Times, serif;">
+                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
                         PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1
-                        style="margin: 0; font-size: 17pt; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
                         RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt; font-family: 'Times New Roman', Times, serif;">Jl. R. Ngt.
+                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
                         Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt; font-family: 'Times New Roman', Times, serif;">
+                    <p style="margin: 0; font-size: 9pt;">
                         Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
                 </td>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -871,15 +865,13 @@
                         style="height: 80px; width: auto;" width="80">
                 </td>
                 <td style="text-align: center; padding-bottom: 5px;">
-                    <h3
-                        style="margin: 0; font-size: 13pt; font-weight: normal; font-family: 'Times New Roman', Times, serif;">
+                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
                         PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1
-                        style="margin: 0; font-size: 17pt; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
                         RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt; font-family: 'Times New Roman', Times, serif;">Jl. R. Ngt.
+                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
                         Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt; font-family: 'Times New Roman', Times, serif;">
+                    <p style="margin: 0; font-size: 9pt;">
                         Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
                 </td>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -987,15 +979,13 @@
                         style="height: 80px; width: auto;" width="80">
                 </td>
                 <td style="text-align: center; padding-bottom: 5px;">
-                    <h3
-                        style="margin: 0; font-size: 13pt; font-weight: normal; font-family: 'Times New Roman', Times, serif;">
+                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
                         PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1
-                        style="margin: 0; font-size: 17pt; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
                         RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt; font-family: 'Times New Roman', Times, serif;">Jl. R. Ngt.
+                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
                         Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt; font-family: 'Times New Roman', Times, serif;">
+                    <p style="margin: 0; font-size: 9pt;">
                         Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
                 </td>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -1076,15 +1066,13 @@
                         style="height: 80px; width: auto;" width="80">
                 </td>
                 <td style="text-align: center; padding-bottom: 5px;">
-                    <h3
-                        style="margin: 0; font-size: 13pt; font-weight: normal; font-family: 'Times New Roman', Times, serif;">
+                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
                         PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1
-                        style="margin: 0; font-size: 17pt; font-weight: bold; font-family: 'Times New Roman', Times, serif;">
+                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
                         RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt; font-family: 'Times New Roman', Times, serif;">Jl. R. Ngt.
+                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
                         Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt; font-family: 'Times New Roman', Times, serif;">
+                    <p style="margin: 0; font-size: 9pt;">
                         Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
                 </td>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -1144,13 +1132,13 @@
         <table style="width: 100%; margin-top: 40px; border-collapse: collapse;">
             <tr>
                 <td style="width: 50%; text-align: center; vertical-align: top;">
-                Mengetahui<br>
-                @if($mengetahui)
-                    {{ $mengetahui->jabatan }}
-                @else
-                    Kepala Bidang Pelayanan<br>
-                    RSUD dr. Soeratno Gemolong
-                @endif
+                    Mengetahui<br>
+                    @if($mengetahui)
+                        {{ $mengetahui->jabatan }}
+                    @else
+                        Kepala Bidang Pelayanan<br>
+                        RSUD dr. Soeratno Gemolong
+                    @endif
                 </td>
                 <td style="width: 50%; text-align: center; vertical-align: top; font-size: 10pt;">
                     Sragen, {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->format('d F Y') }}<br>

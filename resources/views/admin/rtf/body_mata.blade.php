@@ -1,13 +1,21 @@
-\pard\sl360\slmult1\ql\tx600\tx2400\tx2750\f1\fs24
-1.\tab Nama\tab :\tab {!! strtoupper($pendaftar->nama_lengkap) !!}\par
-2.\tab Umur\tab :\tab {!! $umur !!} Tahun\par
-3.\tab Alamat\tab :\tab {!! $pendaftar->alamat !!}\par
-4.\tab Hasil Pemeriksaan Mata\tab :\par
-\pard\sl360\slmult1\ql\li360\tx2400\tx2750 - Visus OD (Kanan)\tab :\tab {!! $surat->visus_kanan ?? '-' !!}\par
-- Visus OS (Kiri)\tab :\tab {!! $surat->visus_kiri ?? '-' !!}\par
-- Segmen Anterior\tab :\tab {!! $surat->segmen_anterior ?? '-' !!}\par
-- Buta Warna\tab :\tab \b BUTA WARNA / TIDAK BUTA WARNA\b0\par
-\pard\sl360\slmult1\ql\tx600\tx2400\tx2750 5.\tab Kesimpulan\tab :\tab
-\b NORMAL / TIDAK NORMAL\b0\par
-\par
-\pard\sl360\slmult1\ql\f1\fs24 Demikian surat keterangan ini dibuat untuk dapat dipergunakan seperlunya.\par\par
+\pard\sl276\slmult1\ql\qj\f1\fs24 Yang bertanda tangan di bawah ini, Dokter Pemeriksa RSUD dr. Soeratno Gemolong, dengan
+ini
+menerangkan bahwa :\par\par
+\pard\sl276\slmult1\ql\li360\f1\fs24 {!! $tab_set !!} Nama\tab : \b
+{!! \App\Services\RtfService::escape($pendaftar->nama_lengkap) !!}\b0\par
+{!! $tab_set !!} Umur\tab : {!! $umur !!} Tahun\par
+{!! $tab_set !!} Jenis Kelamin\tab : {!! $pendaftar->jenis_kelamin !!}\par
+{!! $tab_set !!} Pekerjaan\tab : {!! \App\Services\RtfService::escape($surat->pekerjaan ?? '-') !!}\par
+{!! $tab_set !!} Alamat\tab : {!! \App\Services\RtfService::escape($pendaftar->alamat) !!}\par\par
+\pard\sl276\slmult1\ql\f1\fs24 Berdasarkan pemeriksaan kesehatan mata terdapat :\par
+\pard\sl276\slmult1\ql\li360\f1\fs24 1. Mata \b NORMAL / TIDAK NORMAL\b0\par
+2. \b BUTA WARNA / TIDAK BUTA WARNA\b0\par
+3. Visus Mata Kanan\tab : \b
+{!! \App\Services\RtfService::escape($surat->visus_kanan ?? '.....................') !!}\b0\par
+Visus Mata Kiri\tab : \b
+{!! \App\Services\RtfService::escape($surat->visus_kiri ?? '.....................') !!}\b0\par
+4. Segmen Anterior Mata kanan dan kiri : \b
+{!! \App\Services\RtfService::escape($surat->segmen_anterior ?? '.....................') !!}\b0\par\par
+\pard\sl276\slmult1\ql\f1\fs24 Keperluan : \b
+{!! \App\Services\RtfService::escape(strtoupper($surat->keperluan)) !!}\b0\par\par
+\pard\sl276\slmult1\ql\f1\fs24 Demikian surat keterangan ini dapat dipergunakan sebagaimana mestinya.\par\par

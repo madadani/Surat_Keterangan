@@ -54,10 +54,10 @@
 
     <p>Berdasarkan pemeriksaan kesehatan mata terdapat :</p>
     <div class="hasil-mata">
-        <div class="hasil-item" style="font-size: 11pt;">
+        <div class="hasil-item">
             1. Mata <strong>Normal / Tidak Normal</strong>
         </div>
-        <div class="hasil-item" style="font-size: 11pt;">
+        <div class="hasil-item">
             2. <strong>Buta Warna / Tidak Buta Warna</strong>
         </div>
         <div class="hasil-item" style="display: block;">

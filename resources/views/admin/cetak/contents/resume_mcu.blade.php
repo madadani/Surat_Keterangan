@@ -8,7 +8,7 @@
     };
 @endphp
 
-<div class="content">
+<div class="content" style="font-family: Arial, sans-serif; font-size: 11pt;">
     <h2 style="text-align: center; text-decoration: underline; margin-bottom: 20px;">RESUME PEMERIKSAAN FISIK</h2>
 
     <h3 style="margin-top: 30px;">I. DATA PASIEN</h3>
@@ -52,7 +52,7 @@
 
     <div style="margin-left: 10px;">
         <h4>A. RIWAYAT KESEHATAN PRIBADI</h4>
-        <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px;">
+        <table style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
             <tr style="background: #f0f0f0;">
                 <th style="border: 1px solid #000; padding: 4px; width: 35%;">Penyakit/Keluhan</th>
                 <th style="border: 1px solid #000; padding: 4px; width: 15%;">Ya/Tidak</th>
@@ -98,7 +98,7 @@
         </div>
 
         <div style="margin-top: 20px;">
-            <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px;">
+            <table style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
                 <tr style="background: #f0f0f0;">
                     <th style="border: 1px solid #000; padding: 4px; width: 50%;">Kebiasaan Sehari-hari</th>
                     <th style="border: 1px solid #000; padding: 4px; width: 50%;">Ya/Tidak</th>
@@ -117,7 +117,7 @@
         </div>
 
         <h4 style="margin-top: 20px;">B. RIWAYAT KESEHATAN ORANG TUA</h4>
-        <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px;">
+        <table style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
             <tr style="background: #f0f0f0;">
                 <th style="border: 1px solid #000; padding: 4px; width: 50%;">Penyakit / Keluhan</th>
                 <th style="border: 1px solid #000; padding: 4px; width: 50%;">Ya/Tidak</th>
@@ -138,8 +138,7 @@
             style="border-bottom: 1px dotted #000;">{{ $resmcu['keadaan_umum'] ?? 'Baik' }}</span></p>
 
     <h4>Antropometri :</h4>
-    <table
-        style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px; margin-bottom: 10px;">
+    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 10px;">
         <tr>
             <td style="border: 1px solid #000; padding: 4px; width: 20%;">Tinggi Badan</td>
             <td style="border: 1px solid #000; padding: 4px; width: 30%;">: {{ $resmcu['tb'] ?? '-' }} cm</td>
@@ -161,8 +160,7 @@
     </table>
 
     <h4>Tekanan darah :</h4>
-    <table
-        style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px; margin-bottom: 15px;">
+    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 15px;">
         <tr>
             <td style="border: 1px solid #000; padding: 4px; width: 20%;">Systolic</td>
             <td style="border: 1px solid #000; padding: 4px; width: 30%;">: {{ $resmcu['systolic'] ?? '-' }} mmHg</td>
@@ -178,8 +176,7 @@
     </table>
 
     <h4>A. PEMERIKSAAN FUNGSI PENGLIHATAN (VISUS)</h4>
-    <table
-        style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px; margin-bottom: 15px;">
+    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 15px;">
         <tr>
             <td style="border: 1px solid #000; padding: 4px; width: 25%;">OD tanpa kacamata</td>
             <td style="border: 1px solid #000; padding: 4px; width: 25%;">: {{ $resmcu['visus_od_tanpa'] ?? '-' }}</td>
@@ -199,8 +196,7 @@
     </table>
 
     <h4>B. PEMERIKSAAN ORGAN SUPERFISIAL :</h4>
-    <table
-        style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px; margin-bottom: 15px;">
+    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 15px;">
         @php
             $sup_pairs = [
                 ['mata' => 'Mata', 'lymp_node' => 'Lymp Node'],
@@ -232,7 +228,7 @@
     <div style="page-break-before: always;"></div>
 
     <h4>C. PEMERIKSAAN ORGAN VISCERAL</h4>
-    <div style="font-size: 11px;">
+    <div>
         <p>PARU DAN SISTEM PERNAFASAN : <span
                 style="border-bottom: 1px dotted #000;">{{ $resmcu['vis_pernafasan'] ?? 'Normal' }}</span></p>
         <p>JANTUNG DAN SISTEM KARDIOVASKULAR : <span
@@ -246,12 +242,12 @@
     </div>
 
     <h4 style="margin-top: 15px;">D. PEMERIKSAAN EXTRIMITAS OTOT DAN TULANG :</h4>
-    <p style="font-size: 11px; margin-left: 10px; border-bottom: 1px dotted #000;">
+    <p style="margin-left: 10px; border-bottom: 1px dotted #000;">
         {{ $resmcu['extrimitas'] ?? 'Normal' }}
     </p>
 
     <h4 style="margin-top: 15px;">E. PEMERIKSAAN MULUT DAN GIGI :</h4>
-    <div style="font-size: 10px; margin-bottom: 10px; border: 1px solid #000; padding: 4px;">
+    <div style="margin-bottom: 10px; border: 1px solid #000; padding: 4px;">
         Kelainan Mulut dan Gigi: {{ $resmcu['gigi_mulut'] ?? 'Normal' }}
     </div>
 
@@ -305,8 +301,7 @@
     </table>
 
     <h4 style="margin-top: 15px;">F. PEMERIKSAAN SYARAF DAN SISTEM KOORDINASI :</h4>
-    <table
-        style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 10px; margin-bottom: 20px;">
+    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 20px;">
         <tr>
             <td style="border: 1px solid #000; padding: 4px; width: 25%;">Refleks Patologis</td>
             <td style="border: 1px solid #000; padding: 4px; width: 25%;">: {{ $resmcu['sya_patologis'] ?? 'Normal' }}
@@ -330,7 +325,7 @@
     <div style="page-break-before: always;"></div>
 
     <h3 style="margin-top: 30px;">III. PEMERIKSAAN PENUNJANG</h3>
-    <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+    <table style="width: 100%; border-collapse: collapse;">
         <tr>
             <td style="width: 20%; padding: 5px;"><strong>Radiologi</strong></td>
             <td style="width: 2%;">:</td>
@@ -355,7 +350,7 @@
 
     <h3 style="margin-top: 40px; text-align: center; text-decoration: underline;">KESIMPULAN PEMERIKSAAN FISIK DAN
         REKOMENDASI</h3>
-    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 11px; margin-top: 10px;">
+    <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-top: 10px;">
         <tr>
             <td style="border: 1px solid #000; padding: 8px; width: 30%;">Pemeriksaan Fisik</td>
             <td style="border: 1px solid #000; padding: 8px;">:
