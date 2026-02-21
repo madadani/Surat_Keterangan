@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
             else if (t.includes('dalam')) val = 'Dalam';
             else if (t.includes('jantung')) val = 'Kesehatan Jantung';
             else if (t.includes('tkhi')) val = 'Kesehatan TKHI';
-            else if (t.includes('resume mcu')) val = 'Resume MCU';
+            else if (t.includes('mcu')) val = 'Resume MCU';
             else if (t.includes('kesehatan')) val = 'Kesehatan';
 
             if (val && !existing.includes(val)) {
