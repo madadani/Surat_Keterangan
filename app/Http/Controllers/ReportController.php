@@ -15,7 +15,7 @@ class ReportController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $prices = Price::where('test_name', '!=', 'MCU')->get();
+        $prices = Price::all();
 
         $query = SuratKeterangan::select('tipe_berkas', DB::raw('count(*) as total'));
 
@@ -23,14 +23,25 @@ class ReportController extends Controller
             $query->whereBetween('tanggal_cetak', [$startDate, $endDate]);
         }
 
-        $stats = $query->groupBy('tipe_berkas')
+        $rawStats = $query->groupBy('tipe_berkas')
             ->get()
             ->pluck('total', 'tipe_berkas')->toArray();
 
-        // Combine THT and Kesehatan THT counts
-        if (isset($stats['THT'])) {
-            $stats['Kesehatan THT'] = ($stats['Kesehatan THT'] ?? 0) + $stats['THT'];
-            unset($stats['THT']);
+        $stats = [];
+        foreach ($prices as $p) {
+            $name = $p->test_name;
+            $count = $rawStats[$name] ?? 0;
+
+            // Cari variasi (misal: jika 'Kesehatan THT' di price, cari juga 'THT' di db)
+            $altName = strpos($name, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $name) : 'Kesehatan ' . $name;
+            $count += $rawStats[$altName] ?? 0;
+
+            // Khusus MCU vs Resume MCU jika diperlukan
+            if ($name == 'Resume MCU') {
+                $count += $rawStats['MCU'] ?? 0;
+            }
+
+            $stats[$name] = $count;
         }
 
         return view('admin.reports.index', compact('prices', 'stats', 'startDate', 'endDate'));
@@ -54,14 +65,16 @@ class ReportController extends Controller
         if ($type == 'All') {
             // No specific type filter
         } elseif ($type == 'Spesialis') {
-            $prices = Price::pluck('test_name')->toArray();
-            $query->whereNotIn('tipe_berkas', $prices);
+            $pricesArray = Price::pluck('test_name')->toArray();
+            $query->whereNotIn('tipe_berkas', $pricesArray);
         } else {
-            if ($type == 'Kesehatan THT') {
-                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
-            } else {
-                $query->where('tipe_berkas', $type);
-            }
+            $variations = [$type];
+            $alt = strpos($type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $type) : 'Kesehatan ' . $type;
+            $variations[] = $alt;
+            if ($type == 'Resume MCU')
+                $variations[] = 'MCU';
+
+            $query->whereIn('tipe_berkas', array_unique($variations));
         }
 
         if ($startDate && $endDate) {
@@ -91,14 +104,16 @@ class ReportController extends Controller
         if ($type == 'All') {
             // No type filter
         } elseif ($type == 'Spesialis') {
-            $prices = Price::pluck('test_name')->toArray();
-            $query->whereNotIn('tipe_berkas', $prices);
+            $pricesArray = Price::pluck('test_name')->toArray();
+            $query->whereNotIn('tipe_berkas', $pricesArray);
         } else {
-            if ($type == 'Kesehatan THT') {
-                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
-            } else {
-                $query->where('tipe_berkas', $type);
-            }
+            $variations = [$type];
+            $alt = strpos($type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $type) : 'Kesehatan ' . $type;
+            $variations[] = $alt;
+            if ($type == 'Resume MCU')
+                $variations[] = 'MCU';
+
+            $query->whereIn('tipe_berkas', array_unique($variations));
         }
 
         if ($startDate && $endDate) {

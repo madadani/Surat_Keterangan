@@ -52,11 +52,13 @@ class PoliReport extends Component
                     ->orWhere('tipe_berkas', 'LIKE', 'Poli %');
             });
         } else {
-            if ($this->type == 'Kesehatan THT') {
-                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
-            } else {
-                $query->where('tipe_berkas', $this->type);
-            }
+            $variations = [$this->type];
+            $alt = strpos($this->type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $this->type) : 'Kesehatan ' . $this->type;
+            $variations[] = $alt;
+            if ($this->type == 'Resume MCU')
+                $variations[] = 'MCU';
+
+            $query->whereIn('tipe_berkas', array_unique($variations));
         }
 
         if ($this->startDate && $this->endDate) {
@@ -119,11 +121,13 @@ class PoliReport extends Component
                     ->orWhere('tipe_berkas', 'LIKE', 'Poli %');
             });
         } else {
-            if ($this->type == 'Kesehatan THT') {
-                $query->whereIn('tipe_berkas', ['Kesehatan THT', 'THT']);
-            } else {
-                $query->where('tipe_berkas', $this->type);
-            }
+            $variations = [$this->type];
+            $alt = strpos($this->type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $this->type) : 'Kesehatan ' . $this->type;
+            $variations[] = $alt;
+            if ($this->type == 'Resume MCU')
+                $variations[] = 'MCU';
+
+            $query->whereIn('tipe_berkas', array_unique($variations));
         }
 
         if ($this->startDate && $this->endDate) {
