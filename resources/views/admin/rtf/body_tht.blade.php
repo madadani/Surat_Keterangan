@@ -1,8 +1,27 @@
-\pard\sl276\slmult1\ql\qj Yang bertanda tangan dibawah ini dokter di RSUD dr. Soeratno Gemolong menerangkan bahwa :\par
-\pard\sl276\slmult1\ql\li360 {!! $tab_set !!} Nama Lengkap\tab : \b {!! $pendaftar->nama_lengkap !!}\b0\par
-{!! $tab_set !!} Tempat/Tgl Lahir\tab : {!! $pendaftar->tempat_lahir !!} / {!! $tanggal_lahir !!}\par
-{!! $tab_set !!} Jenis Kelamin\tab : {!! $pendaftar->jenis_kelamin !!}\par
-{!! $tab_set !!} Alamat\tab : {!! $pendaftar->alamat !!}\par\par
+\pard\sl276\slmult1\ql\qj Yang Bertandatangan dibawah ini, dokter Spesialis THTKL bertugas di RSUD dr. Soeratno,
+Gemolong, Kabupaten Sragen menerangkan dengan sesungguhnya bahwa :\par\par
+\pard\sl276\slmult1\ql\li360 {!! $tab_set !!} Nama\tab : \b {!! $pendaftar->nama_lengkap !!}\b0\par
+{!! $tab_set !!} Jenis Kelamin\tab : \b {!! $pendaftar->jenis_kelamin !!}\b0\par
+{!! $tab_set !!} Umur\tab : \b {!! $umur !!} Tahun\b0\par
+{!! $tab_set !!} Alamat\tab : \b {!! $pendaftar->alamat !!}\b0\par
+{!! $tab_set !!} Tinggi/Berat Badan\tab : \b {!! $surat->tinggi_badan ?? '-' !!} cm / {!! $surat->berat_badan ?? '-' !!}
+kg\b0\par
+{!! $tab_set !!} Tekanan Darah\tab : \b {!! $surat->tensi ?? '-' !!} mmHg\b0\par
+{!! $tab_set !!} Golongan Darah\tab : \b {!! $surat->golongan_darah ?? '-' !!}\b0\par\par
+\pard\sl276\slmult1\ql Test pendengaran kuantitatif (bisik) : \b {!! $surat->tes_bisik ?? '-' !!}\b0\par\par
+@php
+    $bd = "\\clbrdrt\\brdrs\\brdrw10\\clbrdrl\\brdrs\\brdrw10\\clbrdrb\\brdrs\\brdrw10\\clbrdrr\\brdrs\\brdrw10";
+@endphp
+\trowd\trgaph108\trleft360{!! $bd !!}\cellx2800{!! $bd !!}\cellx5200{!! $bd !!}\cellx7300{!! $bd !!}\cellx9400
+\pard\intbl\ql\b Telinga Kanan\b0\cell {!! $surat->telinga_kanan ?? '-' !!}\cell\b Hidung\b0\cell
+{!! $surat->hidung ?? '-' !!}\cell\row
+\trowd\trgaph108\trleft360{!! $bd !!}\cellx2800{!! $bd !!}\cellx5200{!! $bd !!}\cellx7300{!! $bd !!}\cellx9400
+\pard\intbl\ql\b Telinga Kiri\b0\cell {!! $surat->telinga_kiri ?? '-' !!}\cell\b Tenggorokan\b0\cell
+{!! $surat->tenggorokan ?? '-' !!}\cell\row
+\pard\sl276\slmult1\ql\par
+@if(isset($surat->mcu_data['hasil_pemeriksaan_detail_tht']) && $surat->mcu_data['hasil_pemeriksaan_detail_tht'])
+    \b Hasil Pemeriksaan Detail :\b0 {!! $surat->mcu_data['hasil_pemeriksaan_detail_tht'] !!}\par\par
+@endif
 \pard\sl276\slmult1\ql Pada tanggal \b {!! $pada_tanggal !!}\b0 pemeriksaan THTKL saat ini dalam keadaan : \b
 {!! strtoupper($surat->hasil_pemeriksaan) !!}\b0\par
 Surat keterangan ini dipergunakan sebagai : \b {!! $surat->keperluan !!}\b0\par
