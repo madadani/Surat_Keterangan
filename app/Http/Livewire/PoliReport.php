@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\SuratKeterangan;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PoliReport extends Component
 {
@@ -55,10 +56,15 @@ class PoliReport extends Component
             $variations = [$this->type];
             $alt = strpos($this->type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $this->type) : 'Kesehatan ' . $this->type;
             $variations[] = $alt;
-            if ($this->type == 'Resume MCU')
-                $variations[] = 'MCU';
 
-            $query->whereIn('tipe_berkas', array_unique($variations));
+            // Tambahkan variasi MCU secara dua arah
+            if (strtolower($this->type) === 'mcu' || strtolower($this->type) === 'resume mcu' || strtolower($this->type) === 'medical check up') {
+                $variations[] = 'MCU';
+                $variations[] = 'Resume MCU';
+                $variations[] = 'Medical Check Up';
+            }
+
+            $query->whereIn(DB::raw('LOWER(tipe_berkas)'), array_map('strtolower', array_unique($variations)));
         }
 
         if ($this->startDate && $this->endDate) {
@@ -124,10 +130,15 @@ class PoliReport extends Component
             $variations = [$this->type];
             $alt = strpos($this->type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $this->type) : 'Kesehatan ' . $this->type;
             $variations[] = $alt;
-            if ($this->type == 'Resume MCU')
-                $variations[] = 'MCU';
 
-            $query->whereIn('tipe_berkas', array_unique($variations));
+            // Tambahkan variasi MCU secara dua arah
+            if (strtolower($this->type) === 'mcu' || strtolower($this->type) === 'resume mcu' || strtolower($this->type) === 'medical check up') {
+                $variations[] = 'MCU';
+                $variations[] = 'Resume MCU';
+                $variations[] = 'Medical Check Up';
+            }
+
+            $query->whereIn(DB::raw('LOWER(tipe_berkas)'), array_map('strtolower', array_unique($variations)));
         }
 
         if ($this->startDate && $this->endDate) {

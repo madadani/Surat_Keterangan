@@ -12,8 +12,8 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $startDate = $request->start_date;
-        $endDate = $request->end_date;
+        $startDate = $request->start_date ?? \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endDate = $request->end_date ?? \Carbon\Carbon::now()->format('Y-m-d');
 
         $prices = Price::all();
 
@@ -53,8 +53,11 @@ class ReportController extends Controller
                     continue 2;
                 }
 
-                // Khusus Resume MCU / MCU
-                if ($lowPriceName === 'resume mcu' && ($dbType === 'mcu' || $dbType === 'resume mcu')) {
+                // Khusus Resume MCU / MCU (Dua arah)
+                $isPriceMcu = ($lowPriceName === 'mcu' || $lowPriceName === 'resume mcu' || $lowPriceName === 'medical check up');
+                $isDbMcu = ($dbType === 'mcu' || $dbType === 'resume mcu' || $dbType === 'medical check up');
+
+                if ($isPriceMcu && $isDbMcu) {
                     $stats[$priceName] += $count;
                     continue 2;
                 }

@@ -13,16 +13,14 @@ class SuratController extends Controller
     public function index()
     {
         $search = request('search');
-        $startDate = request('start_date');
-        $endDate = request('end_date');
+        $startDate = request('start_date') ?? \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endDate = request('end_date') ?? \Carbon\Carbon::now()->format('Y-m-d');
 
         // Kueri dasar: Ambil pendaftar yang memiliki surat keterangan
         $query = Pendaftar::whereHas('suratKeterangan')->with([
             'suratKeterangan' => function ($q) use ($startDate, $endDate) {
                 $q->with('dokter')->latest();
-                if ($startDate && $endDate) {
-                    $q->whereBetween('tanggal_cetak', [$startDate, $endDate]);
-                }
+                $q->whereBetween('tanggal_cetak', [$startDate, $endDate]);
             }
         ]);
 
