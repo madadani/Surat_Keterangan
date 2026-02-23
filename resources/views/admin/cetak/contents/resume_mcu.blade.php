@@ -116,6 +116,7 @@
             </table>
         </div>
 
+        <div style="page-break-before: always;"></div>
         <h4 style="margin-top: 20px;">B. RIWAYAT KESEHATAN ORANG TUA</h4>
         <table style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
             <tr style="background: #f0f0f0;">
@@ -129,9 +130,6 @@
             </tr>
         </table>
     </div>
-
-    <!-- PAGE BREAK MIGHT BE NEEDED HERE IN REAL PRINTING, BUT CSS paper handles it -->
-    <div style="page-break-before: always;"></div>
 
     <h3 style="margin-top: 30px;">III. PEMERIKSAAN FISIK</h3>
     <p><strong>Keadaan umum :</strong> <span
@@ -360,6 +358,66 @@
         <tr>
             <td style="border: 1px solid #000; padding: 8px;">Rekomendasi / Saran</td>
             <td style="border: 1px solid #000; padding: 8px;">: {{ $resmcu['rekomendasi'] ?? '-' }}</td>
+        </tr>
+    </table>
+
+    {{-- Manual Signature Block because Footer is sometimes hidden or pushed --}}
+    <table style="width: 100%; margin-top: 50px; border-collapse: collapse; font-size: 11pt;">
+        <tr>
+            <td style="width: 50%; text-align: center; vertical-align: top;">
+                Mengetahui<br>
+                @if($mengetahui)
+                    {!! str_replace(['Pelayanan ', 'Kabupaten Sragen'], ['Pelayanan<br>', '<br>Kabupaten Sragen'], e($mengetahui->jabatan)) !!}
+                @else
+                    Kepala Bidang Pelayanan<br>
+                    RSUD dr. Soeratno Gemolong<br>
+                    Kabupaten Sragen
+                @endif
+            </td>
+            <td style="width: 50%; text-align: center; vertical-align: top;">
+                Sragen, {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->translatedFormat('d F Y') }}<br>
+                {{ $jabatan_dokter ?? 'Dokter Pemeriksa' }}
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 100px; position: relative; text-align: center;">
+                @if($mengetahui && str_contains($mengetahui->nama_dokter, 'Mayasari Ayu Hendrawati'))
+                    <img src="{{ asset('images/ttd_dr_maya.png') }}"
+                        style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -5px; z-index: 1;">
+                @elseif(!$mengetahui)
+                    <img src="{{ asset('images/ttd_dr_maya.png') }}"
+                        style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -5px; z-index: 1;">
+                @endif
+            </td>
+            <td style="height: 100px; position: relative; text-align: center;">
+                @if(str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati'))
+                    <img src="{{ asset('images/ttd_dr_maya.png') }}"
+                        style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -5px; z-index: 1;">
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; vertical-align: top;">
+                <div style="position: relative; z-index: 2;">
+                    @if($mengetahui)
+                        <strong><u>{{ $mengetahui->nama_dokter }}</u></strong><br>
+                        NIP. {{ $mengetahui->nip }}
+                    @else
+                        <strong><u>dr. Mayasari Ayu Hendrawati, MM</u></strong><br>
+                        NIP. 198105172010012026
+                    @endif
+                </div>
+            </td>
+            <td style="text-align: center; vertical-align: top;">
+                <div style="position: relative; z-index: 2;">
+                    <strong><u>{{ $surat->dokter->nama_dokter }}</u></strong><br>
+                    @if(isset($use_sip) && $use_sip)
+                        SIP. {{ $surat->dokter->sip ?? '-' }}
+                    @else
+                        NIP. {{ $surat->dokter->nip ?? '-' }}
+                    @endif
+                </div>
+            </td>
         </tr>
     </table>
 </div>

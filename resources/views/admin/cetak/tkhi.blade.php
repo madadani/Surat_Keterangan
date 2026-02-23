@@ -434,6 +434,7 @@
             </tr>
         </table>
 
+        <div style="page-break-before: always;"></div>
         <div class="bold" style="margin-bottom: 5px;">3. Riwayat Penyakit Keluarga</div>
         <table style="width: 100%; margin-left: 15px; margin-bottom: 10px;">
             @php $keluarga = ['Hipertensi', 'Penyakit Jantung', 'Gangguan Jiwa', 'Penyakit Alergi', 'Gagal Ginjal', 'Diabetes Melitus']; @endphp
@@ -1129,24 +1130,25 @@
             </div>
         </div>
 
-        <table style="width: 100%; margin-top: 40px; border-collapse: collapse;">
+        <table style="width: 100%; margin-top: 40px; border-collapse: collapse; page-break-inside: avoid;">
             <tr>
                 <td style="width: 50%; text-align: center; vertical-align: top;">
                     Mengetahui<br>
                     @if($mengetahui)
-                        {{ $mengetahui->jabatan }}
+                        {!! str_replace(['Pelayanan ', 'Kabupaten Sragen'], ['Pelayanan<br>', '<br>Kabupaten Sragen'], e($mengetahui->jabatan)) !!}
                     @else
                         Kepala Bidang Pelayanan<br>
-                        RSUD dr. Soeratno Gemolong
+                        RSUD dr. Soeratno Gemolong<br>
+                        Kabupaten Sragen
                     @endif
                 </td>
                 <td style="width: 50%; text-align: center; vertical-align: top; font-size: 10pt;">
-                    Sragen, {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->format('d F Y') }}<br>
+                    Sragen, {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->translatedFormat('d F Y') }}<br>
                     Dokter Pemeriksa
                 </td>
             </tr>
             <tr>
-                <td style="height: 80px; position: relative;">
+                <td style="height: 100px; position: relative; text-align: center;">
                     @if($mengetahui && str_contains($mengetahui->nama_dokter, 'Mayasari Ayu Hendrawati'))
                         <img src="{{ asset('images/ttd_dr_maya.png') }}"
                             style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -10px; z-index: 1;">
@@ -1156,7 +1158,7 @@
                             style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -10px; z-index: 1;">
                     @endif
                 </td>
-                <td style="height: 80px; position: relative;">
+                <td style="height: 100px; position: relative; text-align: center;">
                     @if(str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati'))
                         <img src="{{ asset('images/ttd_dr_maya.png') }}"
                             style="height: 100px; width: auto; position: absolute; left: 50%; transform: translateX(-50%); top: -10px; z-index: 1;">
