@@ -11,13 +11,13 @@
     }
 
     @page {
-        size: auto;
+        size: 210mm 330mm;
         margin: 0;
     }
 
     .paper {
         width: 210mm;
-        min-height: 297mm;
+        min-height: 330mm;
         padding: 10mm 20mm 12.5mm 17.5mm;
         margin: 20px auto;
         background: white;

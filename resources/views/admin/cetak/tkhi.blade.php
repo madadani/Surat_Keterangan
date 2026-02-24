@@ -8,9 +8,13 @@
     <meta charset="UTF-8">
     <title>Hasil Pemeriksaan Kesehatan TKHI - {{ $surat->pendaftar->nama_lengkap }}</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: white;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
             line-height: 1.15;
@@ -20,12 +24,13 @@
 
         .paper {
             width: 210mm;
-            min-height: 297mm;
-            padding: 10mm 15mm;
-            margin: 0 auto;
-            background: white;
-            box-sizing: border-box;
+            min-height: 330mm;
+            /* F4 height */
+            padding: 10mm 20mm 12.5mm 17.5mm;
+            margin: 20px auto;
             position: relative;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         @media print {
@@ -37,9 +42,12 @@
                 margin: 0;
                 box-shadow: none;
                 width: 100%;
-                min-height: auto;
-                padding: 5mm 10mm;
-                page-break-after: auto;
+                /* Box-sizing will handle the padding */
+                min-height: 330mm;
+                padding: 10mm 20mm 12.5mm 17.5mm;
+                /* Let @page handle global margins */
+                page-break-after: always;
+                page-break-inside: avoid;
             }
 
             .no-print {
@@ -48,8 +56,12 @@
         }
 
         @page {
-            size: auto;
+            size: 210mm 330mm;
             margin: 0;
+        }
+
+        .page-break {
+            page-break-after: always;
         }
 
         /* Standardized title and section styles */
@@ -434,8 +446,8 @@
             </tr>
         </table>
 
-        <div style="page-break-before: always;"></div>
-        <div class="bold" style="margin-bottom: 5px;">3. Riwayat Penyakit Keluarga</div>
+        <!-- Riwayat Keluarga & Sosial tetap di Hal 1 jika F4 -->
+        <div class="bold" style="margin-top: 10px; margin-bottom: 5px;">3. Riwayat Penyakit Keluarga</div>
         <table style="width: 100%; margin-left: 15px; margin-bottom: 10px;">
             @php $keluarga = ['Hipertensi', 'Penyakit Jantung', 'Gangguan Jiwa', 'Penyakit Alergi', 'Gagal Ginjal', 'Diabetes Melitus']; @endphp
             @foreach($keluarga as $i => $item)
@@ -697,7 +709,7 @@
     </div>
 
     <!-- PAGE 3: PEMERIKSAAN PENUNJANG (LAB) -->
-    <div class="paper page-break">
+    <div class="paper">
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -839,12 +851,12 @@
                     <td>LDL</td>
                     <td class="text-center">{{ $surat->mcu_data['lab_ldl'] ?? '' }}</td>
                     <td>
-                        <100< /td>
+                        < 100</td>
                 </tr>
 
-                <!-- Urine Lengkap -->
+                <!-- Urine Lengkap Consolidated -->
                 <tr>
-                    <td rowspan="2" class="bold">Urine lengkap</td>
+                    <td rowspan="9" class="bold">Urine Lengkap</td>
                     <td>Makroskopis: Warna</td>
                     <td class="text-center">{{ $surat->mcu_data['lab_urine_warna'] ?? '' }}</td>
                     <td>Kuning muda - tua</td>
@@ -854,11 +866,44 @@
                     <td class="text-center">{{ $surat->mcu_data['lab_urine_kejernihan'] ?? '' }}</td>
                     <td>Jernih</td>
                 </tr>
+                <tr>
+                    <td>Bau</td>
+                    <td class="text-center">{{ $surat->mcu_data['lab_urine_bau'] ?? '' }}</td>
+                    <td>Bau tidak menyengat</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="bold">Mikroskopis:</td>
+                </tr>
+                @php
+                    $micro = ['sedimen', 'lekosit', 'eritrosit', 'glukosa_urin', 'protein_urin'];
+                    $norms = [
+                        'sedimen' => 'Negatif/sedikit',
+                        'lekosit' => '0 – 5/LP',
+                        'eritrosit' => '0 – 3/LP',
+                        'glukosa_urin' => 'Negatif',
+                        'protein_urin' => 'Negatif'
+                    ];
+                @endphp
+                @foreach($micro as $comp)
+                    <tr>
+                        <td>{{ str_replace('_', ' ', $comp) }}</td>
+                        <td class="text-center">{{ $surat->mcu_data['lab_urine_micro_' . $comp] ?? '' }}</td>
+                        <td>{{ $norms[$comp] }}</td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <td class="bold" colspan="2">Tes Kehamilan (WUS)</td>
+                    <td colspan="2">
+                        Hasil Tes : {{ $surat->mcu_data['lab_tes_kehamilan'] ?? '-' }} <br>
+                        <span style="font-size: 8pt; font-style: italic;">jika hasil tes positif tidak lanjut ketahapan
+                            berikutnya.</span>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="paper page-break">
+    <div class="paper">
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -884,51 +929,7 @@
         <div style="border-top: 1.5pt solid #000; margin-bottom: 2pt; margin-top: 2pt;"></div>
         <div style="border-top: 3.5pt solid #000; margin-bottom: 12pt;"></div>
 
-        <!-- PAGE 4: PENUNJANG CONT + RADIOLOGI + EKG + KESIMPULAN -->
-        <table class="bordered" style="font-size: 9pt;">
-            <tbody>
-                <tr>
-                    <td rowspan="8" style="width: 20%;" class="bold">Urine lengkap (cont)</td>
-                    <td style="width: 30%;">Bau</td>
-                    <td style="width: 20%;" class="text-center">{{ $surat->mcu_data['lab_urine_bau'] ?? '' }}</td>
-                    <td style="width: 30%;">Bau tidak menyengat</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="bold">Mikroskopis:</td>
-                </tr>
-                @php
-                    $micro = [
-                        'sedimen',
-                        'lekosit',
-                        'eritrosit',
-                        'glukosa_urin',
-                        'protein_urin'
-                    ];
-                    $norms = [
-                        'sedimen' => 'Negatif/sedikit',
-                        'lekosit' => '0 – 5/LP',
-                        'eritrosit' => '0 – 3/LP',
-                        'glukosa_urin' => 'Negatif',
-                        'protein_urin' => 'Negatif'
-                    ];
-                @endphp
-                @foreach($micro as $comp)
-                    <tr>
-                        <td>{{ str_replace('_', ' ', $comp) }}</td>
-                        <td class="text-center">{{ $surat->mcu_data['lab_urine_micro_' . $comp] ?? '' }}</td>
-                        <td>{{ $norms[$comp] }}</td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td class="bold">Tes Kehamilan (WUS)</td>
-                    <td colspan="2">
-                        Hasil Tes : {{ $surat->mcu_data['lab_tes_kehamilan'] ?? '-' }} <br>
-                        <span style="font-size: 8pt; font-style: italic;">jika hasil tes positif tidak lanjut ketahapan
-                            berikutnya.</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- PAGE 4: RADIOLOGI + EKG + KESIMPULAN -->
 
         <div class="bold" style="margin-top: 15px;">2. Radiologi Thoraks PA</div>
         <div style="margin-left: 15px;">
@@ -972,7 +973,7 @@
     </div>
 
     <!-- PAGE 5: SCREENING NAPZA -->
-    <div class="paper page-break">
+    <div class="paper">
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">
@@ -1059,7 +1060,7 @@
     </div>
 
     <!-- PAGE 6: PEMERIKSAAN JIWA -->
-    <div class="paper page-break">
+    <div class="paper">
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="width: 80px; text-align: center; padding-bottom: 5px;">

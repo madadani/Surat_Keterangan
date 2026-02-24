@@ -116,7 +116,8 @@
             </table>
         </div>
 
-        <div style="page-break-before: always;"></div>
+
+        <div style="margin-top: 15px;"></div>
         <h4 style="margin-top: 20px;">B. RIWAYAT KESEHATAN ORANG TUA</h4>
         <table style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
             <tr style="background: #f0f0f0;">
@@ -223,7 +224,7 @@
         @endforeach
     </table>
 
-    <div style="page-break-before: always;"></div>
+    <div style="margin-top: 15px;"></div>
 
     <h4>C. PEMERIKSAAN ORGAN VISCERAL</h4>
     <div>
@@ -320,7 +321,7 @@
         </tr>
     </table>
 
-    <div style="page-break-before: always;"></div>
+    <div style="margin-top: 15px;"></div>
 
     <h3 style="margin-top: 30px;">III. PEMERIKSAAN PENUNJANG</h3>
     <table style="width: 100%; border-collapse: collapse;">
