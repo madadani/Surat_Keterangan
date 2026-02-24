@@ -894,7 +894,8 @@
             Tanggal : {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->translatedFormat('d F Y') }}<br>
             Tanda tangan,<br><br><br><br>
             Dokter Pemeriksa :<br>
-            <span class="bold"> ( {{ $surat->dokter->nama_dokter }} )</span>
+            <span class="bold" style="position: relative; left: -40px; white-space: nowrap;"> (
+                {{ $surat->dokter->nama_dokter }} )</span>
         </div>
     </div>
 
@@ -956,7 +957,8 @@
             Tanggal : {{ \Carbon\Carbon::parse($surat->tanggal_cetak)->format('d F Y') }}<br>
             Tanda tangan,<br><br><br><br>
             Dokter Pemeriksa :<br>
-            <span class="bold"> ( {{ $surat->dokter->nama_dokter }} )</span>
+            <span class="bold" style="position: relative; left: -40px; white-space: nowrap;"> (
+                {{ $surat->dokter->nama_dokter }} )</span>
         </div>
     </div>
 
