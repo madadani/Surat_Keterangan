@@ -46,8 +46,15 @@
             <span class="label">Tinggi/Berat Badan</span>
             <span class="dots">:</span>
             <span class="value">{{ $surat->tinggi_badan }} cm / {{ $surat->berat_badan }} kg &nbsp;&nbsp;(IMT:
-                {{ $surat->mcu_data['bmi'] ?? '-' }})</span>
+                {{ $surat->mcu_data['bmi'] ?? '-' }} kg/m<sup>2</sup>)</span>
         </div>
+        @if(isset($surat->mcu_data['golongan_darah']) && $surat->mcu_data['golongan_darah'])
+            <div class="field">
+                <span class="label">Golongan Darah</span>
+                <span class="dots">:</span>
+                <span class="value">{{ $surat->mcu_data['golongan_darah'] }}</span>
+            </div>
+        @endif
         <div class="field">
             <span class="label">Tekanan Darah</span>
             <span class="dots">:</span>

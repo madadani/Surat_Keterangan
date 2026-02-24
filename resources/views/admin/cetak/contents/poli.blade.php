@@ -43,7 +43,7 @@
             <span class="label">Tinggi/Berat Badan</span>
             <span class="dots">:</span>
             <span class="value">{{ $surat->tinggi_badan ?? '-' }} cm / {{ $surat->berat_badan ?? '-' }} kg
-                @if($extraFields) (IMT: {{ $surat->mcu_data['bmi_poli'] ?? '-' }}) @endif
+                @if($extraFields) (IMT: {{ $surat->mcu_data['bmi_poli'] ?? '-' }} kg/m<sup>2</sup>) @endif
             </span>
         </div>
 

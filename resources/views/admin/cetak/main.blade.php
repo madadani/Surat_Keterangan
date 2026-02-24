@@ -11,20 +11,22 @@
 <body>
     @include('admin.cetak.partials.toolbar')
 
-    <div class="paper">
-        @include('admin.cetak.partials.header')
-
+    @if($content_view === 'resume_mcu')
         @include('admin.cetak.contents.' . $content_view)
+    @else
+        <div class="paper">
+            @include('admin.cetak.partials.header')
 
-        @if($content_view !== 'resume_mcu')
+            @include('admin.cetak.contents.' . $content_view)
+
             @include('admin.cetak.partials.footer', [
                 'surat' => $surat,
                 'mengetahui' => $mengetahui,
                 'jabatan_dokter' => $jabatan_dokter ?? 'Dokter Pemeriksa',
                 'use_sip' => $use_sip ?? false
             ])
-        @endif
-    </div>
+            </div>
+    @endif
 </body>
 
 </html>

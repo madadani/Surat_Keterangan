@@ -284,6 +284,7 @@ class SuratController extends Controller
             // Store extra fields in mcu_data
             $data['mcu_data'] = [
                 'bmi' => $request->bmi,
+                'golongan_darah' => $request->golongan_darah,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
                 'keterangan_lainnya' => $request->keterangan_lainnya,
@@ -469,6 +470,7 @@ class SuratController extends Controller
             $currentMcuData = $surat->mcu_data ?? [];
             $newMcuData = [
                 'bmi' => $request->bmi,
+                'golongan_darah' => $request->golongan_darah,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
                 'keterangan_lainnya' => $request->keterangan_lainnya,

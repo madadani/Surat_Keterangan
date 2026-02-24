@@ -26,7 +26,8 @@
             width: 210mm;
             min-height: 330mm;
             /* F4 height */
-            padding: 0;
+            padding: 10mm 20mm 12.5mm 20mm;
+            /* Symmetrical left/right 20mm */
             margin: 20px auto;
             position: relative;
             background: #fff;
@@ -44,10 +45,9 @@
                 width: 100%;
                 /* Box-sizing will handle the padding */
                 min-height: 330mm;
-                padding: 0;
+                padding: 10mm 20mm 12.5mm 20mm;
+                /* Symmetrical left/right 20mm for print */
                 /* Let @page handle global margins */
-                page-break-after: always;
-                page-break-inside: avoid;
             }
 
             .no-print {
@@ -57,7 +57,8 @@
 
         @page {
             size: 210mm 330mm;
-            margin: 10mm 20mm 12.5mm 17.5mm;
+            margin: 0;
+            /* Hides browser headers/footers */
         }
 
         .page-break {

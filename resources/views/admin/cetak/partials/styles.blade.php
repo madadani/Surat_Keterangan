@@ -12,13 +12,15 @@
 
     @page {
         size: 210mm 330mm;
-        margin: 10mm 20mm 12.5mm 17.5mm;
+        margin: 0;
+        /* Hides browser headers/footers */
     }
 
     .paper {
         width: 210mm;
         min-height: 330mm;
-        padding: 0;
+        padding: 10mm 20mm 12.5mm 20mm;
+        /* Symmetrical left/right 20mm */
         margin: 20px auto;
         background: white;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -78,7 +80,8 @@
             margin: 0;
             box-shadow: none;
             width: 100%;
-            padding: 10mm 20mm 12.5mm 17.5mm;
+            padding: 10mm 20mm 12.5mm 20mm;
+            /* Symmetrical left/right 20mm for print */
         }
 
         .no-print {

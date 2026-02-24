@@ -204,9 +204,27 @@
                                     </div>
                                     <div class="flex-1 space-y-1.5">
                                         <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BMI
-                                            (IMT)</label>
-                                        <input type="text" name="bmi" id="bmi_input" placeholder="Auto/Manual"
+                                            (IMT) <span
+                                                class="text-blue-500 font-bold lowercase">kg/m<sup>2</sup></span></label>
+                                        <input type="text" name="bmi" id="bmi_input" placeholder="Auto/Manual (kg/m2)"
                                             class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Golongan Darah</td>
+                                <td class="text-center font-bold text-gray-300">:</td>
+                                <td>
+                                    <div class="flex items-center gap-4">
+                                        @foreach(['-', 'A', 'B', 'AB', 'O'] as $gol)
+                                            <label class="flex items-center gap-2 cursor-pointer group">
+                                                <input type="radio" name="golongan_darah" value="{{ $gol == '-' ? '' : $gol }}"
+                                                    {{ $gol == '-' ? 'checked' : '' }}
+                                                    class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                                                <span
+                                                    class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">{{ $gol }}</span>
+                                            </label>
+                                        @endforeach
                                     </div>
                                 </td>
                             </tr>
@@ -519,12 +537,12 @@
             document.querySelector('form').addEventListener('submit', function (e) {
                 const btn = this.querySelector('button[type="submit"]');
                 btn.innerHTML = `
-                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    MENYIMPAN...
-                                `;
+                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        MENYIMPAN...
+                                    `;
                 btn.classList.add('opacity-75', 'cursor-not-allowed');
                 btn.setAttribute('disabled', 'true');
             });

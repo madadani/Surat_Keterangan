@@ -7,7 +7,6 @@
     <td></td>
 </tr>
 <tr>
-<tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Antropometri</td>
     <td class="text-center font-bold text-gray-300">:</td>
     <td class="flex items-center gap-4">
@@ -24,9 +23,26 @@
                 class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
         </div>
         <div class="flex-1 space-y-1.5">
-            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BMI (IMT)</label>
-            <input type="text" name="bmi" id="edit_bmi" value="{{ $surat->mcu_data['bmi'] ?? '' }}" placeholder="BMI"
+            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">BMI (IMT) <span class="text-blue-500 font-bold lowercase">kg/m<sup>2</sup></span></label>
+            <input type="text" name="bmi" id="edit_bmi" value="{{ $surat->mcu_data['bmi'] ?? '' }}" placeholder="BMI (kg/m2)"
                 class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold focus:border-brand-blue outline-none">
+        </div>
+    </td>
+</tr>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Golongan Darah</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td>
+        <div class="flex items-center gap-4">
+            @foreach(['-', 'A', 'B', 'AB', 'O'] as $gol)
+                @php $current_gol = $surat->mcu_data['golongan_darah'] ?? ''; @endphp
+                <label class="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" name="golongan_darah" value="{{ $gol == '-' ? '' : $gol }}" 
+                        {{ ($gol == '-' && $current_gol == '') || $current_gol == $gol ? 'checked' : '' }}
+                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                    <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">{{ $gol }}</span>
+                </label>
+            @endforeach
         </div>
     </td>
 </tr>
