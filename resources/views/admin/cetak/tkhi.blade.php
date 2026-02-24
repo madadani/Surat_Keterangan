@@ -26,7 +26,7 @@
             width: 210mm;
             min-height: 330mm;
             /* F4 height */
-            padding: 10mm 20mm 12.5mm 17.5mm;
+            padding: 0;
             margin: 20px auto;
             position: relative;
             background: #fff;
@@ -44,7 +44,7 @@
                 width: 100%;
                 /* Box-sizing will handle the padding */
                 min-height: 330mm;
-                padding: 10mm 20mm 12.5mm 17.5mm;
+                padding: 0;
                 /* Let @page handle global margins */
                 page-break-after: always;
                 page-break-inside: avoid;
@@ -57,7 +57,7 @@
 
         @page {
             size: 210mm 330mm;
-            margin: 0;
+            margin: 10mm 20mm 12.5mm 17.5mm;
         }
 
         .page-break {
@@ -494,31 +494,6 @@
 
     <!-- PAGE 2: PEMERIKSAAN FISIK -->
     <div class="paper">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo-sragen.png') }}" alt="Logo Sragen"
-                        style="height: 80px; width: auto;" width="80">
-                </td>
-                <td style="text-align: center; padding-bottom: 5px;">
-                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
-                        PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
-                        RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
-                        Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt;">
-                        Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
-                </td>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RSUD" style="height: 80px; width: auto;"
-                        width="80">
-                </td>
-            </tr>
-        </table>
-        <div style="border-top: 1.5pt solid #000; margin-bottom: 2pt; margin-top: 2pt;"></div>
-        <div style="border-top: 3.5pt solid #000; margin-bottom: 12pt;"></div>
-
         <div class="section-title">II. Pemeriksaan Fisik</div>
 
         <div class="bold">1. Tanda Vital</div>
@@ -710,31 +685,6 @@
 
     <!-- PAGE 3: PEMERIKSAAN PENUNJANG (LAB) -->
     <div class="paper">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo-sragen.png') }}" alt="Logo Sragen"
-                        style="height: 80px; width: auto;" width="80">
-                </td>
-                <td style="text-align: center; padding-bottom: 5px;">
-                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
-                        PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
-                        RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
-                        Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt;">
-                        Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
-                </td>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RSUD" style="height: 80px; width: auto;"
-                        width="80">
-                </td>
-            </tr>
-        </table>
-        <div style="border-top: 1.5pt solid #000; margin-bottom: 2pt; margin-top: 2pt;"></div>
-        <div style="border-top: 3.5pt solid #000; margin-bottom: 12pt;"></div>
-
         <div class="section-title">III. Pemeriksaan Penunjang</div>
         <div class="bold">1. Laboratorium</div>
         <table class="bordered" style="font-size: 9pt;">
@@ -904,31 +854,6 @@
     </div>
 
     <div class="paper">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo-sragen.png') }}" alt="Logo Sragen"
-                        style="height: 80px; width: auto;" width="80">
-                </td>
-                <td style="text-align: center; padding-bottom: 5px;">
-                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
-                        PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
-                        RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
-                        Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt;">
-                        Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
-                </td>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RSUD" style="height: 80px; width: auto;"
-                        width="80">
-                </td>
-            </tr>
-        </table>
-        <div style="border-top: 1.5pt solid #000; margin-bottom: 2pt; margin-top: 2pt;"></div>
-        <div style="border-top: 3.5pt solid #000; margin-bottom: 12pt;"></div>
-
         <!-- PAGE 4: RADIOLOGI + EKG + KESIMPULAN -->
 
         <div class="bold" style="margin-top: 15px;">2. Radiologi Thoraks PA</div>
@@ -974,31 +899,6 @@
 
     <!-- PAGE 5: SCREENING NAPZA -->
     <div class="paper">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo-sragen.png') }}" alt="Logo Sragen"
-                        style="height: 80px; width: auto;" width="80">
-                </td>
-                <td style="text-align: center; padding-bottom: 5px;">
-                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
-                        PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
-                        RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
-                        Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt;">
-                        Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
-                </td>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RSUD" style="height: 80px; width: auto;"
-                        width="80">
-                </td>
-            </tr>
-        </table>
-        <div style="border-top: 1.5pt solid #000; margin-bottom: 2pt; margin-top: 2pt;"></div>
-        <div style="border-top: 3.5pt solid #000; margin-bottom: 12pt;"></div>
-
         <div class="section-title">IV. Pemeriksaan Narkotika dan Zat Adiktif (NAPZA)</div>
         <table class="bordered">
             <thead>
@@ -1061,31 +961,6 @@
 
     <!-- PAGE 6: PEMERIKSAAN JIWA -->
     <div class="paper">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo-sragen.png') }}" alt="Logo Sragen"
-                        style="height: 80px; width: auto;" width="80">
-                </td>
-                <td style="text-align: center; padding-bottom: 5px;">
-                    <h3 style="margin: 0; font-size: 13pt; font-weight: normal;">
-                        PEMERINTAH KABUPATEN SRAGEN</h3>
-                    <h1 style="margin: 0; font-size: 17pt; font-weight: bold;">
-                        RSUD dr. SOERATNO GEMOLONG</h1>
-                    <p style="margin: 0; font-size: 10pt;">Jl. R. Ngt.
-                        Tjitrosantjoko 10, Gemolong, Sragen, Jawa Tengah 57274</p>
-                    <p style="margin: 0; font-size: 9pt;">
-                        Telp. (0271) 6811839, Laman: rsudgemolong.sragenkab.go.id, Pos-el: rsudgemolong@gmail.com</p>
-                </td>
-                <td style="width: 80px; text-align: center; padding-bottom: 5px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RSUD" style="height: 80px; width: auto;"
-                        width="80">
-                </td>
-            </tr>
-        </table>
-        <div style="border-top: 1.5pt solid #000; margin-bottom: 2pt; margin-top: 2pt;"></div>
-        <div style="border-top: 3.5pt solid #000; margin-bottom: 12pt;"></div>
-
         <div class="section-title">V. Pemeriksaan Jiwa Sederhana</div>
         <div class="title">FORM PEMERIKSAAN JIWA</div>
         <div class="subtitle">Pendaftar PPIH Arab Saudi Bidang Kesehatan dan TKH</div>

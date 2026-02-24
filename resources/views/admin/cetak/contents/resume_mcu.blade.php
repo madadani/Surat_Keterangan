@@ -299,6 +299,8 @@
         </tr>
     </table>
 
+    <div style="page-break-before: always;"></div>
+
     <h4 style="margin-top: 15px;">F. PEMERIKSAAN SYARAF DAN SISTEM KOORDINASI :</h4>
     <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 20px;">
         <tr>
