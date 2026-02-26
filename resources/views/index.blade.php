@@ -323,24 +323,24 @@
                         <!-- Submit Container -->
                         <div
                             class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
-                            <div class="flex items-center gap-6">
+                            <div class="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
                                 <div
-                                    class="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-brand-green border-2 border-slate-100 shadow-sm shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                                    class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-slate-50 flex items-center justify-center text-brand-green border-2 border-slate-100 shadow-sm shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-7 sm:h-7" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <div class="flex flex-col">
+                                <div class="flex flex-col flex-1 sm:flex-none">
                                     <span
-                                        class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Estimasi
+                                        class="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-0.5 sm:mb-1">Estimasi
                                         Total
                                         Biaya</span>
-                                    <div class="flex items-baseline gap-1.5">
-                                        <span class="text-lg font-black text-brand-gray/40">Rp</span>
+                                    <div class="flex items-baseline gap-1 sm:gap-1.5 overflow-hidden">
+                                        <span class="text-xs sm:text-lg font-black text-brand-gray/40">Rp</span>
                                         <span id="js-total-price"
-                                            class="text-3xl font-black text-brand-darkblue tracking-tight">0</span>
+                                            class="text-xl sm:text-3xl font-black text-brand-darkblue tracking-tight truncate">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -350,7 +350,7 @@
                                     class="absolute -inset-1 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-[2rem] blur opacity-25 group-hover:opacity-75 transition duration-500 group-hover:duration-200">
                                 </div>
                                 <button type="submit"
-                                    class="relative w-full sm:w-auto px-12 bg-brand-darkblue text-white py-6 rounded-[1.5rem] font-black uppercase tracking-[0.4em] text-sm shadow-2xl hover:bg-brand-green transition-all duration-200 flex items-center justify-center gap-4 group overflow-hidden">
+                                    class="relative w-full sm:w-auto px-8 sm:px-12 bg-brand-darkblue text-white py-4 sm:py-6 rounded-2xl sm:rounded-[1.5rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-xs sm:text-sm shadow-2xl hover:bg-brand-green transition-all duration-200 flex items-center justify-center gap-4 group overflow-hidden">
                                     <span class="relative z-10">Kirim Pendaftaran</span>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 relative z-10 animate-bounce-x"
