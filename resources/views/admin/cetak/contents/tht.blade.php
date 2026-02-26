@@ -103,7 +103,7 @@
     <p>Test pendengaran kuantitatif (bisik) : <strong>{{ $surat->tes_bisik ?? '' }}</strong></p>
 
     <div class="diagram-container" style="border: none; height: auto; text-align: center;">
-        <img src="{{ asset('img/diagram_tht.png') }}" class="diagram-image" style="max-height: 180px;">
+        <img src="{{ asset('images/diagram_tht.png') }}" class="diagram-image" style="max-height: 180px;">
     </div>
 
     <table style="width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 10pt;">

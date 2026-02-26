@@ -14,18 +14,17 @@
         </div>
 
         <!-- Hero Header -->
-        <div class="relative z-10 pt-16 pb-10 px-4">
+        <div class="relative z-10 pt-4 pb-0 px-4">
             <div class="max-w-4xl mx-auto text-center">
-
                 <h1
-                    class="text-3xl md:text-5xl font-outfit font-black text-white mb-4 uppercase tracking-tight animate__animated animate__zoomIn animate__faster">
+                    class="text-2xl md:text-3xl lg:text-4xl font-outfit font-black text-white mb-2 uppercase tracking-tight animate__animated animate__zoomIn animate__faster">
                     Form <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange">Pendaftaran
                         Surat</span>
                     Keterangan
                 </h1>
                 <p
-                    class="text-white/60 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed animate__animated animate__fadeInUp animate__faster uppercase tracking-wide">
+                    class="text-white/60 text-xs md:text-sm font-medium max-w-3xl mx-auto leading-relaxed animate__animated animate__fadeInUp animate__faster uppercase tracking-wide">
                     Silahkan isi data anda dengan benar (data akan tercetak di surat keterangan) dan pilih jenis test yang
                     akan anda ikuti (bisa memilih lebih dari satu).
                 </p>
@@ -33,12 +32,12 @@
         </div>
 
         <!-- Main Card Container -->
-        <div class="relative z-10 max-w-4xl mx-auto px-4 pb-4">
+        <div class="relative z-10 max-w-[1400px] mx-auto px-4 pb-4">
             <div
                 class="bg-white/[0.04] border border-white/10 rounded-[3rem] p-1 shadow-2xl overflow-hidden animate__animated animate__fadeInUp animate__faster">
                 <div class="bg-white/90 rounded-[2.8rem] overflow-hidden shadow-inner">
                     <!-- Card Header -->
-                    <div class="p-6 md:p-10 bg-gradient-to-br from-brand-darkblue to-brand-blue relative">
+                    <div class="p-4 md:p-6 bg-gradient-to-br from-brand-darkblue to-brand-blue relative">
                         <div
                             class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] opacity-10">
                         </div>
@@ -65,27 +64,29 @@
                     <!-- Form Content -->
                     <form action="{{ url('/pendaftaran/simpan') }}" method="POST" class="p-5 md:p-8">
                         @csrf
-                        <div class="grid grid-cols-1 gap-7">
-                            <!-- Section 1: Identitas -->
-                            <div class="space-y-5">
-                                <div class="flex items-center gap-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Kolom Kiri -->
+                            <div class="space-y-6">
+                                <!-- Section 1: Identitas -->
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-4">
                                     <span
-                                        class="w-8 h-8 rounded-full bg-brand-green/10 text-brand-green flex items-center justify-center font-black text-sm">01</span>
-                                    <h3 class="font-black text-brand-darkblue uppercase tracking-widest text-sm">Informasi
+                                        class="w-6 h-6 rounded-full bg-brand-green/10 text-brand-green flex items-center justify-center font-black text-xs">01</span>
+                                    <h3 class="font-black text-brand-darkblue uppercase tracking-widest text-[11px]">Informasi
                                         Identitas
                                     </h3>
                                     <div class="flex-1 h-[1px] bg-slate-100"></div>
                                 </div>
 
-                                <div class="space-y-2 group">
+                                <div class="space-y-1 group">
                                     <label
                                         class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 transition-colors group-focus-within:text-brand-green">Nama
                                         Lengkap Pasien</label>
                                     <div class="relative">
                                         <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required
-                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green focus:shadow-xl focus:shadow-brand-green/10 outline-none transition-all duration-200 @error('nama_lengkap') border-red-500 @enderror"
+                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-green focus:shadow-xl focus:shadow-brand-green/10 outline-none transition-all duration-200 @error('nama_lengkap') border-red-500 @enderror"
                                             placeholder="NAMA LENGKAP SESUAI KTP">
-                                        <div class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300">
+                                        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -98,57 +99,57 @@
                                     @enderror
                                 </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="space-y-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
                                         <label
                                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tempat
                                             Lahir</label>
                                         <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required
-                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tempat_lahir') border-red-500 @enderror"
+                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tempat_lahir') border-red-500 @enderror"
                                             placeholder="CONTOH: SRAGEN">
                                         @error('tempat_lahir') <span
                                             class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="space-y-2">
+                                    <div class="space-y-1">
                                         <label
                                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tanggal
                                             Lahir</label>
                                         <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
-                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tanggal_lahir') border-red-500 @enderror">
+                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tanggal_lahir') border-red-500 @enderror">
                                         @error('tanggal_lahir') <span
                                             class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="space-y-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
                                         <label
                                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jenis
                                             Kelamin</label>
                                         <input type="hidden" name="gender" id="gender-hidden" value="{{ old('gender') }}">
-                                        <div class="flex gap-4">
+                                        <div class="flex gap-2">
                                             <button type="button" id="btn-laki" onclick="setGenderVal('Laki-laki')"
-                                                class="btn-gender flex-1 py-3 px-4 flex items-center justify-center gap-2 border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95">
+                                                class="btn-gender flex-1 py-2 px-2 flex items-center justify-center gap-1.5 border-2 rounded-xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95">
                                                 <div
-                                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 gender-icon bg-white text-slate-300 border-slate-200">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5" fill="none"
+                                                    class="w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all duration-200 gender-icon bg-white text-slate-300 border-slate-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="4" d="M5 13l4 4L19 7" />
+                                                            stroke-width="5" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 </div>
                                                 <span>LAKI-LAKI</span>
                                             </button>
                                             <button type="button" id="btn-perempuan" onclick="setGenderVal('Perempuan')"
-                                                class="btn-gender flex-1 py-3 px-4 flex items-center justify-center gap-2 border-2 rounded-2xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95">
+                                                class="btn-gender flex-1 py-2 px-2 flex items-center justify-center gap-1.5 border-2 rounded-xl font-bold text-[10px] transition-all shadow-sm uppercase tracking-wider active:scale-95">
                                                 <div
-                                                    class="w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 gender-icon bg-white text-slate-300 border-slate-200">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5" fill="none"
+                                                    class="w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all duration-200 gender-icon bg-white text-slate-300 border-slate-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="4" d="M5 13l4 4L19 7" />
+                                                            stroke-width="5" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 </div>
                                                 <span>PEREMPUAN</span>
@@ -158,16 +159,16 @@
                                             class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="space-y-2">
+                                    <div class="space-y-1">
                                         <label
                                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nomor
                                             WhatsApp Aktif</label>
                                         <div class="relative">
                                             <input type="tel" name="no_hp" value="{{ old('no_hp') }}" required
-                                                class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-5 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 pl-12 shadow-sm focus:shadow-md @error('no_hp') border-red-500 @enderror"
+                                                class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 pl-11 shadow-sm focus:shadow-md @error('no_hp') border-red-500 @enderror"
                                                 placeholder="08XXXXXXXXXX">
                                             <div
-                                                class="absolute left-5 top-1/2 -translate-y-1/2 font-black text-brand-green text-sm">
+                                                class="absolute left-4 top-1/2 -translate-y-1/2 font-black text-brand-green text-sm">
                                                 +62</div>
                                         </div>
                                         @error('no_hp') <span
@@ -175,10 +176,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
+                                </div>
 
-                            <!-- Section 2: Fisik & Profesi -->
-                            <div class="space-y-5 pt-2">
+                                <!-- Section 2: Fisik & Profesi -->
+                                <div class="space-y-4 pt-1">
                                 <div class="flex items-center gap-4">
                                     <span
                                         class="w-8 h-8 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-black text-sm">02</span>
@@ -234,44 +235,47 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            </div> <!-- Tutup Kolom Kiri -->
 
-                            <!-- Section 3: Keperluan & Alamat -->
-                            <div class="space-y-5 pt-2">
-                                <div class="flex items-center gap-4">
-                                    <span
-                                        class="w-8 h-8 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center font-black text-sm">03</span>
-                                    <h3 class="font-black text-brand-darkblue uppercase tracking-widest text-sm">Alamat &
-                                        Keperluan</h3>
-                                    <div class="flex-1 h-[1px] bg-slate-100"></div>
+                            <!-- Kolom Kanan -->
+                            <div class="space-y-6">
+                                <!-- Section 3: Keperluan & Alamat -->
+                                <div class="space-y-4 pt-1">
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="w-6 h-6 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center font-black text-xs">03</span>
+                                        <h3 class="font-black text-brand-darkblue uppercase tracking-widest text-[11px]">Alamat &
+                                            Keperluan</h3>
+                                        <div class="flex-1 h-[1px] bg-slate-100"></div>
+                                    </div>
+
+                                    <div class="space-y-1">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Keperluan
+                                            Pembuatan Surat</label>
+                                        <input type="text" name="keperluan" value="{{ old('keperluan') }}" required
+                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('keperluan') border-red-500 @enderror"
+                                            placeholder="CONTOH: MELAMAR PEKERJAAN">
+                                        @error('keperluan') <span
+                                            class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="space-y-1">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Alamat
+                                            Lengkap
+                                            Sesuai KTP</label>
+                                        <textarea name="alamat" rows="2" required
+                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md resize-none @error('alamat') border-red-500 @enderror">{{ old('alamat') }}</textarea>
+                                        @error('alamat') <span
+                                            class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-
-                                <div class="space-y-2">
-                                    <label
-                                        class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Keperluan
-                                        Pembuatan Surat</label>
-                                    <input type="text" name="keperluan" value="{{ old('keperluan') }}" required
-                                        class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('keperluan') border-red-500 @enderror"
-                                        placeholder="CONTOH: MELAMAR PEKERJAAN">
-                                    @error('keperluan') <span
-                                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="space-y-2">
-                                    <label
-                                        class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Alamat
-                                        Lengkap
-                                        Sesuai KTP</label>
-                                    <textarea name="alamat" rows="2" required
-                                        class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-3 font-bold text-brand-darkblue focus:bg-white focus:border-brand-orange outline-none transition-all duration-300 shadow-sm focus:shadow-md resize-none @error('alamat') border-red-500 @enderror">{{ old('alamat') }}</textarea>
-                                    @error('alamat') <span
-                                        class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Section 4: Pemeriksaan -->
-                            <div class="space-y-5 pt-2">
+                                <!-- Section 4: Pemeriksaan -->
+                                <div class="space-y-4">
                                 <div
                                     class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-brand-darkblue p-6 rounded-[2rem] border border-white/5 shadow-xl relative overflow-hidden">
                                     <div class="absolute inset-0 bg-gradient-to-r from-brand-green/20 to-transparent"></div>
@@ -284,7 +288,7 @@
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                                     @foreach($prices as $price)
                                         <label class="group relative cursor-pointer">
                                             <input type="checkbox" name="jenis_test[]" value="{{ $price->test_name }}"
@@ -312,12 +316,13 @@
                                 </div>
                                 @error('jenis_test') <span
                                 class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span> @enderror
+                                </div>
                             </div>
                         </div>
 
                         <!-- Submit Container -->
                         <div
-                            class="mt-12 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-8">
+                            class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div class="flex items-center gap-6">
                                 <div
                                     class="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-brand-green border-2 border-slate-100 shadow-sm shrink-0">

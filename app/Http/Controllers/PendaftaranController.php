@@ -10,9 +10,27 @@ class PendaftaranController extends Controller
 {
     public function index()
     {
-        $prices = Price::all()->sortBy(function ($price) {
-            return $price->test_name === 'Kesehatan' ? 0 : 1;
-        });
+        $expectedOrder = [
+            'Kesehatan',
+            'Kesehatan Jiwa',
+            'Bebas Narkoba',
+            'THT',
+            'Mata',
+            'Orthopedi',
+            'Paru',
+            'Dalam',
+            'Gigi',
+            'Jantung',
+            'MCU',
+            'TKHI'
+        ];
+
+        $prices = Price::whereIn('test_name', $expectedOrder)
+            ->get()
+            ->sortBy(function ($price) use ($expectedOrder) {
+                return array_search($price->test_name, $expectedOrder);
+            });
+
         return view('index', compact('prices'));
     }
 

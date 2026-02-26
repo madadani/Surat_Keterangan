@@ -492,26 +492,49 @@
 
                 selects.forEach(sel => {
                     sel.addEventListener('change', function() {
-                        if (this.value === 'CUSTOM_VALUE') {
-                            const custom = prompt("Masukkan status gigi lainnya:");
-                            if (custom && custom.trim() !== "") {
-                                const trimCustom = custom.trim();
-                                // Find if exists
-                                let exists = Array.from(this.options).find(o => o.value === trimCustom);
-                                if (!exists) {
-                                    const newOpt = new Option(trimCustom, trimCustom);
-                                    // Insert before "Lainnya..."
-                                    this.add(newOpt, this.options[this.options.length - 1]);
-                                    this.value = trimCustom;
-                                } else {
-                                    this.value = trimCustom;
+                        const self = this;
+                        if (self.value === 'CUSTOM_VALUE') {
+                            Swal.fire({
+                                title: '<span class="text-sm font-black uppercase tracking-widest text-brand-darkblue">Status Gigi Lainnya</span>',
+                                input: 'text',
+                                inputPlaceholder: 'Masukkan status gigi...',
+                                showCancelButton: true,
+                                confirmButtonText: 'SIMPAN',
+                                cancelButtonText: 'BATAL',
+                                confirmButtonColor: '#1e293b',
+                                cancelButtonColor: '#f1f5f9',
+                                customClass: {
+                                    popup: 'rounded-[1.5rem] border-0',
+                                    confirmButton: 'rounded-xl font-black text-[10px] px-6 py-3',
+                                    cancelButton: 'rounded-xl font-black text-[10px] px-6 py-3 text-slate-400',
+                                    input: 'rounded-xl border-slate-200 font-bold text-sm'
+                                },
+                                inputValidator: (value) => {
+                                    if (!value) {
+                                        return 'Status tidak boleh kosong!'
+                                    }
                                 }
-                            } else {
-                                this.value = '';
-                            }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const trimCustom = result.value.trim();
+                                    let exists = Array.from(self.options).find(o => o.value === trimCustom);
+                                    if (!exists) {
+                                        const newOpt = new Option(trimCustom, trimCustom);
+                                        self.add(newOpt, self.options[self.options.length - 1]);
+                                        self.value = trimCustom;
+                                    } else {
+                                        self.value = trimCustom;
+                                    }
+                                } else {
+                                    self.value = '';
+                                }
+                                refreshStyling(self);
+                                updateFields();
+                            });
+                        } else {
+                            refreshStyling(self);
+                            updateFields();
                         }
-                        refreshStyling(this);
-                        updateFields();
                     });
                 });
             });

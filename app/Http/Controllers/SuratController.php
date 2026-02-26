@@ -64,9 +64,10 @@ class SuratController extends Controller
         $dokters = Dokter::all();
 
         // Generate nomor surat otomatis (Urutan/RSUD/GML/Bulan/Tahun)
-        $month = date('m');
+        $month = date('n'); // Use numeric month (1-12)
+        $romanMonth = $this->getRomanMonth($month);
         $year = date('Y');
-        $suffix = '/' . $month . '/' . $year;
+        $suffix = '/RSUD/GML/' . $romanMonth . '/' . $year;
 
         $latest = SuratKeterangan::where('nomor_surat', 'LIKE', '%' . $suffix)
             ->orderByRaw('CAST(SUBSTRING_INDEX(nomor_surat, "/", 1) AS UNSIGNED) DESC')
@@ -79,7 +80,7 @@ class SuratController extends Controller
             $count = 1;
         }
 
-        $next_nomor = str_pad($count, 3, '0', STR_PAD_LEFT) . '/RSUD/GML/' . $month . '/' . $year;
+        $next_nomor = str_pad($count, 3, '0', STR_PAD_LEFT) . $suffix;
 
         return view('admin.tambah_surat', compact('pendaftar', 'dokters', 'next_nomor', 'selected_id'));
     }
@@ -655,5 +656,24 @@ class SuratController extends Controller
                 $pendaftar->update(['status' => 'Proses']);
             }
         }
+    }
+
+    private function getRomanMonth($month)
+    {
+        $romans = [
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII'
+        ];
+        return $romans[(int) $month] ?? 'I';
     }
 }
