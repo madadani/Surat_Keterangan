@@ -76,29 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Real-time Update Logic
-    function updateStats() {
-        if (!config.statsUrl) return;
-        fetch(config.statsUrl)
-            .then(response => response.json())
-            .then(data => {
-                const map = {
-                    'stat-sehat': data.sehat,
-                    'stat-jiwa': data.jiwa,
-                    'stat-narkoba': data.narkoba,
-                    'stat-spesialis': data.spesialis,
-                    'stat-total': data.total_pendaftar,
-                    'stat-pending': data.pending
-                };
-                for (const [id, val] of Object.entries(map)) {
-                    const el = document.getElementById(id);
-                    if (el) el.innerText = (val || 0).toLocaleString();
-                }
-            })
-            .catch(error => console.error('Error fetching stats:', error));
-    }
+    // Real-time Update Logic is handled within dashboard.blade.php for faster interval and animations
 
-    if (config.statsUrl) {
-        setInterval(updateStats, 10000);
-    }
 });

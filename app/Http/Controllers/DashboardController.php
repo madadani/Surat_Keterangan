@@ -60,6 +60,7 @@ class DashboardController extends Controller
                     ->whereNotIn('tipe_berkas', ['Kesehatan', 'Kesehatan Jiwa']);
             })->orWhere('tipe_berkas', 'LIKE', 'Poli %')->count(),
             'total_pendaftar' => Pendaftar::count(),
+            'total' => Pendaftar::count(),
             'pending' => Pendaftar::where('status', 'Pending')->count(),
         ]);
     }

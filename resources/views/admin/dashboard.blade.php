@@ -235,20 +235,19 @@
                 };
 
                 // Update elements if data changed
-                const simpleUpdate = (id, val) => {
+                const smartUpdate = (id, val) => {
                     const el = document.getElementById(id);
-                    if (el) {
-                        // Optional: Check current val to decide animation
-                        el.innerText = new Intl.NumberFormat('id-ID').format(val);
-                    }
+                    if (!el) return;
+                    const currentVal = parseInt(el.innerText.replace(/\./g, '')) || 0;
+                    animateValue(id, currentVal, val, 1000);
                 };
 
-                simpleUpdate('stat-sehat', data.sehat);
-                simpleUpdate('stat-jiwa', data.jiwa);
-                simpleUpdate('stat-narkoba', data.narkoba);
-                simpleUpdate('stat-spesialis', data.spesialis);
-                simpleUpdate('stat-total', data.total);
-                simpleUpdate('stat-pending', data.pending);
+                smartUpdate('stat-sehat', data.sehat);
+                smartUpdate('stat-jiwa', data.jiwa);
+                smartUpdate('stat-narkoba', data.narkoba);
+                smartUpdate('stat-spesialis', data.spesialis);
+                smartUpdate('stat-total', data.total_pendaftar);
+                smartUpdate('stat-pending', data.pending);
 
             } catch (error) {
                 console.error('Failed to fetch realtime stats:', error);
