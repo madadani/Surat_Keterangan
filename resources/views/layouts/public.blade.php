@@ -140,7 +140,7 @@
                         <div
                             class="absolute -inset-0.5 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-xl blur opacity-20 group-hover:opacity-60 transition duration-500">
                         </div>
-                        <a href="{{ url('/admin/login') }}"
+                        <a href="/suket/public/admin/login"
                             class="relative flex items-center gap-2 px-5 py-2.5 bg-brand-darkblue text-white text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-brand-green transition-all duration-300 active:scale-95 border-b border-white/10 overflow-hidden group">
                             <span class="relative z-10 flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"
