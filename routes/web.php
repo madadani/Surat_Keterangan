@@ -12,7 +12,7 @@ use App\Http\Controllers\ReportController;
 Route::get('/', [PendaftaranController::class, 'index']);
 Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store']);
 
-Route::get('/suket/public/admin/login', function () {
+Route::get('/admin/login', function () {
     return view('admin.login');
 });
 
