@@ -22,7 +22,7 @@ Route::post('/admin/login', function () {
 
     if ($username == 'admin' && $password == 'admin') {
         session(['admin_logged_in' => true]);
-        return redirect('/suket/public/admin/dashboard');
+        return redirect('/admin/dashboard');
     }
 
     return back()->with('error', 'Username atau Password salah!');
@@ -30,8 +30,8 @@ Route::post('/admin/login', function () {
 
 Route::middleware([\App\Http\Middleware\CheckAdmin::class])->group(function () {
     // Dashboard
-    Route::get('/suket/public/admin/dashboard', [DashboardController::class, 'index']);
-    Route::get('/suket/public/admin/api/stats', [DashboardController::class, 'getStatsApi']);
+    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
+    Route::get('/admin/api/stats', [DashboardController::class, 'getStatsApi']);
 
     // Pendaftar Management
     Route::get('/admin/data-pendaftar', [PendaftarMgController::class, 'index']);

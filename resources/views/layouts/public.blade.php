@@ -140,7 +140,7 @@
                         <div
                             class="absolute -inset-0.5 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-xl blur opacity-20 group-hover:opacity-60 transition duration-500">
                         </div>
-                        <a href="/suket/public/admin/login"
+                        <a href="{{ url('/admin/login') }}"
                             class="relative flex items-center gap-2 px-5 py-2.5 bg-brand-darkblue text-white text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-brand-green transition-all duration-300 active:scale-95 border-b border-white/10 overflow-hidden group">
                             <span class="relative z-10 flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@
                     <div
                         class="absolute -inset-0.5 bg-gradient-to-r from-brand-green via-brand-blue to-brand-orange rounded-xl blur opacity-20 group-hover:opacity-60 transition duration-500">
                     </div>
-                    <a href="/suket/public/admin/login"
+                    <a href="{{ url('/admin/login') }}"
                         class="relative px-4 py-5 bg-brand-darkblue text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-4 hover:bg-brand-green transition-all duration-300 overflow-hidden">
                         <span class="relative z-10 flex items-center gap-4">
                             <svg xmlns="http://www.w3.org/2000/svg"

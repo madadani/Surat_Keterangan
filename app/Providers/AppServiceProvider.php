@@ -23,15 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Force URL root di server agar link & redirect tidak lari ke localhost
-        $appUrl = config('app.url');
-        if ($appUrl && $appUrl !== 'http://localhost') {
-            \Illuminate\Support\Facades\URL::forceRootUrl($appUrl);
+        // Deteksi dari mana aplikasi sedang diakses
+        if (request()->server('HTTP_HOST')) {
+            $host = request()->server('HTTP_HOST');
+            $scheme = request()->getScheme();
+            $baseUrl = request()->getBaseUrl(); // Jika ada subfolder misal /suket/public
 
-            if (str_starts_with($appUrl, 'https')) {
+            // Buat Root URL menjadi Dinamis mengikuti IP yang sedang dipakai user
+            \Illuminate\Support\Facades\URL::forceRootUrl($scheme . '://' . $host . $baseUrl);
+
+            if ($scheme === 'https' || request()->server('HTTP_X_FORWARDED_PROTO') == 'https') {
                 \Illuminate\Support\Facades\URL::forceScheme('https');
             }
-
         }
     }
 }
