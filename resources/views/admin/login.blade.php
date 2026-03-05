@@ -205,7 +205,7 @@
                 </div>
 
                 <!-- Form -->
-                <form action="suket/public/admin/login" method="POST" class="space-y-6 sm:space-y-8">
+                <form action="/suket/public/admin/login" method="POST" class="space-y-6 sm:space-y-8">
                     @csrf
 
                     @if($errors->any())
