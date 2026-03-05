@@ -16,7 +16,7 @@ Route::get('/suket/public/admin/login', function () {
     return view('admin.login');
 });
 
-Route::post('/suket/public/admin/login', function () {
+Route::post('/admin/login', function () {
     $username = request('username');
     $password = request('password');
 
