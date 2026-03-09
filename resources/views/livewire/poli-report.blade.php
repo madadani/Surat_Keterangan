@@ -1,7 +1,7 @@
 <div class="space-y-6">
     <!-- Filters Card -->
     <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 transition-all hover:shadow-md">
-        <div class="flex flex-wrap items-center gap-6">
+        <form wire:submit.prevent="applyFilter" class="flex flex-wrap items-center gap-6">
             <!-- Search -->
             <div class="flex items-center flex-1 max-w-sm">
                 <div class="relative w-full group">
@@ -20,14 +20,23 @@
             <div class="flex items-center gap-3">
                 <div class="flex items-center gap-2">
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Dari</span>
-                    <input type="date" wire:model="startDate"
+                    <input type="date" wire:model="startDate" value="{{ $startDate }}"
                         class="bg-gray-50 border border-gray-200 rounded-xl py-2 px-3 text-xs font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 outline-none">
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sampai</span>
-                    <input type="date" wire:model="endDate"
+                    <input type="date" wire:model="endDate" value="{{ $endDate }}"
                         class="bg-gray-50 border border-gray-200 rounded-xl py-2 px-3 text-xs font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 outline-none">
                 </div>
+                <button type="submit"
+                    class="flex items-center gap-1.5 px-3 py-2 bg-brand-blue text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-darkblue transition-all shadow-md shadow-brand-blue/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    Terapkan
+                </button>
             </div>
 
             <!-- Actions -->
@@ -45,7 +54,7 @@
                 </a>
 
                 {{-- Export Button --}}
-                <button wire:click="exportCsv"
+                <button type="button" wire:click="exportCsv"
                     class="flex items-center gap-2 px-4 py-2.5 bg-brand-green text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 transition-all shadow-lg shadow-brand-green/20">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -61,7 +70,7 @@
                 <div class="w-4 h-4 border-2 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
                 <span class="text-[10px] font-bold text-brand-blue uppercase">Memuat Data...</span>
             </div>
-        </div>
+        </form>
     </div>
 
     <!-- Table Card -->

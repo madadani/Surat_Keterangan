@@ -28,7 +28,7 @@
         <div class="max-w-7xl mx-auto">
             <!-- Breadcrumb & Navigation -->
             <div class="flex items-center gap-2 mb-6">
-                <a href="{{ url('/admin/laporan') }}"
+                <a href="{{ url('/admin/laporan?start_date=' . request('start_date') . '&end_date=' . request('end_date')) }}"
                     class="text-gray-400 hover:text-brand-blue font-bold text-[10px] uppercase tracking-widest transition-colors flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

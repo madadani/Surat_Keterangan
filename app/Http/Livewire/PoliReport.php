@@ -23,8 +23,9 @@ class PoliReport extends Component
     public function mount($type)
     {
         $this->type = $type;
-        $this->startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $this->endDate = Carbon::now()->format('Y-m-d');
+        // Read from both possible param formats (start_date from index page, or startDate from Livewire queryString)
+        $this->startDate = request('startDate') ?? request('start_date') ?? Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->endDate = request('endDate') ?? request('end_date') ?? Carbon::now()->format('Y-m-d');
     }
 
     public function updatingSearch()
@@ -32,17 +33,12 @@ class PoliReport extends Component
         $this->resetPage();
     }
 
-    public function updatingStartDate()
+    public function applyFilter()
     {
         $this->resetPage();
     }
 
-    public function updatingEndDate()
-    {
-        $this->resetPage();
-    }
-
-    public function exportCsv()
+    private function buildQuery()
     {
         $query = SuratKeterangan::with('pendaftar', 'dokter')->latest();
 
@@ -78,7 +74,12 @@ class PoliReport extends Component
             });
         }
 
-        $reports = $query->get();
+        return $query;
+    }
+
+    public function exportCsv()
+    {
+        $reports = $this->buildQuery()->get();
         $filename = "Laporan_" . str_replace(' ', '_', $this->type) . "_" . date('Ymd_His') . ".csv";
 
         $headers = [
@@ -118,42 +119,8 @@ class PoliReport extends Component
 
     public function render()
     {
-        $query = SuratKeterangan::with('pendaftar', 'dokter')->latest();
-
-        if ($this->type == 'Spesialis') {
-            $query->where(function ($q) {
-                $q->where('tipe_berkas', 'LIKE', 'Kesehatan %')
-                    ->whereNotIn('tipe_berkas', ['Kesehatan', 'Kesehatan Jiwa'])
-                    ->orWhere('tipe_berkas', 'LIKE', 'Poli %');
-            });
-        } else {
-            $variations = [$this->type];
-            $alt = strpos($this->type, 'Kesehatan ') === 0 ? str_replace('Kesehatan ', '', $this->type) : 'Kesehatan ' . $this->type;
-            $variations[] = $alt;
-
-            // Tambahkan variasi MCU secara dua arah
-            if (strtolower($this->type) === 'mcu' || strtolower($this->type) === 'resume mcu' || strtolower($this->type) === 'medical check up') {
-                $variations[] = 'MCU';
-                $variations[] = 'Resume MCU';
-                $variations[] = 'Medical Check Up';
-            }
-
-            $query->whereIn(DB::raw('LOWER(tipe_berkas)'), array_map('strtolower', array_unique($variations)));
-        }
-
-        if ($this->startDate && $this->endDate) {
-            $query->whereBetween('tanggal_cetak', [$this->startDate, $this->endDate]);
-        }
-
-        if ($this->search) {
-            $query->whereHas('pendaftar', function ($q) {
-                $q->where('nama_lengkap', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('no_registrasi', 'LIKE', '%' . $this->search . '%');
-            });
-        }
-
         return view('livewire.poli-report', [
-            'reports' => $query->paginate(15)
+            'reports' => $this->buildQuery()->paginate(15)
         ]);
     }
 }
