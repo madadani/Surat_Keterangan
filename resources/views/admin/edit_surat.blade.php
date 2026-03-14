@@ -157,7 +157,7 @@
                             <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Keperluan</td>
                             <td class="text-center font-bold text-gray-300">:</td>
                             <td>
-                                <input type="text" name="keperluan" value="{{ $surat->keperluan }}"
+                                <input type="text" name="keperluan" id="input_keperluan" value="{{ $surat->keperluan }}"
                                     class="w-full bg-white border border-gray-400 rounded-2xl px-5 py-4 text-sm font-bold text-brand-darkblue focus:border-brand-blue outline-none transition-all">
                             </td>
                         </tr>
@@ -252,6 +252,33 @@
         };
     </script>
     <script src="{{ asset('js/admin/surat-form.js') }}"></script>
+    <script>
+        // Force sync for Jiwa Saran on Edit Page
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputKeperluan = document.getElementById('input_keperluan');
+            const saranJiwa = document.getElementById('saran_jiwa_input');
+            
+            if (inputKeperluan && saranJiwa) {
+                const sync = function() {
+                    // Di halaman edit, kita tetap izinkan update saran jika user mengubah keperluan
+                    const necessity = inputKeperluan.value;
+                    const currentSaran = saranJiwa.value;
+                    const marker = "dipergunakan sebagai ";
+                    const pos = currentSaran.toLowerCase().indexOf(marker.toLowerCase());
+                    
+                    if (pos !== -1) {
+                        saranJiwa.value = currentSaran.substring(0, pos + marker.length) + necessity;
+                    } else if (currentSaran.includes('(keperluan)')) {
+                        saranJiwa.value = currentSaran.replace('(keperluan)', necessity);
+                    }
+                };
+                
+                inputKeperluan.addEventListener('input', sync);
+                inputKeperluan.addEventListener('keyup', sync);
+                inputKeperluan.addEventListener('change', sync);
+            }
+        });
+    </script>
     @if ($errors->any())
         <script>
             document.addEventListener('DOMContentLoaded', function () {

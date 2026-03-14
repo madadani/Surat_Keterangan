@@ -374,16 +374,16 @@
                             <tr>
                                 <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Hasil Diagnostik</td>
                                 <td class="text-center font-bold text-gray-300">:</td>
-                                <td><textarea name="hasil_jiwa" rows="3"
+                                <td><textarea name="hasil_jiwa" id="hasil_jiwa_input" rows="3"
                                         class="w-full bg-white border border-gray-400 rounded-xl px-5 py-3.5 text-sm font-bold focus:border-brand-blue outline-none resize-none"
-                                        placeholder="Tuliskan hasil evaluasi psikologis..."></textarea></td>
+                                        placeholder="Tuliskan hasil evaluasi psikologis...">Pada saat ini, tidak menunjukkan suatu kelainan di bidang fungsi kepribadian yang bersifat psikotik, retardasi mental, gangguan neurosa berat, dan gangguan kepribadian yang dapat menghambat penugasan pada taraf pendidikan yang dimiliki. </textarea></td>
                             </tr>
                             <tr>
                                 <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Saran Dokter</td>
                                 <td class="text-center font-bold text-gray-300">:</td>
-                                <td><textarea name="saran_jiwa" rows="2"
+                                <td><textarea name="saran_jiwa" id="saran_jiwa_input" rows="2"
                                         class="w-full bg-white border border-gray-400 rounded-xl px-5 py-3.5 text-sm font-bold focus:border-brand-blue outline-none resize-none"
-                                        placeholder="Anjuran tindak lanjut..."></textarea></td>
+                                        placeholder="Anjuran tindak lanjut...">Dapat/Tidak Dapat dipergunakan sebagai (keperluan)</textarea></td>
                             </tr>
                         </tbody>
 
@@ -567,4 +567,32 @@
         @endif
     </script>
     <script src="{{ asset('js/admin/surat-form.js') }}"></script>
+    <script>
+        // Force sync for Jiwa Saran to bypass any cache issues in external JS
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputKeperluan = document.getElementById('input_keperluan');
+            const saranJiwa = document.getElementById('saran_jiwa_input');
+            
+            if (inputKeperluan && saranJiwa) {
+                const sync = function() {
+                    if (window.suratConfig && window.suratConfig.isEdit) return;
+                    
+                    const necessity = inputKeperluan.value;
+                    const currentSaran = saranJiwa.value;
+                    const marker = "dipergunakan sebagai ";
+                    const pos = currentSaran.toLowerCase().indexOf(marker.toLowerCase());
+                    
+                    if (pos !== -1) {
+                        saranJiwa.value = currentSaran.substring(0, pos + marker.length) + necessity;
+                    } else if (currentSaran.includes('(keperluan)')) {
+                        saranJiwa.value = currentSaran.replace('(keperluan)', necessity);
+                    }
+                };
+                
+                inputKeperluan.addEventListener('input', sync);
+                inputKeperluan.addEventListener('keyup', sync);
+                inputKeperluan.addEventListener('change', sync);
+            }
+        });
+    </script>
 @endpush

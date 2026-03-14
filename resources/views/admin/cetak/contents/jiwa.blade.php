@@ -64,14 +64,23 @@
     <div class="field" style="margin-top: 10px;">
         <span class="label">Saran</span>
         <span class="dots">:</span>
-        <span class="value" style="font-weight: bold;">{{ $surat->saran }}</span>
+        <span class="value" style="font-weight: normal;">
+            @php
+                $text = $surat->saran;
+                $marker = "dipergunakan sebagai";
+                $pos = stripos($text, $marker);
+                if ($pos !== false) {
+                    $before = substr($text, 0, $pos);
+                    $after = substr($text, $pos + strlen($marker));
+                    echo "<strong>" . trim($before) . "</strong> " . $marker . " <strong>" . trim($after) . "</strong>";
+                } else {
+                    echo e($text);
+                }
+            @endphp
+        </span>
     </div>
 
-    <div class="field" style="margin-top: 10px;">
-        <span class="label">Keperluan</span>
-        <span class="dots">:</span>
-        <span class="value">{{ $surat->keperluan }}</span>
-    </div>
+
 
     <p style="margin-top: 30px; text-align: justify;">
         Surat keterangan ini berlaku 1 (satu) bulan sejak diterbitkan dan tidak dapat digunakan untuk kepentingan hukum

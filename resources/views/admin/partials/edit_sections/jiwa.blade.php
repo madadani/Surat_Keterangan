@@ -15,14 +15,14 @@
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Hasil Pemeriksaan</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td><textarea name="hasil_jiwa" rows="3"
+    <td><textarea name="hasil_jiwa" id="hasil_jiwa_input" rows="3"
             class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold resize-none">{{ $surat->hasil_pemeriksaan }}</textarea>
     </td>
 </tr>
 <tr>
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Saran</td>
     <td class="text-center font-bold text-gray-300">:</td>
-    <td><textarea name="saran_jiwa" rows="3"
+    <td><textarea name="saran_jiwa" id="saran_jiwa_input" rows="3"
             class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-sm font-bold resize-none">{{ $surat->saran }}</textarea>
     </td>
 </tr>

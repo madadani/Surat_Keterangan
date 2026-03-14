@@ -171,6 +171,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Auto calculate BMI if data available
         calculateBMI();
+        
+        // Sync saran jiwa with initial data
+        syncSaranJiwa();
     }
 
     function fillTipeBerkasOptions(data, select) {
@@ -250,6 +253,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 el.classList.remove('hidden');
                 const inputs = el.querySelectorAll('input, select, textarea');
                 inputs.forEach(input => input.disabled = false);
+
+                // Sinkronisasi ulang saat section jiwa dibuka
+                if (val === 'Kesehatan Jiwa') {
+                    syncSaranJiwa();
+                }
 
                 // Penyesuaian UI spesifik
                 if (val === 'Kesehatan TKHI') {
@@ -435,4 +443,35 @@ document.addEventListener('DOMContentLoaded', function () {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', calculateBMI);
     });
+
+    // Unified Saran Jiwa Sync Function
+    function syncSaranJiwa() {
+        if (config.isEdit) return;
+        
+        const inputKeperluan = document.getElementById('input_keperluan');
+        const saranJiwa = document.getElementById('saran_jiwa_input');
+        
+        if (!inputKeperluan || !saranJiwa) return;
+        
+        const necessity = inputKeperluan.value || '';
+        const currentSaran = saranJiwa.value;
+        const marker = "dipergunakan sebagai ";
+        
+        const pos = currentSaran.toLowerCase().indexOf(marker.toLowerCase());
+        
+        if (pos !== -1) {
+            // Ambil bagian sebelum marker + marker itu sendiri
+            const prefix = currentSaran.substring(0, pos + marker.length);
+            saranJiwa.value = prefix + necessity;
+        } else if (currentSaran.includes('(keperluan)')) {
+            saranJiwa.value = currentSaran.replace('(keperluan)', necessity);
+        }
+    }
+
+    // Event listeners for sync
+    const inputKeperluan = document.getElementById('input_keperluan');
+    if (inputKeperluan) {
+        inputKeperluan.addEventListener('input', syncSaranJiwa);
+        inputKeperluan.addEventListener('change', syncSaranJiwa);
+    }
 });
