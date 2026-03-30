@@ -1,8 +1,10 @@
 @php
     $isNarkoba = isset($surat) && $surat->tipe_berkas == 'Bebas Narkoba';
-    $marginTop = $isNarkoba ? '20px' : '40px';
-    $spacerHeight = $isNarkoba ? '70px' : '100px';
-    $sigHeight = $isNarkoba ? '85px' : '100px';
+    $isGigi = isset($surat) && str_contains($surat->tipe_berkas, 'Gigi');
+    
+    $marginTop = $isNarkoba || $isGigi ? '15px' : '40px';
+    $spacerHeight = $isNarkoba || $isGigi ? '60px' : '100px';
+    $sigHeight = $isNarkoba || $isGigi ? '75px' : '100px';
 
     $isMayaMengetahui = ($mengetahui && str_contains($mengetahui->nama_dokter, 'Mayasari Ayu Hendrawati'));
     $isMayaPemeriksa = str_contains($surat->dokter->nama_dokter, 'Mayasari Ayu Hendrawati');

@@ -1,9 +1,34 @@
 {{-- Content: Surat Keterangan Pemeriksaan Gigi --}}
-<div style="text-align: center; margin-bottom: 20px;">
+<style>
+    /* Specific overrides for dental certificates to fit one page */
+    .content {
+        font-size: 11pt !important;
+        line-height: 1.25 !important;
+    }
+    .field-container {
+        margin-bottom: 12px !important;
+    }
+    .field {
+        margin-bottom: 2px !important;
+    }
+    .section-title {
+        margin-top: 10px !important;
+        margin-bottom: 4px !important;
+        font-size: 11.5pt !important;
+    }
+    .checkbox-list {
+        margin-bottom: 8px !important;
+    }
+    p {
+        margin-top: 6px !important;
+        margin-bottom: 6px !important;
+    }
+</style>
+<div style="text-align: center; margin-bottom: 15px;">
     <div
         style="display: inline-block; border-bottom: 1.5px solid #000; padding-bottom: 0px; line-height: 1; font-weight: bold; font-size: 14pt; text-transform: uppercase;">
         SURAT KETERANGAN PEMERIKSAAN GIGI</div>
-    <div style="margin-top: 5px; font-size: 12pt; text-decoration: underline;">
+    <div style="margin-top: 3px; font-size: 11pt; text-decoration: underline;">
         No. {{ $surat->nomor_surat }}
     </div>
 </div>
@@ -66,31 +91,30 @@
     </p>
 
     <div class="section-title">A. PEMERIKSAAN MULUT DAN GIGI (ODONTOGRAM) </div>
-    
 
-    <div style="margin-left: 20px; margin-bottom: 20px;">
+    <div style="margin-left: 20px; margin-bottom: 12px;">
         <table
-            style="width: 100%; border-collapse: collapse; font-size: 8pt; text-align: center; font-family: 'Courier New', Courier, monospace;">
+            style="width: 100%; border-collapse: collapse; font-size: 7.5pt; text-align: center; font-family: 'Courier New', Courier, monospace;">
             <thead>
                 <tr style="background: #f9f9f9;">
-                    <th style="border: 1px solid #000; padding: 4px; width: 60px;">RAHANG</th>
-                    <th style="border: 1px solid #000; padding: 4px; width: 80px;">STATUS</th>
+                    <th style="border: 1px solid #000; padding: 2px; width: 60px;">RAHANG</th>
+                    <th style="border: 1px solid #000; padding: 2px; width: 70px;">STATUS</th>
                     @foreach(['M3', 'M2', 'M1', 'P2', 'P1', 'C', 'I2', 'I1', 'I1', 'I2', 'C', 'P1', 'P2', 'M1', 'M2', 'M3'] as $tooth)
-                        <th style="border: 1px solid #000; padding: 4px;">{{ $tooth }}</th>
+                        <th style="border: 1px solid #000; padding: 2px;">{{ $tooth }}</th>
                     @endforeach
                 </tr>
             </thead>
             <tbody>
                 @foreach(['atas' => 'ATAS', 'bawah' => 'BAWAH'] as $key => $label)
                     <tr>
-                        <td style="border: 1px solid #000; padding: 6px; font-weight: bold; background: #fdfdfd;">
+                        <td style="border: 1px solid #000; padding: 3px; font-weight: bold; background: #fdfdfd;">
                             {{ $label }}
                         </td>
-                        <td style="border: 1px solid #000; padding: 4px;">
+                        <td style="border: 1px solid #000; padding: 2px;">
                             {{ $surat->mcu_data['odontogram_' . $key . '_status'] ?? '-' }}
                         </td>
                         @for($i = 1; $i <= 16; $i++)
-                            <td style="border: 1px solid #000; padding: 4px; color: #333; font-weight: bold;">
+                            <td style="border: 1px solid #000; padding: 2px; color: #333; font-weight: bold;">
                                 {{ $surat->mcu_data['odontogram_' . $key . '_g' . $i] ?? '' }}
                             </td>
                         @endfor
@@ -98,21 +122,19 @@
                 @endforeach
             </tbody>
         </table>
-        <div style="margin-top: 5px; font-size: 7.5pt; color: #666; font-style: italic;"> * Posisi data: Baris Rahang
-            (Kanan ke Kiri untuk M3-I1, Kiri ke Kanan untuk I1-M3) </div>
     </div>
 
-    <div style="margin-left: 20px; margin-bottom: 25px; display: flex; align-items: baseline; gap: 8px;">
+    <div style="margin-left: 20px; margin-bottom: 15px; display: flex; align-items: baseline; gap: 8px;">
         <div style="font-weight: bold; font-size: 11pt; border-bottom: 1.5px solid #000; white-space: nowrap;">
             Hasil Pemeriksaan :</div>
-        <div style="font-size: 11pt; line-height: 1.4;">
+        <div style="font-size: 11pt; line-height: 1.2;">
             {{ $surat->hasil_pemeriksaan }}
         </div>
     </div>
 
 
     <div class="section-title">2. Perawatan yang Telah Dilakukan</div>
-    <ul class="checkbox-list">
+    <ul class="checkbox-list" style="margin-bottom: 10px;">
         @php $tindakan_saved = explode(', ', $surat->tindakan_gigi ?? ''); @endphp
         <li class="checkbox-item">
             {{ in_array('Pembersihan karang gigi (scaling)', $tindakan_saved) ? '☑' : '☐' }} Pembersihan karang gigi
@@ -127,20 +149,19 @@
     </ul>
 
     <div class="section-title">3. Rencana / Pemeriksaan Lanjutan</div>
-    <p style="margin-left: 20px; margin-top: 5px;">Pasien disarankan untuk menjalani pemeriksaan dan/atau
-        perawatan lanjutan, berupa:</p>
-    <div style="margin-left: 20px; margin-bottom: 10px;">
-        Kontrol ulang pada tanggal
-        {{ $surat->kontrol_ulang ? \Carbon\Carbon::parse($surat->kontrol_ulang)->translatedFormat('d F Y') : '' }}<br>
-        Perawatan lanjutan:<br>
+    <p style="margin-left: 20px; margin-top: 3px; margin-bottom: 3px;">Pasien disarankan untuk perawatan lanjutan, berupa:</p>
+    <div style="margin-left: 20px; margin-bottom: 8px;">
+        Kontrol ulang:
+        <strong>{{ $surat->kontrol_ulang ? \Carbon\Carbon::parse($surat->kontrol_ulang)->translatedFormat('d F Y') : '-' }}</strong><br>
+        Rencana:
         <strong>{{ $surat->saran }}</strong>
     </div>
 
-    <p>Demikian surat keterangan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya
+    <p style="margin-bottom: 0px;">Demikian surat keterangan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan
         @if ($surat->keperluan)
             untuk <strong>{{ $surat->keperluan }}</strong>.
         @else
-            .
+            sebagaimana mestinya.
         @endif
     </p>
 </div>
