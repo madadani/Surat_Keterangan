@@ -100,6 +100,21 @@
                 </div>
             </div>
         </div>
+        <div class="space-y-1.5 pt-4 border-t border-gray-50">
+            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Tampilkan di Cetakan?</label>
+            <div class="flex items-center gap-4 mt-2">
+                <label class="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" name="tampilkan_motorik_disabilitas" value="Ya" {{ (!isset($surat->mcu_data['tampilkan_motorik_disabilitas']) || $surat->mcu_data['tampilkan_motorik_disabilitas'] == 'Ya') ? 'checked' : '' }}
+                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                    <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">YA, TAMPILKAN</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" name="tampilkan_motorik_disabilitas" value="Tidak" {{ (isset($surat->mcu_data['tampilkan_motorik_disabilitas']) && $surat->mcu_data['tampilkan_motorik_disabilitas'] == 'Tidak') ? 'checked' : '' }}
+                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                    <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">SEMBUNYIKAN</span>
+                </label>
+            </div>
+        </div>
         <div class="space-y-1.5">
             <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Keterangan Lainnya</label>
             <input type="text" name="keterangan_lainnya" value="{{ $surat->mcu_data['keterangan_lainnya'] ?? '' }}"

@@ -288,6 +288,7 @@ class SuratController extends Controller
                 'golongan_darah' => $request->golongan_darah,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
+                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
                 'keterangan_lainnya' => $request->keterangan_lainnya,
             ];
         } elseif ($tipeBerkas == 'Kesehatan Jiwa') {
@@ -381,6 +382,7 @@ class SuratController extends Controller
                 'bmi' => $request->bmi,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
+                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
                 'keterangan_lainnya' => $request->keterangan_lainnya,
             ];
         } elseif ($tipeBerkas == 'Dalam') {
@@ -474,6 +476,7 @@ class SuratController extends Controller
                 'golongan_darah' => $request->golongan_darah,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
+                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
                 'keterangan_lainnya' => $request->keterangan_lainnya,
             ];
             $data['mcu_data'] = array_merge($currentMcuData, $newMcuData);
@@ -592,6 +595,7 @@ class SuratController extends Controller
                 'bmi' => $request->bmi,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
+                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
                 'keterangan_lainnya' => $request->keterangan_lainnya,
             ];
         } elseif ($surat->tipe_berkas === 'Kesehatan TKHI') {

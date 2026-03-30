@@ -66,19 +66,28 @@
             <span class="value">{{ $surat->nadi }} x/mnt &nbsp;/&nbsp; {{ $surat->suhu }} °C &nbsp;/&nbsp;
                 {{ $surat->respirasi }} x/mnt</span>
         </div>
+        @php
+            $show_motorik = !isset($surat->mcu_data['tampilkan_motorik_disabilitas']) || $surat->mcu_data['tampilkan_motorik_disabilitas'] == 'Ya';
+            $has_catatan = isset($surat->mcu_data['keterangan_lainnya']) && $surat->mcu_data['keterangan_lainnya'];
+        @endphp
+        @if($show_motorik || $has_catatan)
         <div class="field">
             <span class="label" style="vertical-align: top;">Pemeriksaan Fisik</span>
             <span class="dots" style="vertical-align: top;">:</span>
             <span class="value">
-                Gangguan Motorik :
-                {{ isset($surat->mcu_data['gangguan_motorik']) ? ($surat->mcu_data['gangguan_motorik'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['gangguan_motorik'])) : '-' }}<br>
-                Disabilitas :
-                {{ isset($surat->mcu_data['disabilitas']) ? ($surat->mcu_data['disabilitas'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['disabilitas'])) : '-' }}
-                @if(isset($surat->mcu_data['keterangan_lainnya']) && $surat->mcu_data['keterangan_lainnya'])
-                    <br>Catatan : {{ $surat->mcu_data['keterangan_lainnya'] }}
+                @if($show_motorik)
+                    Gangguan Motorik :
+                    {{ isset($surat->mcu_data['gangguan_motorik']) ? ($surat->mcu_data['gangguan_motorik'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['gangguan_motorik'])) : '-' }}<br>
+                    Disabilitas :
+                    {{ isset($surat->mcu_data['disabilitas']) ? ($surat->mcu_data['disabilitas'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['disabilitas'])) : '-' }}
+                @endif
+                @if($has_catatan)
+                    @if($show_motorik)<br>@endif
+                    Catatan : {{ $surat->mcu_data['keterangan_lainnya'] }}
                 @endif
             </span>
         </div>
+        @endif
     </div>
 
     <p style="text-align: justify; margin-top: 20px;">
