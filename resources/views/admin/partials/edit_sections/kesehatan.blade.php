@@ -68,58 +68,114 @@
     <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Lain</td>
     <td class="text-center font-bold text-gray-300">:</td>
     <td class="space-y-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-                <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Gangguan Motorik</label>
-                <div class="flex items-center gap-4 mt-2">
-                    <label class="flex items-center gap-2 cursor-pointer group">
-                        <input type="radio" name="gangguan_motorik" value="Ada" {{ ($surat->mcu_data['gangguan_motorik'] ?? '') == 'Ada' ? 'checked' : '' }}
-                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">ADA</span>
-                    </label>
-                    <label class="flex items-center gap-2 cursor-pointer group">
-                        <input type="radio" name="gangguan_motorik" value="Tidak" {{ ($surat->mcu_data['gangguan_motorik'] ?? 'Tidak') == 'Tidak' ? 'checked' : '' }}
-                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
-                    </label>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+            <div class="flex items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-black text-brand-darkblue uppercase tracking-widest">Gangguan Motorik</label>
+                    <div class="relative flex items-center gap-1">
+                        <select name="gangguan_motorik" 
+                            class="bg-transparent border-none p-0 pr-4 text-xs font-black text-black focus:ring-0 outline-none cursor-pointer appearance-none">
+                            <option value="Ada" {{ ($surat->mcu_data['gangguan_motorik'] ?? '') == 'Ada' ? 'selected' : '' }}>ADA</option>
+                            <option value="Tidak" {{ ($surat->mcu_data['gangguan_motorik'] ?? 'Tidak') == 'Tidak' ? 'selected' : '' }}>TIDAK ADA</option>
+                        </select>
+                        <svg class="absolute right-0 w-3 h-3 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="h-8 w-[1px] bg-gray-100"></div>
+                <div class="space-y-1 text-right">
+                    <label class="text-[8px] font-black text-gray-400 uppercase tracking-tighter">Cetak?</label>
+                    <div class="relative flex items-center justify-end gap-1">
+                        <select name="tampilkan_motorik" 
+                            class="bg-transparent border-none p-0 pr-4 text-[10px] font-black text-black focus:ring-0 outline-none cursor-pointer appearance-none text-right">
+                            <option value="Ya" {{ ($surat->mcu_data['tampilkan_motorik'] ?? 'Tidak') == 'Ya' ? 'selected' : '' }}>TAMPILKAN</option>
+                            <option value="Tidak" {{ ($surat->mcu_data['tampilkan_motorik'] ?? 'Tidak') == 'Tidak' ? 'selected' : '' }}>SEMBUNYIKAN</option>
+                        </select>
+                        <svg class="absolute right-0 w-2.5 h-2.5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
-            <div class="space-y-1.5">
-                <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Disabilitas</label>
-                <div class="flex items-center gap-4 mt-2">
-                    <label class="flex items-center gap-2 cursor-pointer group">
-                        <input type="radio" name="disabilitas" value="Ada" {{ ($surat->mcu_data['disabilitas'] ?? '') == 'Ada' ? 'checked' : '' }}
-                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">ADA</span>
-                    </label>
-                    <label class="flex items-center gap-2 cursor-pointer group">
-                        <input type="radio" name="disabilitas" value="Tidak" {{ ($surat->mcu_data['disabilitas'] ?? 'Tidak') == 'Tidak' ? 'checked' : '' }}
-                            class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                        <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
-                    </label>
+
+            <div class="flex items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-black text-brand-darkblue uppercase tracking-widest">Disabilitas</label>
+                    <div class="relative flex items-center gap-1">
+                        <select name="disabilitas" 
+                            class="bg-transparent border-none p-0 pr-4 text-xs font-black text-black focus:ring-0 outline-none cursor-pointer appearance-none">
+                            <option value="Ada" {{ ($surat->mcu_data['disabilitas'] ?? '') == 'Ada' ? 'selected' : '' }}>ADA</option>
+                            <option value="Tidak" {{ ($surat->mcu_data['disabilitas'] ?? 'Tidak') == 'Tidak' ? 'selected' : '' }}>TIDAK ADA</option>
+                        </select>
+                        <svg class="absolute right-0 w-3 h-3 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="h-8 w-[1px] bg-gray-100"></div>
+                <div class="space-y-1 text-right">
+                    <label class="text-[8px] font-black text-gray-400 uppercase tracking-tighter">Cetak?</label>
+                    <div class="relative flex items-center justify-end gap-1">
+                        <select name="tampilkan_disabilitas" 
+                            class="bg-transparent border-none p-0 pr-4 text-[10px] font-black text-black focus:ring-0 outline-none cursor-pointer appearance-none text-right">
+                            <option value="Ya" {{ ($surat->mcu_data['tampilkan_disabilitas'] ?? 'Tidak') == 'Ya' ? 'selected' : '' }}>TAMPILKAN</option>
+                            <option value="Tidak" {{ ($surat->mcu_data['tampilkan_disabilitas'] ?? 'Tidak') == 'Tidak' ? 'selected' : '' }}>SEMBUNYIKAN</option>
+                        </select>
+                        <svg class="absolute right-0 w-2.5 h-2.5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="space-y-1.5 pt-4 border-t border-gray-50">
-            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Tampilkan di Cetakan?</label>
-            <div class="flex items-center gap-4 mt-2">
-                <label class="flex items-center gap-2 cursor-pointer group">
-                    <input type="radio" name="tampilkan_motorik_disabilitas" value="Ya" {{ (!isset($surat->mcu_data['tampilkan_motorik_disabilitas']) || $surat->mcu_data['tampilkan_motorik_disabilitas'] == 'Ya') ? 'checked' : '' }}
-                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                    <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">YA, TAMPILKAN</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer group">
-                    <input type="radio" name="tampilkan_motorik_disabilitas" value="Tidak" {{ (isset($surat->mcu_data['tampilkan_motorik_disabilitas']) && $surat->mcu_data['tampilkan_motorik_disabilitas'] == 'Tidak') ? 'checked' : '' }}
-                        class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
-                    <span class="text-xs font-bold text-gray-700 group-hover:text-brand-blue">SEMBUNYIKAN</span>
-                </label>
-            </div>
+    </td>
+</tr>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Fisik (Manual)</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td class="space-y-4">
+        <textarea name="pemeriksaan_fisik_manual" rows="2"
+            placeholder="Hasil pemeriksaan fisik oleh dokter..."
+            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue outline-none resize-none">{{ $surat->mcu_data['pemeriksaan_fisik_manual'] ?? '' }}</textarea>
+        <div class="flex items-center gap-4">
+            <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Tampilkan di Cetakan?</span>
+            <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="radio" name="tampilkan_fisik" value="Ya" 
+                    {{ ($surat->mcu_data['tampilkan_fisik'] ?? 'Tidak') == 'Ya' ? 'checked' : '' }}
+                    class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                <span class="text-[10px] font-bold text-gray-700 group-hover:text-brand-blue">YA</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="radio" name="tampilkan_fisik" value="Tidak" 
+                    {{ ($surat->mcu_data['tampilkan_fisik'] ?? 'Tidak') == 'Tidak' ? 'checked' : '' }}
+                    class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                <span class="text-[10px] font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
+            </label>
         </div>
-        <div class="space-y-1.5">
-            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Keterangan Lainnya</label>
-            <input type="text" name="keterangan_lainnya" value="{{ $surat->mcu_data['keterangan_lainnya'] ?? '' }}"
-                placeholder="Catatan tambahan (opsional)..."
-                class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue">
+    </td>
+</tr>
+<tr>
+    <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Pemeriksaan Penunjang</td>
+    <td class="text-center font-bold text-gray-300">:</td>
+    <td class="space-y-4">
+        <textarea name="pemeriksaan_penunjang_manual" rows="2"
+            placeholder="Hasil pemeriksaan penunjang (Laborat/Radiologi)..."
+            class="w-full bg-white border border-gray-400 rounded-xl px-4 py-3 text-xs font-black text-brand-darkblue focus:border-brand-blue outline-none resize-none">{{ $surat->mcu_data['pemeriksaan_penunjang_manual'] ?? '' }}</textarea>
+        <div class="flex items-center gap-4">
+            <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Tampilkan di Cetakan?</span>
+            <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="radio" name="tampilkan_penunjang" value="Ya" 
+                    {{ ($surat->mcu_data['tampilkan_penunjang'] ?? 'Tidak') == 'Ya' ? 'checked' : '' }}
+                    class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                <span class="text-[10px] font-bold text-gray-700 group-hover:text-brand-blue">YA</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="radio" name="tampilkan_penunjang" value="Tidak" 
+                    {{ ($surat->mcu_data['tampilkan_penunjang'] ?? 'Tidak') == 'Tidak' ? 'checked' : '' }}
+                    class="w-4 h-4 text-brand-blue focus:ring-brand-blue border-gray-300">
+                <span class="text-[10px] font-bold text-gray-700 group-hover:text-brand-blue">TIDAK</span>
+            </label>
         </div>
     </td>
 </tr>

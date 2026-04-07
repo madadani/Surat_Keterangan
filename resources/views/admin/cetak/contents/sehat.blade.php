@@ -67,25 +67,39 @@
                 {{ $surat->respirasi }} x/mnt</span>
         </div>
         @php
-            $show_motorik = !isset($surat->mcu_data['tampilkan_motorik_disabilitas']) || $surat->mcu_data['tampilkan_motorik_disabilitas'] == 'Ya';
-            $has_catatan = isset($surat->mcu_data['keterangan_lainnya']) && $surat->mcu_data['keterangan_lainnya'];
+            $show_motorik = isset($surat->mcu_data['tampilkan_motorik']) && $surat->mcu_data['tampilkan_motorik'] == 'Ya';
+            $show_disabilitas = isset($surat->mcu_data['tampilkan_disabilitas']) && $surat->mcu_data['tampilkan_disabilitas'] == 'Ya';
+            $show_fisik_manual = isset($surat->mcu_data['tampilkan_fisik']) && $surat->mcu_data['tampilkan_fisik'] == 'Ya';
+            $show_penunjang = isset($surat->mcu_data['tampilkan_penunjang']) && $surat->mcu_data['tampilkan_penunjang'] == 'Ya';
         @endphp
-        @if($show_motorik || $has_catatan)
+        
+        @if($show_motorik || $show_disabilitas || $show_fisik_manual)
         <div class="field">
             <span class="label" style="vertical-align: top;">Pemeriksaan Fisik</span>
             <span class="dots" style="vertical-align: top;">:</span>
             <span class="value">
                 @if($show_motorik)
                     Gangguan Motorik :
-                    {{ isset($surat->mcu_data['gangguan_motorik']) ? ($surat->mcu_data['gangguan_motorik'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['gangguan_motorik'])) : '-' }}<br>
+                    {{ isset($surat->mcu_data['gangguan_motorik']) ? ($surat->mcu_data['gangguan_motorik'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['gangguan_motorik'])) : '-' }}
+                @endif
+                @if($show_disabilitas)
+                    {!! $show_motorik ? '<br>' : '' !!}
                     Disabilitas :
                     {{ isset($surat->mcu_data['disabilitas']) ? ($surat->mcu_data['disabilitas'] == 'Tidak' ? 'TIDAK ADA' : strtoupper($surat->mcu_data['disabilitas'])) : '-' }}
                 @endif
-                @if($has_catatan)
-                    @if($show_motorik)<br>@endif
-                    Catatan : {{ $surat->mcu_data['keterangan_lainnya'] }}
+                @if($show_fisik_manual)
+                    {!! ($show_motorik || $show_disabilitas) ? '<br>' : '' !!}
+                    {{ $surat->mcu_data['pemeriksaan_fisik_manual'] ?? '' }}
                 @endif
             </span>
+        </div>
+        @endif
+
+        @if($show_penunjang)
+        <div class="field">
+            <span class="label" style="vertical-align: top;">Pemeriksaan Penunjang</span>
+            <span class="dots" style="vertical-align: top;">:</span>
+            <span class="value">{{ $surat->mcu_data['pemeriksaan_penunjang_manual'] ?? '' }}</span>
         </div>
         @endif
     </div>

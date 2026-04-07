@@ -288,8 +288,12 @@ class SuratController extends Controller
                 'golongan_darah' => $request->golongan_darah,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
-                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
-                'keterangan_lainnya' => $request->keterangan_lainnya,
+                'tampilkan_motorik' => $request->tampilkan_motorik ?? 'Tidak',
+                'tampilkan_disabilitas' => $request->tampilkan_disabilitas ?? 'Tidak',
+                'pemeriksaan_fisik_manual' => $request->pemeriksaan_fisik_manual,
+                'pemeriksaan_penunjang_manual' => $request->pemeriksaan_penunjang_manual,
+                'tampilkan_fisik' => $request->tampilkan_fisik ?? 'Tidak',
+                'tampilkan_penunjang' => $request->tampilkan_penunjang ?? 'Tidak',
             ];
         } elseif ($tipeBerkas == 'Kesehatan Jiwa') {
             $data['pada_tanggal'] = $request->pada_tanggal_jiwa;
@@ -382,8 +386,12 @@ class SuratController extends Controller
                 'bmi' => $request->bmi,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
-                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
-                'keterangan_lainnya' => $request->keterangan_lainnya,
+                'tampilkan_motorik' => $request->tampilkan_motorik ?? 'Tidak',
+                'tampilkan_disabilitas' => $request->tampilkan_disabilitas ?? 'Tidak',
+                'pemeriksaan_fisik_manual' => $request->pemeriksaan_fisik_manual,
+                'pemeriksaan_penunjang_manual' => $request->pemeriksaan_penunjang_manual,
+                'tampilkan_fisik' => $request->tampilkan_fisik ?? 'Tidak',
+                'tampilkan_penunjang' => $request->tampilkan_penunjang ?? 'Tidak',
             ];
         } elseif ($tipeBerkas == 'Dalam') {
             $data['tinggi_badan'] = $request->tinggi_badan_dalam;
@@ -476,8 +484,12 @@ class SuratController extends Controller
                 'golongan_darah' => $request->golongan_darah,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
-                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
-                'keterangan_lainnya' => $request->keterangan_lainnya,
+                'tampilkan_motorik' => $request->tampilkan_motorik ?? 'Tidak',
+                'tampilkan_disabilitas' => $request->tampilkan_disabilitas ?? 'Tidak',
+                'pemeriksaan_fisik_manual' => $request->pemeriksaan_fisik_manual,
+                'pemeriksaan_penunjang_manual' => $request->pemeriksaan_penunjang_manual,
+                'tampilkan_fisik' => $request->tampilkan_fisik ?? 'Tidak',
+                'tampilkan_penunjang' => $request->tampilkan_penunjang ?? 'Tidak',
             ];
             $data['mcu_data'] = array_merge($currentMcuData, $newMcuData);
 
@@ -494,7 +506,6 @@ class SuratController extends Controller
                 'bmi' => $request->bmi,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
-                'keterangan_lainnya' => $request->keterangan_lainnya,
             ]);
 
         } elseif (in_array($surat->tipe_berkas, ['Orthopedi', 'Ortopedi'])) {
@@ -510,7 +521,6 @@ class SuratController extends Controller
                 'bmi' => $request->bmi,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
-                'keterangan_lainnya' => $request->keterangan_lainnya,
             ]);
 
         } elseif ($surat->tipe_berkas == 'Kesehatan Jiwa') {
@@ -595,7 +605,12 @@ class SuratController extends Controller
                 'bmi' => $request->bmi,
                 'gangguan_motorik' => $request->gangguan_motorik,
                 'disabilitas' => $request->disabilitas,
-                'tampilkan_motorik_disabilitas' => $request->tampilkan_motorik_disabilitas ?? 'Ya',
+                'tampilkan_motorik' => $request->tampilkan_motorik ?? 'Tidak',
+                'tampilkan_disabilitas' => $request->tampilkan_disabilitas ?? 'Tidak',
+                'pemeriksaan_fisik_manual' => $request->pemeriksaan_fisik_manual,
+                'pemeriksaan_penunjang_manual' => $request->pemeriksaan_penunjang_manual,
+                'tampilkan_fisik' => $request->tampilkan_fisik ?? 'Tidak',
+                'tampilkan_penunjang' => $request->tampilkan_penunjang ?? 'Tidak',
                 'keterangan_lainnya' => $request->keterangan_lainnya,
             ];
         } elseif ($surat->tipe_berkas === 'Kesehatan TKHI') {
