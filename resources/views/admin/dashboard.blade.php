@@ -134,8 +134,7 @@
                         <div>
                             <span class="text-5xl font-black tracking-tighter block mb-2"
                                 id="stat-total">{{ number_format($total_pendaftar) }}</span>
-                            <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Total Pendaftar
-                                Online</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Total Pendaftar</span>
                         </div>
                         <div class="flex items-center gap-6 pt-6 border-t border-white/10">
                             <div>
