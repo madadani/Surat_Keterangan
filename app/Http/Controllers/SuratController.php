@@ -161,7 +161,8 @@ class SuratController extends Controller
         $surat = SuratKeterangan::findOrFail($id);
         $pendaftar = Pendaftar::all();
         $dokters = Dokter::all();
-        return view('admin.edit_surat', compact('surat', 'pendaftar', 'dokters'));
+        $redirect_to = request()->old('redirect_to', url()->previous());
+        return view('admin.edit_surat', compact('surat', 'pendaftar', 'dokters', 'redirect_to'));
     }
 
     public function update(Request $request, $id)
@@ -189,7 +190,14 @@ class SuratController extends Controller
 
         $surat->update($data);
 
-        return redirect('/admin/data-surat')->with('success', 'Surat Keterangan berhasil diperbarui!');
+        $redirectTo = $request->input('redirect_to', '/admin/data-surat');
+        // Parse the URL to ensure we correctly append the hash fragment
+        $parsedUrl = parse_url($redirectTo);
+        $baseUrl = ($parsedUrl['scheme'] ?? 'http') . '://' . ($parsedUrl['host'] ?? 'localhost') . (isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : '') . ($parsedUrl['path'] ?? '/');
+        $query = isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '';
+        $finalRedirect = $baseUrl . $query . '#surat_' . $surat->id;
+
+        return redirect($finalRedirect)->with('success', 'Surat Keterangan berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -304,7 +312,7 @@ class SuratController extends Controller
             $data['hasil_pemeriksaan'] = 'Bebas Narkoba';
             $data['saran'] = $request->saran_narkoba;
             $data['kesimpulan'] = $request->kesimpulan_narkoba;
-            $data['keperluan'] = $request->dipergunakan_untuk;
+            $data['keperluan'] = $request->dipergunakan_untuk ?: $request->keperluan;
             $data['morphine'] = $request->morphine;
             $data['canabinoid'] = $request->canabinoid;
             $data['amphetamine'] = $request->amphetamine;
@@ -532,7 +540,7 @@ class SuratController extends Controller
             $data['hasil_pemeriksaan'] = 'Bebas Narkoba';
             $data['saran'] = $request->saran_narkoba;
             $data['kesimpulan'] = $request->kesimpulan_narkoba;
-            $data['keperluan'] = $request->dipergunakan_untuk;
+            $data['keperluan'] = $request->dipergunakan_untuk ?: $request->keperluan;
             $data['morphine'] = $request->morphine;
             $data['canabinoid'] = $request->canabinoid;
             $data['amphetamine'] = $request->amphetamine;

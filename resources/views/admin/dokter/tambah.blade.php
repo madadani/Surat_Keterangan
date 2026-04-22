@@ -99,6 +99,11 @@
                                 <option value="Penyakit Dalam">Penyakit Dalam</option>
                                 <option value="Orthopedi">Orthopedi</option>
                                 <option value="Jantung">Jantung</option>
+                                <option value="Anak">Anak</option>
+                                <option value="Saraf">Saraf</option>
+                                <option value="Kandungan">Kandungan</option>
+                                <option value="Bedah">Bedah</option>
+                                <option value="Rehabilitasi Medik">Rehabilitasi Medik</option>
                             </select>
                         </div>
 

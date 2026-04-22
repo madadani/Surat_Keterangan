@@ -2,6 +2,120 @@
 
 @section('title', 'Tambah Berkas Surat')
 
+@push('styles')
+<style>
+    /* Select2 Custom Premium Styling */
+    .select2-container--default .select2-selection--single {
+        background: #f9fafb;
+        border: 1px solid #9ca3af;
+        border-radius: 1rem;
+        padding: 0.65rem 1.25rem;
+        height: auto;
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    .select2-container--default .select2-selection--single:hover {
+        border-color: #1B3A5C;
+    }
+    .select2-container--default.select2-container--open .select2-selection--single,
+    .select2-container--default.select2-container--focus .select2-selection--single {
+        background: #fff;
+        border-color: #1B3A5C;
+        box-shadow: 0 0 0 4px rgba(27, 58, 92, 0.08);
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #1B3A5C;
+        font-weight: 900;
+        font-size: 0.875rem;
+        padding: 0;
+        line-height: 1.5;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #9ca3af;
+        font-weight: 700;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        height: auto;
+        width: 20px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #9ca3af transparent transparent transparent;
+        border-width: 6px 5px 0 5px;
+    }
+    .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+        border-color: transparent transparent #1B3A5C transparent;
+        border-width: 0 5px 6px 5px;
+    }
+    .select2-dropdown {
+        border: 1px solid #e5e7eb;
+        border-radius: 1rem;
+        box-shadow: 0 20px 60px -10px rgba(0,0,0,0.12);
+        overflow: hidden;
+        margin-top: 6px;
+    }
+    .select2-container--default .select2-search--dropdown {
+        padding: 12px 16px;
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
+        padding: 10px 16px;
+        font-weight: 700;
+        font-size: 0.875rem;
+        color: #1B3A5C;
+        outline: none;
+        transition: all 0.2s;
+    }
+    .select2-container--default .select2-search--dropdown .select2-search__field:focus {
+        border-color: #1B3A5C;
+        box-shadow: 0 0 0 3px rgba(27, 58, 92, 0.1);
+    }
+    .select2-container--default .select2-results__option {
+        padding: 12px 20px;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        color: #374151;
+        transition: all 0.15s;
+    }
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        background: linear-gradient(135deg, #1B3A5C 0%, #264b73 100%);
+        color: white;
+        font-weight: 900;
+    }
+    .select2-container--default .select2-results__option[aria-selected=true] {
+        background: rgba(27, 58, 92, 0.06);
+        color: #1B3A5C;
+        font-weight: 900;
+    }
+    .select2-results__options {
+        max-height: 280px !important;
+    }
+    .select2-container {
+        width: 100% !important;
+    }
+    .select2-container--default .select2-results__option .select2-results__option--load-more {
+        display: none;
+    }
+    /* Search icon hint */
+    .select2-container--default .select2-search--dropdown::before {
+        content: '🔍';
+        position: absolute;
+        right: 28px;
+        top: 22px;
+        font-size: 14px;
+        opacity: 0.5;
+    }
+</style>
+@endpush
+
 @section('content')
     <!-- Header -->
     <header
@@ -48,8 +162,8 @@
                             <td>
                                 <div class="relative group">
                                     <select name="pendaftar_id" id="pendaftar_select"
-                                        class="w-full bg-gray-50 border border-gray-400 rounded-2xl px-5 py-4 font-black text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue focus:bg-white transition-all outline-none appearance-none cursor-pointer">
-                                        <option value="">-- Pilih Nama Pasien --</option>
+                                        class="select2-pasien w-full">
+                                        <option value="">-- Ketik nama pasien untuk mencari --</option>
                                         @foreach($pendaftar as $p)
                                             <option value="{{ $p->id }}" {{ (isset($selected_id) && $selected_id == $p->id) ? 'selected' : '' }} data-gender="{{ $p->jenis_kelamin }}"
                                                 data-tempat="{{ $p->tempat_lahir }}" data-tanggal="{{ $p->tanggal_lahir }}"
@@ -67,14 +181,6 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <div
-                                        class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-focus-within:text-brand-blue transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -479,7 +585,7 @@
                             <tr>
                                 <td class="text-xs font-black text-gray-400 uppercase tracking-widest">Keperluan Khusus</td>
                                 <td class="text-center font-bold text-gray-300">:</td>
-                                <td><input type="text" name="dipergunakan_untuk" placeholder="Instansi / Tujuan..."
+                                <td><input type="text" name="dipergunakan_untuk" id="dipergunakan_untuk_input" placeholder="Instansi / Tujuan..."
                                         class="w-full bg-white border border-gray-400 rounded-xl px-5 py-4 text-sm font-bold">
                                 </td>
                             </tr>
@@ -616,6 +722,32 @@
             isEdit: false
         };
 
+        // Initialize Select2 for Patient Search
+        $(document).ready(function() {
+            $('#pendaftar_select').select2({
+                placeholder: '🔍  Ketik nama pasien untuk mencari...',
+                allowClear: true,
+                width: '100%',
+                language: {
+                    noResults: function() { return 'Pasien tidak ditemukan'; },
+                    searching: function() { return 'Mencari...'; },
+                    inputTooShort: function() { return 'Ketik minimal 1 karakter...'; }
+                }
+            });
+
+            // Bridge Select2 change to native change for surat-form.js compatibility
+            $('#pendaftar_select').on('select2:select select2:unselect', function(e) {
+                this.dispatchEvent(new Event('change'));
+            });
+
+            // If selected_id is preset, trigger change
+            @if(isset($selected_id) && $selected_id)
+                setTimeout(function() {
+                    $('#pendaftar_select').trigger('change');
+                }, 100);
+            @endif
+        });
+
         // Handle validation errors via SweetAlert
         @if ($errors->any())
             document.addEventListener('DOMContentLoaded', function () {
@@ -625,6 +757,26 @@
         @endif
     </script>
     <script src="{{ asset('js/admin/surat-form.js') }}"></script>
+    <script>
+        // Sync Keperluan Narkoba with Global Keperluan
+        document.addEventListener('DOMContentLoaded', function() {
+            const khususInput = document.getElementById('dipergunakan_untuk_input');
+            const globalInput = document.getElementById('input_keperluan');
+
+            if (khususInput && globalInput) {
+                // Saat user ketik di khusus
+                khususInput.addEventListener('input', function() {
+                    globalInput.value = this.value;
+                    // Trigger event untuk syncSaranJiwa dll.
+                    globalInput.dispatchEvent(new Event('input'));
+                });
+                // Saat user ketik di global
+                globalInput.addEventListener('input', function() {
+                    khususInput.value = this.value;
+                });
+            }
+        });
+    </script>
     <script>
         // Force sync for Jiwa Saran to bypass any cache issues in external JS
         document.addEventListener('DOMContentLoaded', function() {

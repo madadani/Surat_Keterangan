@@ -90,7 +90,7 @@
                                 class="block text-sm font-black text-gray-400 uppercase tracking-widest mb-2">Spesialisasi</label>
                             <select name="spesialis" required
                                 class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 font-bold text-brand-darkblue focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue transition-all outline-none appearance-none">
-                                @foreach(['Umum', 'Psikiatri', 'Mata', 'THT', 'Gigi', 'Paru', 'Penyakit Dalam', 'Orthopedi', 'Jantung'] as $sp)
+                                @foreach(['Umum', 'Psikiatri', 'Mata', 'THT', 'Gigi', 'Paru', 'Penyakit Dalam', 'Orthopedi', 'Jantung', 'Anak', 'Saraf', 'Kandungan', 'Bedah', 'Rehabilitasi Medik'] as $sp)
                                     <option value="{{ $sp }}" {{ $dokter->spesialis == $sp ? 'selected' : '' }}>{{ $sp }}
                                     </option>
                                 @endforeach

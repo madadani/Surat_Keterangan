@@ -37,6 +37,7 @@
             <form action="{{ url('/admin/buat-surat/update/' . $surat->id) }}" method="POST"
                 class="bg-white rounded-[2.5rem] shadow-2xl shadow-blue-900/5 border border-gray-100 overflow-hidden mb-20 animate__animated animate__fadeIn">
                 @csrf
+                <input type="hidden" name="redirect_to" value="{{ $redirect_to ?? '' }}">
 
                 <div class="p-8 lg:p-12">
                     <table class="w-full border-separate border-spacing-y-6">

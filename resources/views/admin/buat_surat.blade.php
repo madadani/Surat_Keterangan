@@ -170,7 +170,7 @@
                                     </td>
                                 </tr>
                                 @foreach($row->suratKeterangan as $suratEntry)
-                                    <tr class="hover:bg-blue-50/20 transition-all group">
+                                    <tr id="surat_{{ $suratEntry->id }}" class="hover:bg-blue-50/20 transition-all group scroll-mt-32 lg:scroll-mt-40">
                                         <td class="px-8 py-5"></td>
                                         <td class="px-6 py-5">
                                             <div class="flex items-center gap-4">
@@ -273,7 +273,7 @@
                         @elseif(isset($surat))
                             {{-- VIEW FLAT (DITERAPKAN FILTER) --}}
                             @forelse($surat as $index => $suratEntry)
-                                <tr class="hover:bg-blue-50/20 transition-all group">
+                                <tr id="surat_{{ $suratEntry->id }}" class="hover:bg-blue-50/20 transition-all group scroll-mt-32 lg:scroll-mt-40">
                                     <td class="px-8 py-6 text-center text-gray-400 font-mono text-xs">
                                         {{ $surat->firstItem() + $index }}
                                     </td>

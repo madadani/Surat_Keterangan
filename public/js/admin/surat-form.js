@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
             'tinggi_poli_input', 'berat_poli_input', 'bmi_poli_input',
             'tinggi_orthopedi_input', 'berat_orthopedi_input', 'bmi_orthopedi_input',
             'tinggi_dalam_input', 'berat_dalam_input', 'bmi_dalam_input',
-            'mcu_tinggi', 'mcu_berat'
+            'mcu_tinggi', 'mcu_berat', 'dipergunakan_untuk_input'
         ];
         fields.forEach(id => {
             const el = document.getElementById(id);
@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setVal('display_perusahaan', data.perusahaan);
         setVal('resmcu_perusahaan_input', data.perusahaan);
         setVal('input_keperluan', data.keperluan);
+        setVal('dipergunakan_untuk_input', data.keperluan);
         setVal('no_rm_gigi_input', data.noRm);
         setVal('keperluan_gigi_input', data.keperluan);
 

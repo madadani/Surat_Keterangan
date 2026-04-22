@@ -136,8 +136,8 @@
 
                             {{-- Daftar Surat Pasien Tersebut --}}
                             @foreach($row->suratKeterangan as $suratEntry)
-                                <tr
-                                    class="hover:bg-gray-50/50 transition-all group border-l-4 border-l-transparent hover:border-l-brand-blue">
+                                <tr id="surat_{{ $suratEntry->id }}"
+                                    class="hover:bg-gray-50/50 transition-all group border-l-4 border-l-transparent hover:border-l-brand-blue scroll-mt-32 lg:scroll-mt-40">
                                     <td class="px-8 py-5"></td>
                                     <td class="px-6 py-5">
                                         <div class="flex items-center gap-3">
