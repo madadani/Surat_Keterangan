@@ -116,7 +116,7 @@
                     <div class="hidden md:flex flex-col items-end">
                         <span class="text-[8px] font-black text-white/40 uppercase tracking-widest mb-0.5">Butuh
                             Bantuan?</span>
-                        <a href="https://wa.me/628983010000" class="flex items-center gap-2 group">
+                        <a href="https://wa.me/628983010000" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 group">
                             <div class="flex flex-col items-end">
                                 <span
                                     class="text-[10px] font-black text-white group-hover:text-brand-green transition-colors uppercase tracking-tight">Hubungi
@@ -185,7 +185,7 @@
                             Bantuan</span>
                         <div class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></div>
                     </div>
-                    <a href="https://wa.me/628983010000"
+                    <a href="https://wa.me/628983010000" target="_blank" rel="noopener noreferrer"
                         class="text-xs font-black text-brand-darkblue flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-green" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
