@@ -115,8 +115,20 @@
                                         <label
                                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tanggal
                                             Lahir</label>
-                                        <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
-                                            class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tanggal_lahir') border-red-500 @enderror">
+                                        <div class="relative">
+                                            <input type="text" id="tanggal_lahir_display" inputmode="numeric" maxlength="10"
+                                                value="{{ old('tanggal_lahir') ? \Carbon\Carbon::parse(old('tanggal_lahir'))->format('d/m/Y') : '' }}"
+                                                placeholder="dd/mm/yyyy"
+                                                class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 pr-10 text-sm font-bold text-brand-darkblue focus:bg-white focus:border-brand-green outline-none transition-all duration-300 shadow-sm focus:shadow-md @error('tanggal_lahir') border-red-500 @enderror">
+                                            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none z-[1]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
+                                            <input type="date" name="tanggal_lahir" id="tanggal_lahir_native"
+                                                value="{{ old('tanggal_lahir') }}" required
+                                                class="date-picker-btn">
+                                        </div>
                                         @error('tanggal_lahir') <span
                                             class="text-red-500 text-[9px] font-bold uppercase ml-1">{{ $message }}</span>
                                         @enderror
@@ -445,6 +457,43 @@
                     }
                 }
             }
+            // Date: manual typing dd/mm/yyyy + native picker sync
+            const dateNative = document.getElementById('tanggal_lahir_native');
+            const dateDisplay = document.getElementById('tanggal_lahir_display');
+
+            if (dateNative && dateDisplay) {
+                // When user picks from calendar → update display
+                dateNative.addEventListener('change', function() {
+                    if (this.value) {
+                        const [yyyy, mm, dd] = this.value.split('-');
+                        dateDisplay.value = dd + '/' + mm + '/' + yyyy;
+                    } else {
+                        dateDisplay.value = '';
+                    }
+                });
+
+                // When user types manually → auto-format & sync to native
+                dateDisplay.addEventListener('input', function() {
+                    let val = this.value.replace(/\D/g, '');
+                    if (val.length > 8) val = val.substring(0, 8);
+
+                    let formatted = '';
+                    if (val.length > 0) formatted += val.substring(0, Math.min(2, val.length));
+                    if (val.length > 2) formatted += '/' + val.substring(2, Math.min(4, val.length));
+                    if (val.length > 4) formatted += '/' + val.substring(4, 8);
+
+                    this.value = formatted;
+
+                    if (val.length === 8) {
+                        const dd = val.substring(0, 2);
+                        const mm = val.substring(2, 4);
+                        const yyyy = val.substring(4, 8);
+                        dateNative.value = yyyy + '-' + mm + '-' + dd;
+                    } else {
+                        dateNative.value = '';
+                    }
+                });
+            }
         });
     </script>
 
@@ -475,8 +524,26 @@
             animation: bounce-x 0.6s infinite ease-in-out;
         }
 
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(30%) sepia(100%) saturate(500%) hue-rotate(180deg);
+        /* Calendar picker button: only covers right icon area */
+        .date-picker-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .date-picker-btn::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
             cursor: pointer;
         }
     </style>
