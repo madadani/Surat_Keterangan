@@ -559,7 +559,28 @@
             @endphp
             @foreach($syaraf as $key => $label)
                 <div class="space-y-1">
-                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">{{ $label }}</label>
+                    @if($key === 'patologis')
+                        <div class="flex items-center justify-between">
+                            <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">{{ $label }}</label>
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-[7px] font-bold text-gray-300 uppercase">Cetak:</span>
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <input type="radio" name="resmcu_tampilkan_patologis" value="Ada"
+                                        {{ ($resmcu['tampilkan_patologis'] ?? 'Ada') == 'Ada' ? 'checked' : '' }}
+                                        class="w-3 h-3 text-emerald-500 focus:ring-emerald-400">
+                                    <span class="text-[8px] font-black text-emerald-600 uppercase">Ada</span>
+                                </label>
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <input type="radio" name="resmcu_tampilkan_patologis" value="Tidak"
+                                        {{ ($resmcu['tampilkan_patologis'] ?? '') == 'Tidak' ? 'checked' : '' }}
+                                        class="w-3 h-3 text-red-400 focus:ring-red-300">
+                                    <span class="text-[8px] font-black text-red-400 uppercase">Tidak</span>
+                                </label>
+                            </div>
+                        </div>
+                    @else
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">{{ $label }}</label>
+                    @endif
                     <input type="text" name="resmcu_sya_{{ $key }}" value="{{ $resmcu['sya_' . $key] ?? 'Normal' }}"
                         class="w-full bg-white border border-gray-400 rounded-xl px-3 py-2 text-[10px] font-bold">
                 </div>

@@ -345,6 +345,7 @@
         <div style="page-break-inside: avoid; margin-top: 20px;">
             <h4 style="margin-top: 15px;">F. PEMERIKSAAN SYARAF DAN SISTEM KOORDINASI :</h4>
             <table style="width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 20px;">
+                @if(($resmcu['tampilkan_patologis'] ?? 'Ada') == 'Ada')
                 <tr>
                     <td style="border: 1px solid #000; padding: 4px; width: 25%;">Refleks Patologis</td>
                     <td style="border: 1px solid #000; padding: 4px; width: 25%;">:
@@ -367,6 +368,22 @@
                         {{ $resmcu['sya_parese'] ?? 'Normal' }}
                     </td>
                 </tr>
+                @else
+                <tr>
+                    <td style="border: 1px solid #000; padding: 4px; width: 25%;">Parestesia</td>
+                    <td style="border: 1px solid #000; padding: 4px; width: 25%;">: {{ $resmcu['sya_parestesia'] ?? 'Normal' }}</td>
+                    <td style="border: 1px solid #000; padding: 4px; width: 25%;">Lassaque/Patrick sign</td>
+                    <td style="border: 1px solid #000; padding: 4px; width: 25%;">:
+                        {{ $resmcu['sya_lassaque'] ?? 'Normal' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 4px;">Parese</td>
+                    <td style="border: 1px solid #000; padding: 4px;">: {{ $resmcu['sya_parese'] ?? 'Normal' }}</td>
+                    <td style="border: 1px solid #000; padding: 4px;">Contra Patrick Sign</td>
+                    <td style="border: 1px solid #000; padding: 4px;">: {{ $resmcu['sya_contra'] ?? 'Normal' }}</td>
+                </tr>
+                @endif
             </table>
         </div>
 
